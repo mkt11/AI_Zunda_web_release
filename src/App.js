@@ -644,7 +644,7 @@ return (
       <Scroll>
       <Container4>
       <SelifParagraph>
-      使用した技術はこんな感じなのだ！ひとつづつ解説するのだ。
+      使用した技術はこんな感じなのだ！ひとつずつ解説するのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
     
