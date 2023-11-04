@@ -495,7 +495,7 @@ const App = () => {
     setRecording(true);
     console.log(selectedOption);
     
-    setCountdown(6); // カウントダウンをリセット
+    setCountdown(4); // カウントダウンをリセット
     countdownIntervalRef.current = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 0) {
@@ -509,7 +509,7 @@ const App = () => {
     // 6秒後に録音を自動的に停止する
     countdownTimeoutRef.current = setTimeout(() => {
       handleStopRecording();
-    }, 6000);
+    }, 4000);
     
   };
 
@@ -727,7 +727,7 @@ return (
     
       <SelifParagraph>
       API Gatewayには30秒制限という、ユーザーにパケットが返ってくるまでの時間の制限があるのだ。
-      だから今回は録音時間を6秒に設定しているのだ。
+      だから今回は録音時間を4秒に設定しているのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_nae.png" alt="Zundamon" />
         
