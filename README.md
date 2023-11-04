@@ -1,7 +1,7 @@
 <img src="img/aizunda.png" width="100%">
 
 # AI Zunda Web
-
+<p align="center">
 <img src="https://img.shields.io/badge/-HTML5-333.svg?logo=html5&style=flat" />  
 <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=css3&style=flat" />
 <img src="https://img.shields.io/badge/Javascript-276DC3.svg?logo=javascript&style=flat" />
@@ -12,6 +12,7 @@
 <img src="https://img.shields.io/badge/-Amazon%20AWS-232F3E.svg?logo=amazon-aws&style=flat" />
 <img src="https://img.shields.io/badge/-Vercel-black.svg?logo=vercel&style=flat" />
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
+</p>
 
 ## アプリ概要  
 - 自分の話した声をずんだもんの声に変換させる
