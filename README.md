@@ -16,7 +16,7 @@
 
 ## アプリ概要  
 - 自分の話した声をずんだもんの声に変換させる
-- AIによってリアルタイムで推論をさせる
+- AIモデルによってリアルタイムで推論をさせる
 ## 紹介動画
 以下のサムネをクリック！  
 
@@ -30,11 +30,11 @@ https://ai-zunda-web.vercel.app/
 ## 利用方法
 - 上記リンクにアクセス
 - 男性か女性を選択
-- 録音ボタンを押して変換したいことを話す  
+- 「録音ボタン」をクリックして話す  
   
   <img src="img/利用1.png" width="70%">
-- 「録音停止ボタン」を選択
-- 「AIでずんだもん」を選択 → しばらく待つ → 変換された音声が返ってくる
+- 「録音停止ボタン」をクリック
+- 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -47,10 +47,11 @@ https://ai-zunda-web.vercel.app/
 ## 使用した技術
 
 <!-- <div class="table2"> -->
-| Skill | Language&Framework |
-| ---- | ---- |
+| Skill | Language & Framework |
+| :----: | :----: |
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
 | Back End| Python<br> - Pytorch |
+|AI Model| RVC |
 | Cloud Service | AWS |
 | Others| Git/GitHub<br>VSCode |
 </div>
@@ -60,19 +61,22 @@ https://ai-zunda-web.vercel.app/
 
 ## 使用した技術の詳細
 - ### RVC(Retrieval-based-Voice-Conversion)
-  - 自分の声を機械学習させた声に変換してくれるAIモデル
-  - https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI?shem=iosie を参考
-  - RVCモデルをずんだもんの音声データによってファインチューニングしたモデルを使用
+  - 自分の声を特定の話者が発話したような声質の発話音声に変換するAIモデル
   - 入力した音声をもとにAIモデルに推論させている
+    - 参考：https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI?shem=iosie
+  - ずんだもんの音声データによって、RVCをファインチューニングしたモデルの重みを使用
+    - 参考：https://zunko.jp/multimodal_dev/login.php
+  
 - ### AWS
   リアルタイムでエンドポイント推論するために使用  
   
   - ### Sage Maker
-    - 学習したモデルに対してのエンドポイントを作成
+    - 学習したモデル（ずんだもんの音声データでファインチューニングしたRVCモデル）に対してのエンドポイントを作成
   - ### API Gateway
     - アプリケーションのフロントエンドからリクエストを受け取る
 - ### React/Node.js
-    - AI Zunda Webのサイト部分の実装
+    - AI Zunda WebのサイトのUI部分の実装
+    - 画面サイズによってレイアウト崩れが起きないように作成
 - ### デプロイ
   - Webページ：Vercelを使用
   - エンドポイント：AWSのAPIGatewayを使用
@@ -85,10 +89,13 @@ https://ai-zunda-web.vercel.app/
 - ### React/Node.jsをインストール
     https://nodejs.org/ja/download/ より自分のPCにあったインストーラを選択
 
-- ### リポジトリをクローンしてきて、npm install
+- ### リポジトリをクローン・npm install
     ```
     git clone https://github.com/mkt11/AI_zunda_web.git
     npm install
+    npm start
     ```
+- ### AWSの設定
+  - 省略
 
 ## 参考・引用リンク
