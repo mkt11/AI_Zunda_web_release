@@ -764,6 +764,15 @@ return (
       <ZundamonImageSelif src="/zunda_kosi.png" alt="Zundamon" />
       </Container4>
       </Scroll>
+
+      <Scroll>
+      <Container4>
+      <SelifParagraph>
+      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank" >リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
+      </SelifParagraph>
+      <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
+      </Container4>
+      </Scroll>
       
   </Background>
 );
