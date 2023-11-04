@@ -537,14 +537,24 @@ const App = () => {
         try {
           if(selectedOption === "man"){
             console.log("mamamamama");
-            const response = await axios.post("https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev", audioDatas, config);
-            const audioURL = URL.createObjectURL(response.data);
-            setSagemakerAudio(audioURL);
-            
+            const randomint = Math.floor( Math.random() * 2 ) ;
+            console.log(randomint);
+            if(randomint === 0){
+              const response = await axios.post("https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev", audioDatas, config);
+              const audioURL = URL.createObjectURL(response.data);
+              setSagemakerAudio(audioURL);
+            }
+            else
+            {
+              const response = await axios.post("https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey", audioDatas, config);
+              const audioURL = URL.createObjectURL(response.data);
+              setSagemakerAudio(audioURL);
+            }
+
           }
           else{
             console.log("wawawawawa");  
-            const response = await axios.post("", audioDatas, config);
+            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", audioDatas, config);
             const audioURL = URL.createObjectURL(response.data);
             setSagemakerAudio(audioURL);      
           }
