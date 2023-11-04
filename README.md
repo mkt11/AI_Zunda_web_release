@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/-React-555.svg?logo=react&style=flat" />
 <img src="https://img.shields.io/badge/-Node.js-grey.svg?logo=node.js&style=flat" />
 <img src="https://img.shields.io/badge/-Python-F9DC3E.svg?logo=python&style=flat" />
-<img src="https://img.shields.io/badge/-pytorch-grey.svg?logo=pytorch&style=flat" />
+<img src="https://img.shields.io/badge/-PyTorch-grey.svg?logo=pytorch&style=flat" />
 <img src="https://img.shields.io/badge/-Amazon%20AWS-232F3E.svg?logo=amazon-aws&style=flat" />
 <img src="https://img.shields.io/badge/-Vercel-black.svg?logo=vercel&style=flat" />
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
