@@ -20,7 +20,7 @@
 ## 紹介動画
 以下のサムネをクリック！  
 
-<a href="https://youtu.be/fFRmw5yqg-A"><img src="img/introduce.png" width="70%"></a>
+<a href="https://youtu.be/4AJ2DJCsEMs"><img src="img/introduce.png" width="70%"></a>
 
 ## URLとQRコード（デプロイ済み）
 https://ai-zunda-web.vercel.app/  
