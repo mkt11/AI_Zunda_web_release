@@ -52,7 +52,7 @@ https://ai-zunda-web.vercel.app/
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
 | Back End| Python<br> - Pytorch |
 | Cloud Service | AWS |
-
+| Others| Git/GitHub<br>VSCode |
 </div>
 
 ## 処理の流れ
