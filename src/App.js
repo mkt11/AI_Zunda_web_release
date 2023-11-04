@@ -537,7 +537,7 @@ const App = () => {
         try {
           if(selectedOption === "man"){
             console.log("mamamamama");
-            const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", audioDatas, config);
+            const response = await axios.post("https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev", audioDatas, config);
             const audioURL = URL.createObjectURL(response.data);
             setSagemakerAudio(audioURL);
             
@@ -610,8 +610,8 @@ return (
       {audioData && <audio src={audioData} controls />}
       {sagemakerAudio && (
           <div>
-              <h3>Processed Audio from SageMaker:</h3>
-              <audio src={sagemakerAudio} controls />
+              
+              <audio src={sagemakerAudio} controls  />
           </div>
       )}
   </Container>
