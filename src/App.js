@@ -674,18 +674,6 @@ return (
 
       <Scroll>
       <Container4>
-      <SelifParagraph>
-      今回のずんだもんへの声変換への学習をするために、事前学習モデルを利用しているのだ．
-      使用した事前学習モデルはhubert_baseで、追加で<a href="https://zunko.jp/multimodal_dev/login.php" target= "blank" >こちらのリンク</a> のデータで学習させたのだ。
-      </SelifParagraph>
-      <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" /> 
-    
-      </Container4>
-      </Scroll>
-
-
-      <Scroll>
-      <Container4>
       <Images src="/sagemaker.png" alt="Zundamon" />
       <SelifParagraph>
       上のRVCをAWS上で動かすためにSageMakerというサービスを使ったのだ。SageMakerは機械学習モデルをデプロイできるサービスなのだ。
