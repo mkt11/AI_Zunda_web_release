@@ -426,9 +426,9 @@ const App = () => {
 <Container2>
   <Container>
     <Title>AI {props.name}</Title>
-    {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-    {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-    {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
+    {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
+    {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
