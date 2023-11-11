@@ -526,13 +526,30 @@ const App = () => {
   const handleSendToAPIGateway = async () => {
     if (audioData) {
       setLoading(true); 
+      const formData = new FormData();
+      formData.append('audio', audioDatas); // 'audio' はバックエンドでの受け取りキーと一致する必要があります
+        // FileReaderを使用してオーディオデータをBase64にエンコード
+      const reader = new FileReader();
+      reader.readAsDataURL(audioDatas); // audioDatasはBlobまたはFileオブジェクト
+      reader.onloadend = async () => {
+        const base64Audio = reader.result;
+        const audio2 = base64Audio.split(",")[1];
+
+
         const config = {
             headers: {
-                "Content-Type": "audio/wav",
+                "Content-Type": "application/json",
                 "Accept": "audio/wav",  
             },
             responseType: 'blob',
         };
+
+            // 性別とモデル名をJSONオブジェクトとして追加
+      const additionalData = {
+        gender: "man", // または適切な変数
+        modelName: 'metan', // モデル名を指定
+        audioDataa: audio2,
+      };
 
         try {
           if(selectedOption === "man"){
@@ -540,13 +557,13 @@ const App = () => {
             const randomint = Math.floor( Math.random() * 2 ) ;
             console.log(randomint);
             if(randomint === 0){
-              const response = await axios.post("https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev", audioDatas, config);
+              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
               const audioURL = URL.createObjectURL(response.data);
               setSagemakerAudio(audioURL);
             }
             else
             {
-              const response = await axios.post("https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey", audioDatas, config);
+              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
               const audioURL = URL.createObjectURL(response.data);
               setSagemakerAudio(audioURL);
             }
@@ -554,7 +571,7 @@ const App = () => {
           }
           else{
             console.log("wawawawawa");  
-            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", audioDatas, config);
+            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", additionalData, config);
             const audioURL = URL.createObjectURL(response.data);
             setSagemakerAudio(audioURL);      
           }
@@ -564,6 +581,12 @@ const App = () => {
         } finally {
             setLoading(false);
         }
+
+        reader.onerror = () => {
+          console.error("Error reading audio file");
+          setLoading(false);
+      };
+    }
     }
 };
 
