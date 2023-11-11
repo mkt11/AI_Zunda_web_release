@@ -740,7 +740,7 @@ return (
                   {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
                   {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
                       <Description>
-                        録音ボタンをクリックして録音を開始 
+                        録音ボタンをクリックして録音を開始
                       </Description>
                       <Description>
                         停止ボタンをクリックして録音を停止
