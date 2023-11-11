@@ -12,9 +12,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "react-view-pager": "^0.6.0",
     "scrollreveal": "^4.0.9",
     "styled-components": "^6.1.0",
+    "swiper": "^11.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
