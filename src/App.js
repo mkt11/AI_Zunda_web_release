@@ -39,15 +39,7 @@ const Description = styled.p`
 `;
 
 
-const Background = styled.div`
-  height: 100%;
-  background:#cff7e8;
-  width: 99vw;
-  position: relative;
-  top: 0;
-  left: 0;
-  overflow:hidden;
-`;
+
 
 const Container = styled.div`
   /* デスクトップ向けのスタイル */
@@ -168,20 +160,7 @@ const Container6 = styled.div`
 
 `;
 
-const PageContainer = styled.div`
-  /* デスクトップ向けのスタイル */
-  @media (min-width: 1300px) {
-  }
-  /* スマホ向けのスタイル */
-  @media (max-width: 1300px) {
-    max-width: 90vw;
-    flex-direction: column;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-  border-radius: 30px;
-  margin: 50px auto;
-`;
+
 
 const Button = styled.button`
   padding: 10px 20px;
@@ -447,9 +426,9 @@ const App = () => {
 <Container2>
   <Container>
     <Title>AI {props.name}</Title>
-    {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-    {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-    {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
+    {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
+    {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
@@ -498,9 +477,9 @@ const App = () => {
             </div>
         )}
   </Container>
-    {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-    {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-    {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
+    {!recording && !loading && <ZundamonImage src={props.png} alt={props.name} />}
+    {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
 </Container2>
 <FadeInSection isVisible={isVisible}>
 <StyledHeader>キャラクター紹介</StyledHeader>
@@ -509,7 +488,7 @@ const App = () => {
   <SelifParagraph>
     ずんだもんの紹介をここに書く。
   </SelifParagraph>
-  <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+  <ZundamonImageSelif src="/zunda_teage.png" alt={props.name} />
 </Container4>
 </>
     );
@@ -724,18 +703,18 @@ return (
         else if(swiper.realIndex === 1)
           changeBackgroundColor('#eebbcb');
         else if(swiper.realIndex === 2)
-          changeBackgroundColor('#d6c6af');
+          changeBackgroundColor('#b28c6e');
           
       }}
     >
       <SwiperSlide>
-        <MainPage name="ずんだもん"></MainPage>
+        <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>
       </SwiperSlide>
       <SwiperSlide>
-        <MainPage name="めたん"></MainPage>
+        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
       </SwiperSlide>
       <SwiperSlide>
-        <MainPage name="きりたん"></MainPage>
+        <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage>
       </SwiperSlide>
     </Swiper>
   <FadeInSection isVisible={isVisible}>
