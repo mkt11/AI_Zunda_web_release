@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
 @media (min-width: 1300px) {
@@ -392,6 +393,8 @@ const FadeInSection = styled.div`
   transition: transform 1s, opacity 1s;
 `;
 
+
+
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -402,6 +405,7 @@ const App = () => {
   const [sagemakerAudio, setSagemakerAudio] = useState(null);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(6);
+  const [selectchar, setselectchar] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState("man");
  
@@ -412,6 +416,79 @@ const App = () => {
     setSelectedOption(event.target.value);
   };
   
+  const MainPage = (props) => { 
+    return (
+      <>
+<Container2>
+  <Container>
+    <Title>AI {props.name}</Title>
+    {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
+    {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
+    {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
+        <Description>
+          録音ボタンをクリックして録音を開始 
+        </Description>
+        <Description>
+          停止ボタンをクリックして録音を停止
+        </Description>     
+        <Description>
+          その後、サーバーへ送信して{props.name}になってください。
+        </Description>
+
+        <Container3>
+        <Button onClick={handleStartRecording} disabled={recording}>
+            録音ボタン 
+        </Button>
+
+        <Button onClick={handleStopRecording} disabled={!recording}>
+            録音停止ボタン
+        </Button>
+        <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
+            AIで{props.name}
+        </Button>
+
+          <div className="mydict">
+      <div>
+        <label>
+          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+          <span>男性</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+          <span>女性</span>
+        </label>
+      </div>
+    </div>
+
+        </Container3>
+        {recording && <LoadingIndicator />}
+        {recording && <div>残り時間: {countdown}秒</div>}
+        {loading && <LoadingIndicator />}
+
+        {audioData && <audio src={audioData} controls />}
+        {sagemakerAudio && (
+            <div>
+                
+                <audio src={sagemakerAudio} controls  />
+            </div>
+        )}
+  </Container>
+    {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
+    {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
+    {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
+</Container2>
+<FadeInSection isVisible={isVisible}>
+<StyledHeader>キャラクター紹介</StyledHeader>
+</FadeInSection>
+<Container4>
+  <SelifParagraph>
+    ずんだもんの紹介をここに書く。
+  </SelifParagraph>
+  <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+</Container4>
+</>
+    );
+  };
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -520,16 +597,48 @@ const App = () => {
   };
 
 
+  const getCharName = (selectchar) => {
+    switch (selectchar) {
+      case 0:
+        return "zunda";
+      case 1:
+        return "metan";
+      case 2:
+        return "kiritan";
+      default:
+        return "zunda";
+    }
+  };
+
+
   const handleSendToAPIGateway = async () => {
     if (audioData) {
       setLoading(true); 
+      const charname = getCharName(selectchar);
+      console.log(charname);
+      const formData = new FormData();
+      formData.append('audio', audioDatas); // 'audio' はバックエンドでの受け取りキーと一致する必要があります
+        // FileReaderを使用してオーディオデータをBase64にエンコード
+      const reader = new FileReader();
+      reader.readAsDataURL(audioDatas); // audioDatasはBlobまたはFileオブジェクト
+      reader.onloadend = async () => {
+        const base64Audio = reader.result;
+        const audio2 = base64Audio.split(",")[1];
         const config = {
             headers: {
-                "Content-Type": "audio/wav",
+                "Content-Type": "application/json",
                 "Accept": "audio/wav",  
             },
             responseType: 'blob',
         };
+
+            // 性別とモデル名をJSONオブジェクトとして追加
+      
+      const additionalData = {
+        gender: selectedOption, // または適切な変数
+        modelName: charname, // モデル名を指定
+        audioDataa: audio2,
+      };
 
         try {
           if(selectedOption === "man"){
@@ -537,13 +646,13 @@ const App = () => {
             const randomint = Math.floor( Math.random() * 2 ) ;
             console.log(randomint);
             if(randomint === 0){
-              const response = await axios.post("https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev", audioDatas, config);
+              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
               const audioURL = URL.createObjectURL(response.data);
               setSagemakerAudio(audioURL);
             }
             else
             {
-              const response = await axios.post("https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey", audioDatas, config);
+              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
               const audioURL = URL.createObjectURL(response.data);
               setSagemakerAudio(audioURL);
             }
@@ -551,7 +660,7 @@ const App = () => {
           }
           else{
             console.log("wawawawawa");  
-            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", audioDatas, config);
+            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", additionalData, config);
             const audioURL = URL.createObjectURL(response.data);
             setSagemakerAudio(audioURL);      
           }
@@ -561,86 +670,18 @@ const App = () => {
         } finally {
             setLoading(false);
         }
+
+        reader.onerror = () => {
+          console.error("Error reading audio file");
+          setLoading(false);
+      };
+    }
     }
 };
 
-const MainPage = (props) => {
-  return (
-    <>
-    <Container2>
-        <Container>
-          <Title>AI {props.name}</Title>
-          {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-          {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-          {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
-              <Description>
-                録音ボタンをクリックして録音を開始 
-              </Description>
-              <Description>
-                停止ボタンをクリックして録音を停止
-              </Description>     
-              <Description>
-                その後、サーバーへ送信して{props.name}になってください。
-              </Description>
-
-              <Container3>
-              <Button onClick={handleStartRecording} disabled={recording}>
-                  録音ボタン 
-              </Button>
-
-              <Button onClick={handleStopRecording} disabled={!recording}>
-                  録音停止ボタン
-              </Button>
-              <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
-                  AIで{props.name}
-              </Button>
-
-                <div className="mydict">
-            <div>
-              <label>
-                <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-                <span>男性</span>
-              </label>
-              <label>
-                <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-                <span>女性</span>
-              </label>
-            </div>
-          </div>
-
-              </Container3>
-              {recording && <LoadingIndicator />}
-              {recording && <div>残り時間: {countdown}秒</div>}
-              {loading && <LoadingIndicator />}
-
-              {audioData && <audio src={audioData} controls />}
-              {sagemakerAudio && (
-                  <div>
-                      
-                      <audio src={sagemakerAudio} controls  />
-                  </div>
-              )}
-        </Container>
-          {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-          {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-          {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
-      </Container2>
-      <FadeInSection isVisible={isVisible}>
-      <StyledHeader>キャラクター紹介</StyledHeader>
-      </FadeInSection>
-      <Container4>
-        <SelifParagraph>
-          {props.name}の紹介をここに書く。
-        </SelifParagraph>
-        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-      </Container4>
-    </>
-  );
-}
-
 return (
   <Background>
-    <Swiper
+  <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
@@ -650,7 +691,10 @@ return (
       realIndex
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={(swiper) => console.log(swiper.realIndex)}
+      onSlideChange={(swiper) => {
+        console.log(swiper.realIndex)
+        setselectchar(swiper.realIndex)
+      }}
     >
       <SwiperSlide>
         <MainPage name="ずんだもん"></MainPage>
@@ -661,7 +705,6 @@ return (
       <SwiperSlide>
         <MainPage name="きりたん"></MainPage>
       </SwiperSlide>
-      ...
     </Swiper>
   <FadeInSection isVisible={isVisible}>
   <StyledHeader>AIずんだもんの作り方</StyledHeader>
