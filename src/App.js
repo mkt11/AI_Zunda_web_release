@@ -395,6 +395,8 @@ const FadeInSection = styled.div`
 
 
 
+
+
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -416,6 +418,29 @@ const App = () => {
     setSelectedOption(event.target.value);
   };
   
+  const [backgroundColor, setBackgroundColor] = useState('#cff7e8');
+
+  // 指定された色に背景色を変更する関数
+  const changeBackgroundColor = (newColor) => {
+    setBackgroundColor(newColor);
+  };
+
+  // バックグラウンドスタイル
+  const backgroundStyle = {
+    transition: 'background-color 1s ease', // 1秒かけて背景色が変わる
+    backgroundColor: backgroundColor, // 現在の背景色
+    height: '100%', // 画面全体をカバー
+    width: '99vw',
+    position: "relative",
+    top: 0,
+    left: 0,
+    overflow:"hidden"
+  };
+
+  // コンポーネントがマウントされた後、特定の色に変更
+
+
+
   const MainPage = (props) => { 
     return (
       <>
@@ -680,7 +705,7 @@ const App = () => {
 };
 
 return (
-  <Background>
+  <div style={backgroundStyle}>
   <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -694,6 +719,13 @@ return (
       onSlideChange={(swiper) => {
         console.log(swiper.realIndex)
         setselectchar(swiper.realIndex)
+        if(swiper.realIndex === 0)
+          changeBackgroundColor('#cff7e8');
+        else if(swiper.realIndex === 1)
+          changeBackgroundColor('#eebbcb');
+        else if(swiper.realIndex === 2)
+          changeBackgroundColor('#d6c6af');
+          
       }}
     >
       <SwiperSlide>
@@ -838,7 +870,7 @@ return (
       </Container4>
       </Scroll>
       
-  </Background>
+  </div>
 );
 };
 
