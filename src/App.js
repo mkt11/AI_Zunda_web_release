@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import { MediaRecorder, register } from 'extendable-media-recorder';
 import { connect } from 'extendable-media-recorder-wav-encoder';
 import ScrollReveal from "scrollreveal";
-import { ViewPager, Frame, Track, View } from 'react-view-pager'
-
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y,  } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
@@ -561,226 +564,105 @@ const App = () => {
     }
 };
 
+const MainPage = (props) => {
+  return (
+    <>
+    <Container2>
+        <Container>
+          <Title>AI {props.name}</Title>
+          {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
+          {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
+          {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
+              <Description>
+                録音ボタンをクリックして録音を開始 
+              </Description>
+              <Description>
+                停止ボタンをクリックして録音を停止
+              </Description>     
+              <Description>
+                その後、サーバーへ送信して{props.name}になってください。
+              </Description>
+
+              <Container3>
+              <Button onClick={handleStartRecording} disabled={recording}>
+                  録音ボタン 
+              </Button>
+
+              <Button onClick={handleStopRecording} disabled={!recording}>
+                  録音停止ボタン
+              </Button>
+              <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
+                  AIで{props.name}
+              </Button>
+
+                <div className="mydict">
+            <div>
+              <label>
+                <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+                <span>男性</span>
+              </label>
+              <label>
+                <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+                <span>女性</span>
+              </label>
+            </div>
+          </div>
+
+              </Container3>
+              {recording && <LoadingIndicator />}
+              {recording && <div>残り時間: {countdown}秒</div>}
+              {loading && <LoadingIndicator />}
+
+              {audioData && <audio src={audioData} controls />}
+              {sagemakerAudio && (
+                  <div>
+                      
+                      <audio src={sagemakerAudio} controls  />
+                  </div>
+              )}
+        </Container>
+          {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
+          {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
+          {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
+      </Container2>
+      <FadeInSection isVisible={isVisible}>
+      <StyledHeader>キャラクター紹介</StyledHeader>
+      </FadeInSection>
+      <Container4>
+        <SelifParagraph>
+          {props.name}の紹介をここに書く。
+        </SelifParagraph>
+        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+      </Container4>
+    </>
+  );
+}
+
 return (
   <Background>
-    <ViewPager onPageScroll>
-      <Frame>
-        <Track viewsToShow={1} infinite className="track">
-          <View className="zunda">
-            <PageContainer>
-              <Container2>
-                <Container>
-                  <Title>AI ずんだもん</Title>
-                  {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
-                      <Description>
-                        録音ボタンをクリックして録音を開始 
-                      </Description>
-                      <Description>
-                        停止ボタンをクリックして録音を停止
-                      </Description>     
-                      <Description>
-                        その後、サーバーへ送信してずんだもんになってください。
-                      </Description>
-
-                      <Container3>
-                      <Button onClick={handleStartRecording} disabled={recording}>
-                          録音ボタン 
-                      </Button>
-
-                      <Button onClick={handleStopRecording} disabled={!recording}>
-                          録音停止ボタン
-                      </Button>
-                      <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
-                          AIでずんだもん
-                      </Button>
-
-                        <div className="mydict">
-                    <div>
-                      <label>
-                        <input type="radio" name="radioZunda" value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-                        <span>男性</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="radioZunda" value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-                        <span>女性</span>
-                      </label>
-                    </div>
-                  </div>
-
-                      </Container3>
-                      {recording && <LoadingIndicator />}
-                      {recording && <div>残り時間: {countdown}秒</div>}
-                      {loading && <LoadingIndicator />}
-
-                      {audioData && <audio src={audioData} controls />}
-                      {sagemakerAudio && (
-                          <div>
-                              
-                              <audio src={sagemakerAudio} controls  />
-                          </div>
-                      )}
-                </Container>
-                  {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
-              </Container2>
-              <FadeInSection isVisible={isVisible}>
-              <StyledHeader>キャラクター紹介</StyledHeader>
-              </FadeInSection>
-              <Container4>
-                <SelifParagraph>
-                  ずんだもんの紹介をここに書く。
-                </SelifParagraph>
-                <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-              </Container4>
-            </PageContainer>
-          </View>
-          <View className="kiritan">
-            <PageContainer>
-            <Container2>
-                <Container>
-                  <Title>AI きりたん</Title>
-                  {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
-                      <Description>
-                        録音ボタンをクリックして録音を開始 
-                      </Description>
-                      <Description>
-                        停止ボタンをクリックして録音を停止
-                      </Description>     
-                      <Description>
-                        その後、サーバーへ送信してきりたんになってください。
-                      </Description>
-
-                      <Container3>
-                      <Button onClick={handleStartRecording} disabled={recording}>
-                          録音ボタン 
-                      </Button>
-
-                      <Button onClick={handleStopRecording} disabled={!recording}>
-                          録音停止ボタン
-                      </Button>
-                      <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
-                          AIできりたん
-                      </Button>
-
-                        <div className="mydict">
-                    <div>
-                      <label>
-                        <input type="radio" name="radioKiritan" value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-                        <span>男性</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="radioKiritan" value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-                        <span>女性</span>
-                      </label>
-                    </div>
-                  </div>
-
-                      </Container3>
-                      {recording && <LoadingIndicator />}
-                      {recording && <div>残り時間: {countdown}秒</div>}
-                      {loading && <LoadingIndicator />}
-
-                      {audioData && <audio src={audioData} controls />}
-                      {sagemakerAudio && (
-                          <div>
-                              
-                              <audio src={sagemakerAudio} controls  />
-                          </div>
-                      )}
-                </Container>
-                  {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
-            </Container2>
-            <FadeInSection isVisible={isVisible}>
-              <StyledHeader>キャラクター紹介</StyledHeader>
-              </FadeInSection>
-              <Container4>
-                <SelifParagraph>
-                  きりたんの紹介をここに書く．
-                </SelifParagraph>
-                <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-              </Container4>
-            </PageContainer>
-          </View>
-          <View className="metan">
-            <PageContainer>
-            <Container2>
-                <Container>
-                  <Title>AI めたん</Title>
-                  {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
-                      <Description>
-                        録音ボタンをクリックして録音を開始 
-                      </Description>
-                      <Description>
-                        停止ボタンをクリックして録音を停止
-                      </Description>     
-                      <Description>
-                        その後、サーバーへ送信してめたんになってください。
-                      </Description>
-
-                      <Container3>
-                      <Button onClick={handleStartRecording} disabled={recording}>
-                          録音ボタン 
-                      </Button>
-
-                      <Button onClick={handleStopRecording} disabled={!recording}>
-                          録音停止ボタン
-                      </Button>
-                      <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
-                          AIでめたん
-                      </Button>
-
-                        <div className="mydict">
-                    <div>
-                      <label>
-                        <input type="radio" name="radioMetan" value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-                        <span>男性</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="radioMetan" value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-                        <span>女性</span>
-                      </label>
-                    </div>
-                  </div>
-
-                      </Container3>
-                      {recording && <LoadingIndicator />}
-                      {recording && <div>残り時間: {countdown}秒</div>}
-                      {loading && <LoadingIndicator />}
-
-                      {audioData && <audio src={audioData} controls />}
-                      {sagemakerAudio && (
-                          <div>
-                              <audio src={sagemakerAudio} controls  />
-                          </div>
-                      )}
-                </Container>
-                  {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-                  {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-                  {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
-              </Container2>
-              <FadeInSection isVisible={isVisible}>
-              <StyledHeader>キャラクター紹介</StyledHeader>
-              </FadeInSection>
-              <Container4>
-                <SelifParagraph>
-                  めたんの紹介をここに書く．
-                </SelifParagraph>
-                <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-              </Container4>
-            </PageContainer>
-          </View>
-        </Track>
-      </Frame>
-    </ViewPager>
+    <Swiper
+      // install Swiper modules
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={50}
+      slidesPerView={1}
+      navigation
+      loop={true}
+      realIndex
+      pagination={{ clickable: true }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={(swiper) => console.log(swiper.realIndex)}
+    >
+      <SwiperSlide>
+        <MainPage name="ずんだもん"></MainPage>
+      </SwiperSlide>
+      <SwiperSlide>
+        <MainPage name="めたん"></MainPage>
+      </SwiperSlide>
+      <SwiperSlide>
+        <MainPage name="きりたん"></MainPage>
+      </SwiperSlide>
+      ...
+    </Swiper>
   <FadeInSection isVisible={isVisible}>
   <StyledHeader>AIずんだもんの作り方</StyledHeader>
 
