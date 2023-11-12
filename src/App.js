@@ -16,6 +16,7 @@ const Title = styled.h1`
 /* デスクトップ向けのスタイル */
 @media (min-width: 1300px) {
   font-size:50px;
+  margin-bottom: 10px;
 }
 /* スマホ向けのスタイル */
 @media (max-width: 1300px) {
@@ -65,7 +66,7 @@ const Container2 = styled.div`
     max-width: 1040px;
     margin: 0px auto;
     margin-top: 80px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     padding: 50px;
     max-height: 60vh;
   }
@@ -74,7 +75,7 @@ const Container2 = styled.div`
     max-width: 90vw;
     margin: 0px auto;
     margin-top: 20px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     padding-bottom: 30px;
     max-height: 90vh;
   }
@@ -116,6 +117,29 @@ const Container4 = styled.div`
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.6); // 軽く透明な背景
 `;
+
+
+const Containerchar = styled.div`
+  /* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    max-width: 1040px;
+    padding: 50px;
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 90vw;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  border-radius: 30px;
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255 ,255, 255); // 軽く透明な背景
+`;
+
 
 
 const Container5 = styled.div`
@@ -160,6 +184,22 @@ const Container6 = styled.div`
 
 `;
 
+const Container7 = styled.div`
+  /* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 80vw;
+    margin: 0px auto;
+    margin-top: 20px;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100vw;
+  
+`;
 
 
 const Button = styled.button`
@@ -173,7 +213,6 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 1000ms;
   overflow: hidden;
-
   &:disabled {
     color: #848484;
     background-color: #bebebe;
@@ -202,49 +241,6 @@ const Button = styled.button`
   }
 `;
 
-const ButtonChar = styled.button`
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #5b5b5b;
-  cursor: pointer;
-  transition: all 1000ms;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  zIndex: 999;
-
-  &:disabled {
-    color: #848484;
-    background-color: #bebebe;
-    cursor: not-allowed;
-  }
-  &:not(:disabled):hover {
-    color: #333;
-    transform: scale(1.1);
-    outline: 1px solid #333;
-    box-shadow: 4px 5px 17px -4px #268391;
-  }
-  &:not(:disabled)::before {
-    content: "";
-    position: absolute;
-    left: -20px;
-    top: 0;
-    width: 0;
-    height: 100%;
-    background-color: #cff7e8;
-    transform: skewX(45deg);
-    z-index: -1;
-    transition: width 1000ms;
-  }
-  &:not(:disabled):hover::before {
-    width: 150%;
-  }
-`;
 
 const ButtonSetting = styled.button`
   padding: 10px 20px;
@@ -397,8 +393,6 @@ const ZundamonImageSelif = styled.img`
 `;
 
 
-
-
 const StyledHeader = styled.h2`
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
@@ -461,6 +455,43 @@ const FadeInSection = styled.div`
   transition: transform 1s, opacity 1s;
 `;
 
+const FadeInSection2 = styled.div`
+  transform: translateY(${props => (props.isVisible ? '0' : '50px')});
+  opacity: ${props => (props.isVisible ? '1' : '0')};
+  transition: transform 1s, opacity 1s;
+`;
+
+class TtsQuestV3Voicevox extends Audio {
+  constructor(speakerId, text, ttsQuestApiKey) {
+    super();
+    var params = {};
+    params['key'] = ttsQuestApiKey;
+    params['speaker'] = speakerId;
+    params['text'] = text;
+    const query = new URLSearchParams(params);
+    this.#main(this, query);
+  }
+  #main(owner, query) {
+    if (owner.src.length>0) return;
+    var apiUrl = 'https://api.tts.quest/v3/voicevox/synthesis';
+    fetch(apiUrl + '?' + query.toString())
+    .then(response => response.json())
+    .then(response => {
+      if (typeof response.retryAfter !== 'undefined') {
+        setTimeout(owner.#main, 1000*(1+response.retryAfter), owner, query);
+      }
+      else if (typeof response.mp3StreamingUrl !== 'undefined') {
+        owner.src = response.mp3StreamingUrl;
+      }
+      else if (typeof response.errorMessage !== 'undefined') {
+        throw new Error(response.errorMessage);
+      }
+      else {
+        throw new Error("serverError");
+      }
+    });
+  }
+}
 
 
 
@@ -471,13 +502,15 @@ const App = () => {
   const [audioDatas, setAudioDatas] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+
   const [sagemakerAudio, setSagemakerAudio] = useState(null);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(6);
   const [selectchar, setselectchar] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
   const [selectedOption, setSelectedOption] = useState("man");
- 
+  const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   
@@ -505,6 +538,58 @@ const App = () => {
   };
 
   // コンポーネントがマウントされた後、特定の色に変更
+
+  const AudioButton = (props) => {
+    // オーディオと再生状態を管理するための状態
+    const [audio] = useState(new Audio(props.audio));
+    const [isPlaying, setIsPlaying] = useState(false);
+  
+    // ボタンをクリックしたときの動作
+    const togglePlay = () => {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      setIsPlaying(!isPlaying); // 状態を反転させる
+    };
+
+    // オーディオが終了したときのイベントリスナーをセットアップ
+    React.useEffect(() => {
+      const handleAudioEnd = () => setIsPlaying(false);
+      audio.addEventListener('ended', handleAudioEnd);
+      // クリーンアップ関数
+      return () => {
+        audio.removeEventListener('ended', handleAudioEnd);
+      };
+    }, [audio]);
+
+  
+    return (
+      <button onClick={togglePlay} className="audio-button">
+        {isPlaying ? '■' : '▶'}
+      </button>
+    );
+  };
+
+  const AudioButtonDL = (props) => {
+    // オーディオと再生状態を管理するための状態
+    
+    const togglePlay = () => {
+      const audio = new TtsQuestV3Voicevox(3, props.selif, "w58_55m7T_e_110");
+      audio.play();
+      setText("")
+    };
+
+    
+
+    return (
+      <button onClick={togglePlay} className="audio-button2">
+        ▶
+      </button>
+    );
+  };
+
 
   const MainPage = (props) => { 
     return (
@@ -594,6 +679,23 @@ const App = () => {
   }, []);
 
 
+  React.useEffect(() => {
+    const handleScroll2 = () => {
+      const position = window.scrollY;
+      if (position > 700) { // 例: 100pxスクロールしたら表示
+        setIsVisible2(true);
+      } else {
+        setIsVisible2(false);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll2);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll2);
+    };
+  }, []);
+
   
   const Scroll = ({ children }) => {
 
@@ -631,6 +733,10 @@ const App = () => {
   
     return (<section ref={sectionRef}>{children}</section>)
   }
+
+
+
+
 
   const handleStartRecording = async () => {
     //二回目以降の録音のために初期化
@@ -775,6 +881,7 @@ return (
       navigation
       loop={true}
       realIndex
+      noSwiping = "input"
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={(swiper) => {
@@ -790,43 +897,46 @@ return (
       }}
     >
       <SwiperSlide>
-        <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>        
         <FadeInSection isVisible={isVisible}>
-        <StyledHeader>キャラ紹介</StyledHeader>
-        <Container4>
-        <SelifParagraph>
-          ずんだもんの説明等
-        </SelifParagraph>
-        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-      </Container4>
+
+        <Containerchar>
+        <ZundamonImageSelif src="/zunda.gif" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict">
+            <Title>ずんだもん   </Title>
+            <AudioButton audio="/zunda1.wav"></AudioButton>
+            </div>
+              <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。　
+                最近はYouTubeでよく見かけるようになった。語尾に「なのだ」をつけるのが口癖。　 　
+                　もともとは、音声合成ソフトのキャラクターであり、文字を音声に変換する。
+              </h3>
+              <Container3>
+              <input  placeholder="セリフを入力"  className="input" value ={text} 
+              onChange={(event) => setText(event.target.value)} 
+              />
+              <AudioButtonDL selif = {text}></AudioButtonDL>
+              </Container3>
+
+              
+            
+
+          </Container7>
+        
+      </Containerchar>
       </FadeInSection>
       </SwiperSlide>
 
 
       <SwiperSlide>
         <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
-        <FadeInSection isVisible={isVisible}>
-        <StyledHeader>キャラ紹介</StyledHeader>
-        <Container4>
-        <SelifParagraph>
-          ずんだもんの説明等
-        </SelifParagraph>
-        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-      </Container4>
-      </FadeInSection>
+
       </SwiperSlide>
 
       <SwiperSlide>
         <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage>
-        <FadeInSection isVisible={isVisible}>
-        <StyledHeader>キャラ紹介</StyledHeader>
-        <Container4>
-        <SelifParagraph>
-          ずんだもんの説明等
-        </SelifParagraph>
-        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-      </Container4>
-      </FadeInSection>
+
       </SwiperSlide>
 
 
@@ -834,7 +944,8 @@ return (
 
     </Swiper>
 
-  <FadeInSection isVisible={isVisible}>
+    <FadeInSection2 isVisible={isVisible2}>
+
   <StyledHeader>AIずんだもんの作り方</StyledHeader>
       <Container4>
       <SelifParagraph>
@@ -843,7 +954,7 @@ return (
       <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
     
       </Container4>
-  </FadeInSection>
+      </FadeInSection2>
 
       <ScrollScale>
       <Container5>
