@@ -65,3 +65,14 @@ label:last-child span {
   border-radius: 0 .375em .375em 0;
 }
 
+.swiper-button-prev, .swiper-button-next {
+
+  @media screen and (max-width: 1300px) {
+    top : 300px !important;
+    
+  }
+  @media screen and (min-width: 1300px) {
+    top : 420px !important;
+    
+  }
+}
