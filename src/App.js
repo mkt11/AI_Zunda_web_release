@@ -393,6 +393,31 @@ const ZundamonImageSelif = styled.img`
 `;
 
 
+const ZundamonImageSelif2 = styled.img`
+
+  /* スマホ向けのスタイル */
+    @media (max-width: 1300px) {
+      max-width: 30vw;
+      // display: none;
+  }
+  max-width: 300px;  // 必要に応じて画像のサイズを調整します
+  animation: move 6s infinite ;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  @keyframes move {
+    0%, 100% { left: 0; transform: rotateY(0);  }
+    50% { left: 100%; transform: rotateY(180deg); }
+  }
+
+
+  
+
+  
+  }
+`;
+
+
 const StyledHeader = styled.h2`
   font-family: 'Roboto', sans-serif;
   font-size: 28px;
@@ -566,7 +591,7 @@ const App = () => {
 
   
     return (
-      <button onClick={togglePlay} className="audio-button">
+      <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color}}>
         {isPlaying ? '■' : '▶'}
       </button>
     );
@@ -576,7 +601,8 @@ const App = () => {
     // オーディオと再生状態を管理するための状態
     
     const togglePlay = () => {
-      const audio = new TtsQuestV3Voicevox(3, props.selif, "w58_55m7T_e_110");
+      if(props.selif === "") return;
+      const audio = new TtsQuestV3Voicevox(props.dokuid, props.selif, "w58_55m7T_e_110");
       audio.play();
       setText("")
     };
@@ -584,7 +610,7 @@ const App = () => {
     
 
     return (
-      <button onClick={togglePlay} className="audio-button2">
+      <button onClick={togglePlay} className="audio-button2" style={{'background-color': props.color}}>
         ▶
       </button>
     );
@@ -646,7 +672,7 @@ const App = () => {
         {sagemakerAudio && (
             <div>
                 
-                <audio src={sagemakerAudio} controls  />
+                <audio src={sagemakerAudio} controls controlslist="nodownload" />
             </div>
         )}
   </Container>
@@ -909,19 +935,15 @@ return (
             <AudioButton audio="/zunda1.wav"></AudioButton>
             </div>
               <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。　
-                最近はYouTubeでよく見かけるようになった。語尾に「なのだ」をつけるのが口癖。　 　
-                　もともとは、音声合成ソフトのキャラクターであり、文字を音声に変換する。
+                最近はYouTubeでよく見かけるようになった。語尾に「～なのだ」をつける。<br></br>
+                もともとは、無料音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank" rel="noreferrer">VOICEVOX</a>のキャラであり、文字を音声に変換する。
               </h3>
               <Container3>
               <input  placeholder="セリフを入力"  className="input" value ={text} 
               onChange={(event) => setText(event.target.value)} 
               />
-              <AudioButtonDL selif = {text}></AudioButtonDL>
+              <AudioButtonDL selif = {text}  dokuid={3} ></AudioButtonDL>
               </Container3>
-
-              
-            
-
           </Container7>
         
       </Containerchar>
@@ -931,12 +953,53 @@ return (
 
       <SwiperSlide>
         <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
+        <FadeInSection isVisible={isVisible}>
 
+        <Containerchar>
+        <ZundamonImageSelif2 src="/metansetumei.png" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict">
+            <Title>四国めたん   </Title>
+            <AudioButton audio="/metan1.wav"  color ="#ee827c"></AudioButton>
+            </div>
+              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。　　　　　　
+                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。　　　　　　　　　
+                同じ音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank"  rel="noreferrer">VOICEVOX</a>のキャラクターであり、文字を音声に変換する。
+              </h3>
+              <Container3>
+              <input  placeholder="セリフを入力"  className="input" value ={text} 
+              onChange={(event) => setText(event.target.value)} 
+              />
+              <AudioButtonDL selif = {text} color ="#ee827c" dokuid={2} ></AudioButtonDL>
+              </Container3>
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
       </SwiperSlide>
 
       <SwiperSlide>
         <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage>
+        <FadeInSection isVisible={isVisible}>
 
+        <Containerchar>
+        <ZundamonImageSelif2 src="/kiritanmon.png" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict">
+            <Title>東北きりたん  </Title>
+            <AudioButton audio="/kiritan1.wav" color="#8d6449"></AudioButton>
+            </div>
+              <h3>東北地方応援キャラ、東北ずん子の関連キャラクター。<br></br>きりたんぽがモチーフとなっており、背中に「きりたん砲」を背負っている。
+              <br></br>もともとが<a href="https://www.ah-soft.com/voiceroid/" target="_blank" rel="noreferrer" >VOICEROID</a>出身なので、YouTube等では、知名度が高い。
+              <br></br>大人の都合で、文字を音声にこのサイトでは変換できないが、サンプルボイスを聞くことができる。丁寧語で話す。
+              </h3>
+
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
       </SwiperSlide>
 
 
@@ -1070,7 +1133,7 @@ return (
       <Scroll>
       <Container4>
       <SelifParagraph>
-      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank" >リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
+      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank"  rel="noreferrer">リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
       </Container4>
