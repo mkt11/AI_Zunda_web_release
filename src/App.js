@@ -173,7 +173,6 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 1000ms;
   overflow: hidden;
-  
 
   &:disabled {
     color: #848484;
@@ -202,6 +201,96 @@ const Button = styled.button`
     width: 150%;
   }
 `;
+
+const ButtonChar = styled.button`
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #5b5b5b;
+  cursor: pointer;
+  transition: all 1000ms;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  zIndex: 999;
+
+  &:disabled {
+    color: #848484;
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
+  &:not(:disabled):hover {
+    color: #333;
+    transform: scale(1.1);
+    outline: 1px solid #333;
+    box-shadow: 4px 5px 17px -4px #268391;
+  }
+  &:not(:disabled)::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #cff7e8;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  &:not(:disabled):hover::before {
+    width: 150%;
+  }
+`;
+
+const ButtonSetting = styled.button`
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #5b5b5b;
+  cursor: pointer;
+  transition: all 1000ms;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  zIndex: 999;
+
+  &:disabled {
+    color: #848484;
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
+  &:not(:disabled):hover {
+    color: #333;
+    transform: scale(1.1);
+    outline: 1px solid #333;
+    box-shadow: 4px 5px 17px -4px #268391;
+  }
+  &:not(:disabled)::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #cff7e8;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  &:not(:disabled):hover::before {
+    width: 150%;
+  }
+`;
+
+
 
 const LoadingIndicator = styled.div`
   margin: 20px 0;
@@ -375,7 +464,6 @@ const FadeInSection = styled.div`
 
 
 
-
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -418,13 +506,13 @@ const App = () => {
 
   // コンポーネントがマウントされた後、特定の色に変更
 
-
-
   const MainPage = (props) => { 
     return (
       <>
 <Container2>
+  
   <Container>
+    <ButtonSetting >詳細設定</ButtonSetting>
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
@@ -481,15 +569,9 @@ const App = () => {
     {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
 </Container2>
-<FadeInSection isVisible={isVisible}>
-<StyledHeader>キャラクター紹介</StyledHeader>
-</FadeInSection>
-<Container4>
-  <SelifParagraph>
-    ずんだもんの紹介をここに書く。
-  </SelifParagraph>
-  <ZundamonImageSelif src="/zunda_teage.png" alt={props.name} />
-</Container4>
+
+
+
 </>
     );
   };
@@ -709,17 +791,51 @@ return (
     >
       <SwiperSlide>
         <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>
+        <FadeInSection isVisible={isVisible}>
+        <StyledHeader>キャラ紹介</StyledHeader>
+        <Container4>
+        <SelifParagraph>
+          ずんだもんの説明等
+        </SelifParagraph>
+        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+      </Container4>
+      </FadeInSection>
       </SwiperSlide>
+
+
       <SwiperSlide>
         <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
+        <FadeInSection isVisible={isVisible}>
+        <StyledHeader>キャラ紹介</StyledHeader>
+        <Container4>
+        <SelifParagraph>
+          ずんだもんの説明等
+        </SelifParagraph>
+        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+      </Container4>
+      </FadeInSection>
       </SwiperSlide>
+
       <SwiperSlide>
         <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage>
+        <FadeInSection isVisible={isVisible}>
+        <StyledHeader>キャラ紹介</StyledHeader>
+        <Container4>
+        <SelifParagraph>
+          ずんだもんの説明等
+        </SelifParagraph>
+        <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
+      </Container4>
+      </FadeInSection>
       </SwiperSlide>
+
+
+
+
     </Swiper>
+
   <FadeInSection isVisible={isVisible}>
   <StyledHeader>AIずんだもんの作り方</StyledHeader>
-
       <Container4>
       <SelifParagraph>
         ずんだもんなのだ。今日はAIずんだもんの作り方を解説するのだ。
@@ -727,7 +843,7 @@ return (
       <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
     
       </Container4>
-      </FadeInSection>
+  </FadeInSection>
 
       <ScrollScale>
       <Container5>
