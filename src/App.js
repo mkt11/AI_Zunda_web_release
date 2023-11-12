@@ -932,7 +932,7 @@ return (
             
               <div className="mydict">
             <Title>ずんだもん   </Title>
-            <AudioButton audio="/zunda1.wav"></AudioButton>
+            <AudioButton audio="/zunda2.wav"></AudioButton>
             </div>
               <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。　
                 最近はYouTubeでよく見かけるようになった。語尾に「～なのだ」をつける。<br></br>
