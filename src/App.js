@@ -901,7 +901,7 @@ return (
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
-        <ZundamonImageSelif src="/zunda.gif" alt="Zundamon" />
+        <ZundamonImageSelif src="/zunda.GIF" alt="Zundamon" />
           <Container7> 
             
               <div className="mydict">
