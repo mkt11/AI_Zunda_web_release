@@ -76,7 +76,7 @@ const Container2 = styled.div`
     margin-top: 20px;
     margin-bottom: 50px;
     padding-bottom: 30px;
-    max-height: 90vh;
+    max-height: 100%;
   }
   position: relative;
   border-radius: 30px;
@@ -229,7 +229,8 @@ const Button = styled.button`
     top: 0;
     width: 0;
     height: 100%;
-    background-color: #cff7e8;
+    background-color: ${props => props.color};
+    // background-color: #cff7e8;
     transform: skewX(45deg);
     z-index: -1;
     transition: width 1000ms;
@@ -274,7 +275,7 @@ const ButtonSetting = styled.button`
     top: 0;
     width: 0;
     height: 100%;
-    background-color: #cff7e8;
+    background-color: ${props => props.color};
     transform: skewX(45deg);
     z-index: -1;
     transition: width 1000ms;
@@ -284,7 +285,48 @@ const ButtonSetting = styled.button`
   }
 `;
 
+const Loading = styled.div`
+  width: 40%;
+  height: 4.8px;
+  display: inline-block;
+  background: #bebebe;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
 
+  &:after {
+    content: '';
+    width: 0%;
+    height: 4.8px;
+    background-color: ${props => props.color};
+    font-size: 15px;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    // background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    background-size: 1em 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: animFw 4s ease-in infinite,  barStripe 1s linear infinite;
+  }
+  @keyframes barStripe {
+    0% {
+      background-position: 1em 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  @keyframes animFw {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+`;
 
 const LoadingIndicator = styled.div`
   margin: 20px 0;
@@ -540,10 +582,12 @@ const App = () => {
   };
   
   const [backgroundColor, setBackgroundColor] = useState('#cff7e8');
+  const [buttonColor, setButtonColor] = useState('#cff7e8');
 
   // 指定された色に背景色を変更する関数
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
+    setButtonColor(newColor);
   };
 
   // バックグラウンドスタイル
@@ -632,7 +676,7 @@ const App = () => {
 <Container2>
   
   <Container>
-    <ButtonSetting >詳細設定</ButtonSetting>
+    <ButtonSetting color={buttonColor}>詳細設定</ButtonSetting>
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
@@ -648,31 +692,32 @@ const App = () => {
         </Description>
 
         <Container3>
-        <Button onClick={handleStartRecording} disabled={recording}>
+        <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
             録音ボタン 
         </Button>
 
-        <Button onClick={handleStopRecording} disabled={!recording}>
+        <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
             録音停止ボタン
         </Button>
-        <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
+        <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
             AIで{props.name}
         </Button>
 
-          <div className="mydict">
-      <div>
-        <label>
-          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-          <span>男性</span>
-        </label>
-        <label>
-          <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-          <span>女性</span>
-        </label>
+      <div className="mydict">
+        <div>
+          <label>
+            <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+            <span>男性</span>
+          </label>
+          <label>
+            <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+            <span>女性</span>
+          </label>
+        </div>
       </div>
-    </div>
 
         </Container3>
+        <Loading color={buttonColor}></Loading>
         {recording && <LoadingIndicator />}
         {recording && <div>残り時間: {countdown}秒</div>}
         {loading && <LoadingIndicator />}
@@ -680,7 +725,6 @@ const App = () => {
         {audioData && <audio src={audioData} controls />}
         {sagemakerAudio && (
             <div>
-                
                 <audio src={sagemakerAudio} controls controlslist="nodownload" />
             </div>
         )}
@@ -768,10 +812,6 @@ const App = () => {
   
     return (<section ref={sectionRef}>{children}</section>)
   }
-
-
-
-
 
   const handleStartRecording = async () => {
     //二回目以降の録音のために初期化
@@ -994,8 +1034,7 @@ return (
 
         <Containerchar>
         <ZundamonImageSelif2 src="/kiritanmon.png" alt="Zundamon" />
-          <Container7> 
-            
+          <Container7>
               <div className="mydict" style={charStyle}>
             <Title>東北きりたん</Title>
             <AudioButton audio="/kiritan1.wav" color="#8d6449"></AudioButton>
