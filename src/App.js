@@ -16,11 +16,10 @@ const Title = styled.h1`
 /* デスクトップ向けのスタイル */
 @media (min-width: 1300px) {
   font-size:50px;
-  margin-bottom: 10px;
 }
 /* スマホ向けのスタイル */
 @media (max-width: 1300px) {
-  font-size:20px;
+  font-size:25px;
 }
   font-family:'Roboto', sans-serif;
   color: #333;
@@ -200,7 +199,6 @@ const Container7 = styled.div`
   width: 100vw;
   
 `;
-
 
 const Button = styled.button`
   padding: 10px 20px;
@@ -518,8 +516,6 @@ class TtsQuestV3Voicevox extends Audio {
   }
 }
 
-
-
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -562,6 +558,18 @@ const App = () => {
     overflow:"hidden"
   };
 
+ //inputスタイル
+  const inputStyle = {
+   align: "center",
+   margin: "10px",
+  };
+
+  //charスタイル
+  const charStyle = {
+    display: "flex",
+    justifyContent: "center",
+  };
+
   // コンポーネントがマウントされた後、特定の色に変更
 
   const AudioButton = (props) => {
@@ -591,7 +599,8 @@ const App = () => {
 
   
     return (
-      <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color}}>
+      <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color, 'margin': 0, 'marginLeft': 10 }}>
+      {/* <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color}}> */}
         {isPlaying ? '■' : '▶'}
       </button>
     );
@@ -930,16 +939,16 @@ return (
         <ZundamonImageSelif src="/zunda.GIF" alt="Zundamon" />
           <Container7> 
             
-              <div className="mydict">
-            <Title>ずんだもん   </Title>
+              <div className="mydict" style={charStyle}>
+            <Title>ずんだもん</Title>
             <AudioButton audio="/zunda2.wav"></AudioButton>
             </div>
-              <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。　
+              <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。<br></br>
                 最近はYouTubeでよく見かけるようになった。語尾に「～なのだ」をつける。<br></br>
                 もともとは、無料音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank" rel="noreferrer">VOICEVOX</a>のキャラであり、文字を音声に変換する。
               </h3>
               <Container3>
-              <input  placeholder="セリフを入力"  className="input" value ={text} 
+              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
               onChange={(event) => setText(event.target.value)} 
               />
               <AudioButtonDL selif = {text}  dokuid={3} ></AudioButtonDL>
@@ -959,16 +968,16 @@ return (
         <ZundamonImageSelif2 src="/metansetumei.png" alt="Zundamon" />
           <Container7> 
             
-              <div className="mydict">
-            <Title>四国めたん   </Title>
+              <div className="mydict" style={charStyle}>
+            <Title>四国めたん</Title>
             <AudioButton audio="/metan1.wav"  color ="#ee827c"></AudioButton>
             </div>
-              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。　　　　　　
-                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。　　　　　　　　　
+              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。<br></br>
+                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。<br></br>
                 同じ音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank"  rel="noreferrer">VOICEVOX</a>のキャラクターであり、文字を音声に変換する。
               </h3>
               <Container3>
-              <input  placeholder="セリフを入力"  className="input" value ={text} 
+              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
               onChange={(event) => setText(event.target.value)} 
               />
               <AudioButtonDL selif = {text} color ="#ee827c" dokuid={2} ></AudioButtonDL>
@@ -987,13 +996,14 @@ return (
         <ZundamonImageSelif2 src="/kiritanmon.png" alt="Zundamon" />
           <Container7> 
             
-              <div className="mydict">
-            <Title>東北きりたん  </Title>
+              <div className="mydict" style={charStyle}>
+            <Title>東北きりたん</Title>
             <AudioButton audio="/kiritan1.wav" color="#8d6449"></AudioButton>
             </div>
-              <h3>東北地方応援キャラ、東北ずん子の関連キャラクター。<br></br>きりたんぽがモチーフとなっており、背中に「きりたん砲」を背負っている。
-              <br></br>もともとが<a href="https://www.ah-soft.com/voiceroid/" target="_blank" rel="noreferrer" >VOICEROID</a>出身なので、YouTube等では、知名度が高い。
-              <br></br>大人の都合で、文字を音声にこのサイトでは変換できないが、サンプルボイスを聞くことができる。丁寧語で話す。
+              <h3>東北地方応援キャラ、東北ずん子の関連キャラクター。<br></br>
+                きりたんぽがモチーフとなっており、背中に「きりたん砲」を背負っている。<br></br>
+                もともとが<a href="https://www.ah-soft.com/voiceroid/" target="_blank" rel="noreferrer" >VOICEROID</a>出身なので、YouTube等では、知名度が高い。<br></br>
+                大人の都合で、文字を音声にこのサイトでは変換できないが、サンプルボイスを聞くことができる。丁寧語で話す。
               </h3>
 
           </Container7>
