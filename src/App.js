@@ -19,7 +19,7 @@ const Title = styled.h1`
 }
 /* スマホ向けのスタイル */
 @media (max-width: 1300px) {
-  font-size:20px;
+  font-size:25px;
 }
   font-family:'Roboto', sans-serif;
   color: #333;
@@ -39,15 +39,7 @@ const Description = styled.p`
 `;
 
 
-const Background = styled.div`
-  height: 100%;
-  background:#cff7e8;
-  width: 99vw;
-  position: relative;
-  top: 0;
-  left: 0;
-  overflow:hidden;
-`;
+
 
 const Container = styled.div`
   /* デスクトップ向けのスタイル */
@@ -73,7 +65,7 @@ const Container2 = styled.div`
     max-width: 1040px;
     margin: 0px auto;
     margin-top: 80px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     padding: 50px;
     max-height: 60vh;
   }
@@ -82,9 +74,9 @@ const Container2 = styled.div`
     max-width: 90vw;
     margin: 0px auto;
     margin-top: 20px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     padding-bottom: 30px;
-    max-height: 90vh;
+    max-height: 100%;
   }
   position: relative;
   border-radius: 30px;
@@ -124,6 +116,29 @@ const Container4 = styled.div`
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.6); // 軽く透明な背景
 `;
+
+
+const Containerchar = styled.div`
+  /* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    max-width: 1040px;
+    padding: 50px;
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 90vw;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  border-radius: 30px;
+  margin: 50px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255 ,255, 255); // 軽く透明な背景
+`;
+
 
 
 const Container5 = styled.div`
@@ -168,19 +183,21 @@ const Container6 = styled.div`
 
 `;
 
-const PageContainer = styled.div`
+const Container7 = styled.div`
   /* デスクトップ向けのスタイル */
   @media (min-width: 1300px) {
   }
   /* スマホ向けのスタイル */
   @media (max-width: 1300px) {
-    max-width: 90vw;
-    flex-direction: column;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    max-width: 80vw;
+    margin: 0px auto;
+    margin-top: 20px;
   }
-  border-radius: 30px;
-  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100vw;
+  
 `;
 
 const Button = styled.button`
@@ -194,7 +211,51 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 1000ms;
   overflow: hidden;
-  
+  &:disabled {
+    color: #848484;
+    background-color: #bebebe;
+    cursor: not-allowed;
+  }
+  &:not(:disabled):hover {
+    color: #333;
+    transform: scale(1.1);
+    outline: 1px solid #333;
+    box-shadow: 4px 5px 17px -4px #268391;
+  }
+  &:not(:disabled)::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: ${props => props.color};
+    // background-color: #cff7e8;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 1000ms;
+  }
+  &:not(:disabled):hover::before {
+    width: 150%;
+  }
+`;
+
+
+const ButtonSetting = styled.button`
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #5b5b5b;
+  cursor: pointer;
+  transition: all 1000ms;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  zIndex: 999;
 
   &:disabled {
     color: #848484;
@@ -214,13 +275,56 @@ const Button = styled.button`
     top: 0;
     width: 0;
     height: 100%;
-    background-color: #cff7e8;
+    background-color: ${props => props.color};
     transform: skewX(45deg);
     z-index: -1;
     transition: width 1000ms;
   }
   &:not(:disabled):hover::before {
     width: 150%;
+  }
+`;
+
+const Loading = styled.div`
+  width: 40%;
+  height: 4.8px;
+  display: inline-block;
+  background: #bebebe;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+
+  &:after {
+    content: '';
+    width: 0%;
+    height: 4.8px;
+    background-color: ${props => props.color};
+    font-size: 15px;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    // background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+    background-size: 1em 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: animFw 4s ease-in infinite,  barStripe 1s linear infinite;
+  }
+  @keyframes barStripe {
+    0% {
+      background-position: 1em 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  @keyframes animFw {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
   }
 `;
 
@@ -329,6 +433,29 @@ const ZundamonImageSelif = styled.img`
 `;
 
 
+const ZundamonImageSelif2 = styled.img`
+
+  /* スマホ向けのスタイル */
+    @media (max-width: 1300px) {
+      max-width: 30vw;
+      // display: none;
+  }
+  max-width: 300px;  // 必要に応じて画像のサイズを調整します
+  animation: move 6s infinite ;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  @keyframes move {
+    0%, 100% { left: 0; transform: rotateY(0);  }
+    50% { left: 100%; transform: rotateY(180deg); }
+  }
+
+
+  
+
+  
+  }
+`;
 
 
 const StyledHeader = styled.h2`
@@ -393,9 +520,43 @@ const FadeInSection = styled.div`
   transition: transform 1s, opacity 1s;
 `;
 
+const FadeInSection2 = styled.div`
+  transform: translateY(${props => (props.isVisible ? '0' : '50px')});
+  opacity: ${props => (props.isVisible ? '1' : '0')};
+  transition: transform 1s, opacity 1s;
+`;
 
-
-
+class TtsQuestV3Voicevox extends Audio {
+  constructor(speakerId, text, ttsQuestApiKey) {
+    super();
+    var params = {};
+    params['key'] = ttsQuestApiKey;
+    params['speaker'] = speakerId;
+    params['text'] = text;
+    const query = new URLSearchParams(params);
+    this.#main(this, query);
+  }
+  #main(owner, query) {
+    if (owner.src.length>0) return;
+    var apiUrl = 'https://api.tts.quest/v3/voicevox/synthesis';
+    fetch(apiUrl + '?' + query.toString())
+    .then(response => response.json())
+    .then(response => {
+      if (typeof response.retryAfter !== 'undefined') {
+        setTimeout(owner.#main, 1000*(1+response.retryAfter), owner, query);
+      }
+      else if (typeof response.mp3StreamingUrl !== 'undefined') {
+        owner.src = response.mp3StreamingUrl;
+      }
+      else if (typeof response.errorMessage !== 'undefined') {
+        throw new Error(response.errorMessage);
+      }
+      else {
+        throw new Error("serverError");
+      }
+    });
+  }
+}
 
 const App = () => {
   const [recording, setRecording] = useState(false);
@@ -404,13 +565,15 @@ const App = () => {
   const [audioDatas, setAudioDatas] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+
   const [sagemakerAudio, setSagemakerAudio] = useState(null);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(6);
   const [selectchar, setselectchar] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisible2, setIsVisible2] = useState(false);
   const [selectedOption, setSelectedOption] = useState("man");
- 
+  const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   
@@ -419,10 +582,12 @@ const App = () => {
   };
   
   const [backgroundColor, setBackgroundColor] = useState('#cff7e8');
+  const [buttonColor, setButtonColor] = useState('#cff7e8');
 
   // 指定された色に背景色を変更する関数
   const changeBackgroundColor = (newColor) => {
     setBackgroundColor(newColor);
+    setButtonColor(newColor);
   };
 
   // バックグラウンドスタイル
@@ -437,19 +602,85 @@ const App = () => {
     overflow:"hidden"
   };
 
+ //inputスタイル
+  const inputStyle = {
+   align: "center",
+   margin: "10px",
+  };
+
+  //charスタイル
+  const charStyle = {
+    display: "flex",
+    justifyContent: "center",
+  };
+
   // コンポーネントがマウントされた後、特定の色に変更
 
+  const AudioButton = (props) => {
+    // オーディオと再生状態を管理するための状態
+    const [audio] = useState(new Audio(props.audio));
+    const [isPlaying, setIsPlaying] = useState(false);
+  
+    // ボタンをクリックしたときの動作
+    const togglePlay = () => {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
+      setIsPlaying(!isPlaying); // 状態を反転させる
+    };
+
+    // オーディオが終了したときのイベントリスナーをセットアップ
+    React.useEffect(() => {
+      const handleAudioEnd = () => setIsPlaying(false);
+      audio.addEventListener('ended', handleAudioEnd);
+      // クリーンアップ関数
+      return () => {
+        audio.removeEventListener('ended', handleAudioEnd);
+      };
+    }, [audio]);
+
+  
+    return (
+      <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color, 'margin': 0, 'marginLeft': 10 }}>
+      {/* <button onClick={togglePlay} className="audio-button" style={{'background-color': props.color}}> */}
+        {isPlaying ? '■' : '▶'}
+      </button>
+    );
+  };
+
+  const AudioButtonDL = (props) => {
+    // オーディオと再生状態を管理するための状態
+    
+    const togglePlay = () => {
+      if(props.selif === "") return;
+      const audio = new TtsQuestV3Voicevox(props.dokuid, props.selif, "w58_55m7T_e_110");
+      audio.play();
+      setText("")
+    };
+
+    
+
+    return (
+      <button onClick={togglePlay} className="audio-button2" style={{'background-color': props.color}}>
+        ▶
+      </button>
+    );
+  };
 
 
   const MainPage = (props) => { 
     return (
       <>
 <Container2>
+  
   <Container>
+    <ButtonSetting color={buttonColor}>詳細設定</ButtonSetting>
     <Title>AI {props.name}</Title>
-    {!recording && !loading && <ZundamonImageMobile src="/zunda.png" alt="Zundamon" />}
-    {recording && !loading && <ZundamonImageMobile src="/zunda_recording.png" alt="Zundamon" />}
-    {!recording && loading && <ZundamonImageMobile src="/zunda_server.png" alt="Zundamon" />}
+    {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
+    {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
@@ -461,31 +692,32 @@ const App = () => {
         </Description>
 
         <Container3>
-        <Button onClick={handleStartRecording} disabled={recording}>
+        <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
             録音ボタン 
         </Button>
 
-        <Button onClick={handleStopRecording} disabled={!recording}>
+        <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
             録音停止ボタン
         </Button>
-        <Button onClick={handleSendToAPIGateway} disabled={!audioData}>
+        <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
             AIで{props.name}
         </Button>
 
-          <div className="mydict">
-      <div>
-        <label>
-          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-          <span>男性</span>
-        </label>
-        <label>
-          <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-          <span>女性</span>
-        </label>
+      <div className="mydict">
+        <div>
+          <label>
+            <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+            <span>男性</span>
+          </label>
+          <label>
+            <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+            <span>女性</span>
+          </label>
+        </div>
       </div>
-    </div>
 
         </Container3>
+        <Loading color={buttonColor}></Loading>
         {recording && <LoadingIndicator />}
         {recording && <div>残り時間: {countdown}秒</div>}
         {loading && <LoadingIndicator />}
@@ -493,24 +725,17 @@ const App = () => {
         {audioData && <audio src={audioData} controls />}
         {sagemakerAudio && (
             <div>
-                
-                <audio src={sagemakerAudio} controls  />
+                <audio src={sagemakerAudio} controls controlslist="nodownload" />
             </div>
         )}
   </Container>
-    {!recording && !loading && <ZundamonImage src="/zunda.png" alt="Zundamon" />}
-    {recording && !loading && <ZundamonImage src="/zunda_recording.png" alt="Zundamon" />}
-    {!recording && loading && <ZundamonImage src="/zunda_server.png" alt="Zundamon" />}
+    {!recording && !loading && <ZundamonImage src={props.png} alt={props.name} />}
+    {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
 </Container2>
-<FadeInSection isVisible={isVisible}>
-<StyledHeader>キャラクター紹介</StyledHeader>
-</FadeInSection>
-<Container4>
-  <SelifParagraph>
-    ずんだもんの紹介をここに書く。
-  </SelifParagraph>
-  <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
-</Container4>
+
+
+
 </>
     );
   };
@@ -532,6 +757,23 @@ const App = () => {
     };
   }, []);
 
+
+  React.useEffect(() => {
+    const handleScroll2 = () => {
+      const position = window.scrollY;
+      if (position > 700) { // 例: 100pxスクロールしたら表示
+        setIsVisible2(true);
+      } else {
+        setIsVisible2(false);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll2);
+  
+    return () => {
+      window.removeEventListener('scroll', handleScroll2);
+    };
+  }, []);
 
   
   const Scroll = ({ children }) => {
@@ -714,6 +956,7 @@ return (
       navigation
       loop={true}
       realIndex
+      noSwiping = "input"
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={(swiper) => {
@@ -724,23 +967,98 @@ return (
         else if(swiper.realIndex === 1)
           changeBackgroundColor('#eebbcb');
         else if(swiper.realIndex === 2)
-          changeBackgroundColor('#d6c6af');
+          changeBackgroundColor('#b28c6e');
           
       }}
     >
       <SwiperSlide>
-        <MainPage name="ずんだもん"></MainPage>
-      </SwiperSlide>
-      <SwiperSlide>
-        <MainPage name="めたん"></MainPage>
-      </SwiperSlide>
-      <SwiperSlide>
-        <MainPage name="きりたん"></MainPage>
-      </SwiperSlide>
-    </Swiper>
-  <FadeInSection isVisible={isVisible}>
-  <StyledHeader>AIずんだもんの作り方</StyledHeader>
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>        
+        <FadeInSection isVisible={isVisible}>
 
+        <Containerchar>
+        <ZundamonImageSelif src="/zunda.GIF" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict" style={charStyle}>
+            <Title>ずんだもん</Title>
+            <AudioButton audio="/zunda2.wav"></AudioButton>
+            </div>
+              <h3>ずんだ餅の精。やや不幸属性が備わっており、ないがしろにされることもしばしば。<br></br>
+                最近はYouTubeでよく見かけるようになった。語尾に「～なのだ」をつける。<br></br>
+                もともとは、無料音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank" rel="noreferrer">VOICEVOX</a>のキャラであり、文字を音声に変換する。
+              </h3>
+              <Container3>
+              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
+              onChange={(event) => setText(event.target.value)} 
+              />
+              <AudioButtonDL selif = {text}  dokuid={3} ></AudioButtonDL>
+              </Container3>
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
+      </SwiperSlide>
+
+
+      <SwiperSlide>
+        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
+        <FadeInSection isVisible={isVisible}>
+
+        <Containerchar>
+        <ZundamonImageSelif2 src="/metansetumei.png" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict" style={charStyle}>
+            <Title>四国めたん</Title>
+            <AudioButton audio="/metan1.wav"  color ="#ee827c"></AudioButton>
+            </div>
+              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。<br></br>
+                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。<br></br>
+                同じ音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank"  rel="noreferrer">VOICEVOX</a>のキャラクターであり、文字を音声に変換する。
+              </h3>
+              <Container3>
+              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
+              onChange={(event) => setText(event.target.value)} 
+              />
+              <AudioButtonDL selif = {text} color ="#ee827c" dokuid={2} ></AudioButtonDL>
+              </Container3>
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
+      </SwiperSlide>
+
+      <SwiperSlide>
+        <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage>
+        <FadeInSection isVisible={isVisible}>
+
+        <Containerchar>
+        <ZundamonImageSelif2 src="/kiritanmon.png" alt="Zundamon" />
+          <Container7>
+              <div className="mydict" style={charStyle}>
+            <Title>東北きりたん</Title>
+            <AudioButton audio="/kiritan1.wav" color="#8d6449"></AudioButton>
+            </div>
+              <h3>東北地方応援キャラ、東北ずん子の関連キャラクター。<br></br>
+                きりたんぽがモチーフとなっており、背中に「きりたん砲」を背負っている。<br></br>
+                もともとが<a href="https://www.ah-soft.com/voiceroid/" target="_blank" rel="noreferrer" >VOICEROID</a>出身なので、YouTube等では、知名度が高い。<br></br>
+                大人の都合で、文字を音声にこのサイトでは変換できないが、サンプルボイスを聞くことができる。丁寧語で話す。
+              </h3>
+
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
+      </SwiperSlide>
+
+
+
+
+    </Swiper>
+
+    <FadeInSection2 isVisible={isVisible2}>
+
+  <StyledHeader>AIずんだもんの作り方</StyledHeader>
       <Container4>
       <SelifParagraph>
         ずんだもんなのだ。今日はAIずんだもんの作り方を解説するのだ。
@@ -748,7 +1066,7 @@ return (
       <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
     
       </Container4>
-      </FadeInSection>
+      </FadeInSection2>
 
       <ScrollScale>
       <Container5>
@@ -864,7 +1182,7 @@ return (
       <Scroll>
       <Container4>
       <SelifParagraph>
-      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank" >リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
+      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank"  rel="noreferrer">リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
       </Container4>
