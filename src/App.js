@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
@@ -576,7 +576,7 @@ const App = () => {
   const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
-  
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -681,6 +681,7 @@ const App = () => {
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
+
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
@@ -690,6 +691,10 @@ const App = () => {
         <Description>
           その後、サーバーへ送信して{props.name}になってください。
         </Description>
+    {transcript !== "" &&     <Container3 style={{"background-color" : "#ebf6f7" , "borderRadius": "20%" , "padding-left": "24px"}}>
+    {props.name !== "きりたん" && <p>{transcript}</p>}
+    {props.name !== "きりたん" && transcript !== "" && <AudioButtonDL color={props.color2} dokuid={props.dokuid} selif={transcript} ></AudioButtonDL>}
+    </Container3> }
 
         <Container3>
         <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
@@ -818,12 +823,13 @@ const App = () => {
     if(frist === true){
       await register(await connect());
     }
+    resetTranscript();
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(stream , { mimeType: 'audio/wav' });
     mediaRecorderRef.current.ondataavailable = (event) => {
       audioChunksRef.current.push(event.data);
     };
-
+    SpeechRecognition.startListening({ continuous: true });
     mediaRecorderRef.current.onstop = async () => {
       
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
@@ -849,12 +855,14 @@ const App = () => {
     
     // 6秒後に録音を自動的に停止する
     countdownTimeoutRef.current = setTimeout(() => {
+      SpeechRecognition.stopListening();
+      setText(transcript);
       handleStopRecording();
     }, 4000);
-    
   };
 
   const handleStopRecording = () => {
+    SpeechRecognition.stopListening();
     clearInterval(countdownIntervalRef.current);
     clearTimeout(countdownTimeoutRef.current);
     setFrist(false);
@@ -862,6 +870,8 @@ const App = () => {
     setRecording(false);
     
   };
+
+
 
 
   const getCharName = (selectchar) => {
@@ -946,6 +956,15 @@ const App = () => {
     }
 };
 
+
+    const {
+      transcript,
+      listening,
+      resetTranscript,
+      browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+  
+
 return (
   <div style={backgroundStyle}>
   <Swiper
@@ -972,7 +991,7 @@ return (
       }}
     >
       <SwiperSlide>
-      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>        
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>        
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
@@ -1001,7 +1020,7 @@ return (
 
 
       <SwiperSlide>
-        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
+        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage>
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
