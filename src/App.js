@@ -11,7 +11,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+<<<<<<< HEAD
 import { keyframes } from 'styled-components';
+=======
+>>>>>>> be6f755 (ツッチーの仕事無くなった)
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
@@ -659,8 +662,11 @@ const App = () => {
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
 
+<<<<<<< HEAD
   const [isContainerVisible, setContainerVisible] = useState(false);
 
+=======
+>>>>>>> be6f755 (ツッチーの仕事無くなった)
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -1094,7 +1100,11 @@ return (
       }}
     >
       <SwiperSlide>
+<<<<<<< HEAD
       <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>   
+=======
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>        
+>>>>>>> be6f755 (ツッチーの仕事無くなった)
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
