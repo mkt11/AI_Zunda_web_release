@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0",
     "react-native": "^0.72.6",
     "react-scripts": "5.0.1",
+    "react-speech-recognition": "^3.10.0",
     "scrollreveal": "^4.0.9",
     "styled-components": "^6.1.0",
     "swiper": "^11.0.4",
