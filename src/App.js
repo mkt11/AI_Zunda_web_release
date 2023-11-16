@@ -86,6 +86,42 @@ const Container2 = styled.div`
   background: #fff;
 `;
 
+const Container2plus = styled.div`
+
+  /* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    // max-width: 55vw;
+    max-width: 1040px;
+    margin: 0px auto;
+    margin-top: 80px;
+    padding: 50px;
+    max-height: 60vh;
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 90vw;
+    margin: 0px auto;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    max-height: 100%;
+  }
+  width: 60%;
+  height: 75%;
+  border-radius: 30px;
+  display: flex;
+  align-items: top;
+  position:fixed;
+  left : 0px;
+  bottom : 0px;
+  justify-content: center;
+  background: #333;
+  z-index: 1;
+  opacity: 0.8;
+  transition: all 0.6s;
+
+ 
+`;
+
 const Container3 = styled.div`
   /* スマホ向けのスタイル */
   @media (max-width: 1300px) {
@@ -558,6 +594,15 @@ class TtsQuestV3Voicevox extends Audio {
   }
 }
 
+// const Sidebar = () => {
+//   return (
+//     <div className="sidebar">
+//       <h2>詳細設定</h2>
+//       <p>詳細設定は現在準備中です。</p>
+//     </div>
+//   );
+// }
+
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -576,6 +621,8 @@ const App = () => {
   const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
+
+  const [isContainerVisible, setContainerVisible] = useState(false);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -669,14 +716,28 @@ const App = () => {
     );
   };
 
+  const toggleSidebar = () => {
+    setContainerVisible(!isContainerVisible);
+  };
+
 
   const MainPage = (props) => { 
     return (
       <>
 <Container2>
+
+<ButtonSetting onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+    {isContainerVisible &&     
+      <div className="sidebar">
+      <Container2plus style={{ position: 'absolute', zIndex: 1 }}>
+      詳細設定
+      詳細設定は現在準備中です。
+      </Container2plus>
+    </div>}
   
+  {!isContainerVisible &&    
   <Container>
-    <ButtonSetting color={buttonColor}>詳細設定</ButtonSetting>
+
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
@@ -708,18 +769,6 @@ const App = () => {
             AIで{props.name}
         </Button>
 
-      <div className="mydict">
-        <div>
-          <label>
-            <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-            <span>男性</span>
-          </label>
-          <label>
-            <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-            <span>女性</span>
-          </label>
-        </div>
-      </div>
 
         </Container3>
         <Loading color={buttonColor}></Loading>
@@ -734,6 +783,7 @@ const App = () => {
             </div>
         )}
   </Container>
+  }
     {!recording && !loading && <ZundamonImage src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
@@ -744,6 +794,8 @@ const App = () => {
 </>
     );
   };
+
+
 
   React.useEffect(() => {
     const handleScroll = () => {
