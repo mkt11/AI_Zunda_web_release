@@ -643,6 +643,15 @@ class TtsQuestV3Voicevox extends Audio {
 //   );
 // }
 
+// const Sidebar = () => {
+//   return (
+//     <div className="sidebar">
+//       <h2>詳細設定</h2>
+//       <p>詳細設定は現在準備中です。</p>
+//     </div>
+//   );
+// }
+
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -661,12 +670,8 @@ const App = () => {
   const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
-
-<<<<<<< HEAD
   const [isContainerVisible, setContainerVisible] = useState(false);
 
-=======
->>>>>>> be6f755 (ツッチーの仕事無くなった)
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -851,6 +856,8 @@ const App = () => {
 </>
     );
   };
+
+
 
 
 
