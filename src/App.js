@@ -11,10 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-<<<<<<< HEAD
 import { keyframes } from 'styled-components';
-=======
->>>>>>> be6f755 (ツッチーの仕事無くなった)
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
