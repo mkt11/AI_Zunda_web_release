@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { keyframes } from 'styled-components';
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
@@ -562,6 +563,42 @@ const FadeInSection2 = styled.div`
   transition: transform 1s, opacity 1s;
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: -7;
+    right: -100%;
+  }
+  to {
+    opacity: 1;
+    right: 0;
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    opacity: 1;
+    right: 0;
+  }
+  to {
+    opacity: -2;
+    right: -100%;
+  }
+`;
+
+
+
+const Sidebar = styled.div`
+  position: absolute;
+  border-radius: 30px;
+  top: 0;
+  right: -100%; 
+  width: 300px; /* サイドバーの幅 */
+  height: 100%; /* サイドバーの高さ */
+  background-color: #fffacd; /* サイドバーの背景色 */
+  animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
+  z-index: 1;
+`;
+
 class TtsQuestV3Voicevox extends Audio {
   constructor(speakerId, text, ttsQuestApiKey) {
     super();
@@ -727,15 +764,27 @@ const App = () => {
 <Container2>
 
 <ButtonSetting onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-    {isContainerVisible &&     
-      <div className="sidebar">
-      <Container2plus style={{ position: 'absolute', zIndex: 1 }}>
-      詳細設定
-      詳細設定は現在準備中です。
-      </Container2plus>
-    </div>}
+
+        <Sidebar isVisible={isContainerVisible}>
+          {/* サイドバーの内容 */}
+          <p>詳細設定</p>
+          <p>詳細設定は現在準備中です。</p>
+          <div className="mydict">
+      <div>
+        <label>
+          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+          <span>男性</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+          <span>女性</span>
+        </label>
+      </div>
+    </div>
+        </Sidebar>
+
   
-  {!isContainerVisible &&    
+  {   
   <Container>
 
     <Title>AI {props.name}</Title>
@@ -784,9 +833,11 @@ const App = () => {
         )}
   </Container>
   }
-    {!recording && !loading && <ZundamonImage src={props.png} alt={props.name} />}
-    {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
-    {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
+
+    {!recording && !loading &&  <ZundamonImage src={props.png} alt={props.name} />}
+    {recording && !loading && !isContainerVisible &&<ZundamonImage src={props.png_r} alt={props.name} />}
+    {!recording && loading && !isContainerVisible &&<ZundamonImage src={props.png_s} alt={props.name} />}
+
 </Container2>
 
 
@@ -1043,7 +1094,7 @@ return (
       }}
     >
       <SwiperSlide>
-      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>        
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>   
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
