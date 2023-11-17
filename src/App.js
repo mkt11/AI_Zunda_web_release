@@ -56,6 +56,30 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
+  animation: ${props => props.isVisible ? ContainerFadeOut : ContainerFadeIn} 0.5s forwards;
+`;
+
+const ContainerFadeIn = keyframes`
+from {
+  opacity: -7;
+  // right: -100%;
+}
+to {
+  opacity: 1;
+  // right: 0;
+}
+`;
+
+const ContainerFadeOut = keyframes`
+from {
+  opacity: 1;
+  // right: 0;
+}
+to {
+  opacity: -2;
+  // right: -100%;
+  display: none;
+}
 `;
 
 const Container2 = styled.div`
@@ -380,28 +404,6 @@ const LoadingIndicator = styled.div`
   }
 `;
 
-
-const ZundamonImage = styled.img`
-
-/* スマホ向けのスタイル */
-  @media (max-width: 1300px) {
-    max-width: 30vw;
-    display: none;
-  }
-  width: 600px;  // 必要に応じて画像のサイズを調整します
-  height: 600px;
-  animation: floatAnimation 2s infinite alternate;
-
-  @keyframes floatAnimation {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-40px);
-    }
-  }
-`;
-
 const ZundamonImageMobile = styled.img`
 
 /* デスクトップ向けのスタイル */
@@ -418,6 +420,97 @@ const ZundamonImageMobile = styled.img`
     }
     100% {
       transform: translateY(-40px);
+    }
+  }
+`;
+
+const ZundamonImage = styled.img`
+
+/* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 30vw;
+    display: none;
+  }
+  // width: 600px;  // 必要に応じて画像のサイズを調整します
+  width: 37%;
+  height: 600px;
+  animation: floatAnimation 2s infinite alternate;
+  visibility: ${props => props.isVisible ? 'hidden' : 'visible'};
+
+  @keyframes floatAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-40px);
+    }
+  }
+`;
+
+const ZundamonImageSetting = styled.img`
+
+/* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 30vw;
+    display: none;
+  }
+  // width: 600px;  // 必要に応じて画像のサイズを調整します
+  width: 384;
+  height: 600px;
+  margin: 0 calc(50% - 40vw);
+  margin-top: 40px;
+  position: absolute;
+
+  animation: rotate 1s linear;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  @keyframes rotate {
+    0% {
+      opacity: 1;
+      transform: rotateY(0);
+    }
+    50% {
+      transform: rotateY(90deg);
+      opacity: 1;
+    }
+    100% {
+      transform: rotateY(180deg);
+      opacity: 0;
+    }
+  }
+`;
+
+const ZundamonImageSetting2 = styled.img`
+
+/* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 30vw;
+    display: none;
+  }
+  // width: 600px;  // 必要に応じて画像のサイズを調整します
+  width: 384;
+  height: 600px;
+  margin: 0 calc(50% - 40vw);
+  margin-top: 40px;
+  position: absolute;
+
+  animation: rotate2 1s linear;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  @keyframes rotate2 {
+    0% {
+      transform: rotateY(0);
+      opacity: 0;
+    }
+    50% {
+      transform: rotateY(90deg);
+      opacity: 0;
+    }
+    100% {
+      transform: rotateY(180deg);
+      opacity: 1;
     }
   }
 `;
@@ -565,7 +658,7 @@ const FadeInSection2 = styled.div`
 
 const slideIn = keyframes`
   from {
-    opacity: -7;
+    opacity: -2;
     right: -100%;
   }
   to {
@@ -575,24 +668,35 @@ const slideIn = keyframes`
 `;
 
 const slideOut = keyframes`
-  from {
+  0% {
     opacity: 1;
     right: 0;
   }
-  to {
+  50% {
+    opacity: 1;
+    right: 0;
+  }
+  100% {
     opacity: -2;
     right: -100%;
   }
+  // from {
+  //   opacity: 1;
+  //   right: 0;
+  // }
+  // to {
+  //   opacity: -2;
+  //   right: -100%;
+  // }
 `;
-
-
 
 const Sidebar = styled.div`
   position: absolute;
   border-radius: 30px;
   top: 0;
   right: -100%; 
-  width: 300px; /* サイドバーの幅 */
+  // width: 300px; /* サイドバーの幅 */
+  width:50%;
   height: 100%; /* サイドバーの高さ */
   background-color: #fffacd; /* サイドバーの背景色 */
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
@@ -771,9 +875,12 @@ const App = () => {
       <>
 <Container2>
 
-<ButtonSetting onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+<ButtonSetting disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
 
+        {/* <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} /> */}
         <Sidebar isVisible={isContainerVisible}>
+        <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} />
+        <ZundamonImageSetting2 isVisible={isContainerVisible} src={"/zunda_yubisasi.png"} alt={props.name} />
           {/* サイドバーの内容 */}
           <p>詳細設定</p>
           <p>詳細設定は現在準備中です。</p>
@@ -793,7 +900,7 @@ const App = () => {
 
   
   {   
-  <Container>
+  <Container isVisible={isContainerVisible}>
 
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
@@ -842,9 +949,9 @@ const App = () => {
   </Container>
   }
 
-    {!recording && !loading &&  <ZundamonImage src={props.png} alt={props.name} />}
-    {recording && !loading && !isContainerVisible &&<ZundamonImage src={props.png_r} alt={props.name} />}
-    {!recording && loading && !isContainerVisible &&<ZundamonImage src={props.png_s} alt={props.name} />}
+    {!recording && !loading &&  <ZundamonImage isVisible={isContainerVisible} src={props.png} alt={props.name} />}
+    {recording && !loading &&<ZundamonImage isVisible={isContainerVisible} src={props.png_r} alt={props.name} />}
+    {!recording && loading && <ZundamonImage isVisible={isContainerVisible} src={props.png_s} alt={props.name} />}
 
 </Container2>
 
@@ -1104,11 +1211,7 @@ return (
       }}
     >
       <SwiperSlide>
-<<<<<<< HEAD
       <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>   
-=======
-      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>        
->>>>>>> be6f755 (ツッチーの仕事無くなった)
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
