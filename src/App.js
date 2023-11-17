@@ -368,7 +368,7 @@ const Loading = styled.div`
     top: 0;
     left: 0;
     box-sizing: border-box;
-    animation: animFw 4s ease-in infinite,  barStripe 1s linear infinite;
+    animation: animFw ${props => props.time} ${props => props.acc} infinite,  barStripe 1s linear infinite;
   }
   @keyframes barStripe {
     0% {
@@ -869,6 +869,14 @@ const App = () => {
     setContainerVisible(!isContainerVisible);
   };
 
+  const ImageSetting = (props) => {
+    return (
+      <>
+        <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} />
+        <ZundamonImageSetting2 isVisible={isContainerVisible} src={"/zunda_yubisasi.png"} alt={props.name} />
+      </>
+    );
+  };
 
   const MainPage = (props) => { 
     return (
@@ -876,11 +884,8 @@ const App = () => {
 <Container2>
 
 <ButtonSetting disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-
-        {/* <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} /> */}
         <Sidebar isVisible={isContainerVisible}>
-        <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} />
-        <ZundamonImageSetting2 isVisible={isContainerVisible} src={"/zunda_yubisasi.png"} alt={props.name} />
+        <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
           <p>詳細設定</p>
           <p>詳細設定は現在準備中です。</p>
@@ -935,7 +940,8 @@ const App = () => {
 
 
         </Container3>
-        <Loading color={buttonColor}></Loading>
+        <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >
+        {/* {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}/>} */}
         {recording && <LoadingIndicator />}
         {recording && <div>残り時間: {countdown}秒</div>}
         {loading && <LoadingIndicator />}
