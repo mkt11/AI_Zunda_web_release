@@ -10,7 +10,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { keyframes } from 'styled-components';
 
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
@@ -84,6 +85,42 @@ const Container2 = styled.div`
   align-items: top;
   justify-content: center;
   background: #fff;
+`;
+
+const Container2plus = styled.div`
+
+  /* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    // max-width: 55vw;
+    max-width: 1040px;
+    margin: 0px auto;
+    margin-top: 80px;
+    padding: 50px;
+    max-height: 60vh;
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 90vw;
+    margin: 0px auto;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    max-height: 100%;
+  }
+  width: 60%;
+  height: 75%;
+  border-radius: 30px;
+  display: flex;
+  align-items: top;
+  position:fixed;
+  left : 0px;
+  bottom : 0px;
+  justify-content: center;
+  background: #333;
+  z-index: 1;
+  opacity: 0.8;
+  transition: all 0.6s;
+
+ 
 `;
 
 const Container3 = styled.div`
@@ -526,6 +563,42 @@ const FadeInSection2 = styled.div`
   transition: transform 1s, opacity 1s;
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: -7;
+    right: -100%;
+  }
+  to {
+    opacity: 1;
+    right: 0;
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    opacity: 1;
+    right: 0;
+  }
+  to {
+    opacity: -2;
+    right: -100%;
+  }
+`;
+
+
+
+const Sidebar = styled.div`
+  position: absolute;
+  border-radius: 30px;
+  top: 0;
+  right: -100%; 
+  width: 300px; /* サイドバーの幅 */
+  height: 100%; /* サイドバーの高さ */
+  background-color: #fffacd; /* サイドバーの背景色 */
+  animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
+  z-index: 1;
+`;
+
 class TtsQuestV3Voicevox extends Audio {
   constructor(speakerId, text, ttsQuestApiKey) {
     super();
@@ -558,6 +631,15 @@ class TtsQuestV3Voicevox extends Audio {
   }
 }
 
+// const Sidebar = () => {
+//   return (
+//     <div className="sidebar">
+//       <h2>詳細設定</h2>
+//       <p>詳細設定は現在準備中です。</p>
+//     </div>
+//   );
+// }
+
 const App = () => {
   const [recording, setRecording] = useState(false);
   const [frist, setFrist] = useState(true);
@@ -576,7 +658,9 @@ const App = () => {
   const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
-  
+
+  const [isContainerVisible, setContainerVisible] = useState(false);
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -669,18 +753,45 @@ const App = () => {
     );
   };
 
+  const toggleSidebar = () => {
+    setContainerVisible(!isContainerVisible);
+  };
+
 
   const MainPage = (props) => { 
     return (
       <>
 <Container2>
+
+<ButtonSetting onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+
+        <Sidebar isVisible={isContainerVisible}>
+          {/* サイドバーの内容 */}
+          <p>詳細設定</p>
+          <p>詳細設定は現在準備中です。</p>
+          <div className="mydict">
+      <div>
+        <label>
+          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+          <span>男性</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+          <span>女性</span>
+        </label>
+      </div>
+    </div>
+        </Sidebar>
+
   
+  {   
   <Container>
-    <ButtonSetting color={buttonColor}>詳細設定</ButtonSetting>
+
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
+
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
@@ -690,6 +801,10 @@ const App = () => {
         <Description>
           その後、サーバーへ送信して{props.name}になってください。
         </Description>
+    {transcript !== "" &&     <Container3 style={{"background-color" : "#ebf6f7" , "borderRadius": "20%" , "padding-left": "24px"}}>
+    {props.name !== "きりたん" && <p>{transcript}</p>}
+    {props.name !== "きりたん" && transcript !== "" && <AudioButtonDL color={props.color2} dokuid={props.dokuid} selif={transcript} ></AudioButtonDL>}
+    </Container3> }
 
         <Container3>
         <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
@@ -703,18 +818,6 @@ const App = () => {
             AIで{props.name}
         </Button>
 
-      <div className="mydict">
-        <div>
-          <label>
-            <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
-            <span>男性</span>
-          </label>
-          <label>
-            <input type="radio" name={props.name} value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-            <span>女性</span>
-          </label>
-        </div>
-      </div>
 
         </Container3>
         <Loading color={buttonColor}></Loading>
@@ -729,9 +832,12 @@ const App = () => {
             </div>
         )}
   </Container>
-    {!recording && !loading && <ZundamonImage src={props.png} alt={props.name} />}
-    {recording && !loading && <ZundamonImage src={props.png_r} alt={props.name} />}
-    {!recording && loading && <ZundamonImage src={props.png_s} alt={props.name} />}
+  }
+
+    {!recording && !loading &&  <ZundamonImage src={props.png} alt={props.name} />}
+    {recording && !loading && !isContainerVisible &&<ZundamonImage src={props.png_r} alt={props.name} />}
+    {!recording && loading && !isContainerVisible &&<ZundamonImage src={props.png_s} alt={props.name} />}
+
 </Container2>
 
 
@@ -739,6 +845,8 @@ const App = () => {
 </>
     );
   };
+
+
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -818,12 +926,13 @@ const App = () => {
     if(frist === true){
       await register(await connect());
     }
+    resetTranscript();
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(stream , { mimeType: 'audio/wav' });
     mediaRecorderRef.current.ondataavailable = (event) => {
       audioChunksRef.current.push(event.data);
     };
-
+    SpeechRecognition.startListening({ continuous: true });
     mediaRecorderRef.current.onstop = async () => {
       
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
@@ -849,12 +958,14 @@ const App = () => {
     
     // 6秒後に録音を自動的に停止する
     countdownTimeoutRef.current = setTimeout(() => {
+      SpeechRecognition.stopListening();
+      setText(transcript);
       handleStopRecording();
     }, 4000);
-    
   };
 
   const handleStopRecording = () => {
+    SpeechRecognition.stopListening();
     clearInterval(countdownIntervalRef.current);
     clearTimeout(countdownTimeoutRef.current);
     setFrist(false);
@@ -862,6 +973,8 @@ const App = () => {
     setRecording(false);
     
   };
+
+
 
 
   const getCharName = (selectchar) => {
@@ -946,6 +1059,15 @@ const App = () => {
     }
 };
 
+
+    const {
+      transcript,
+      listening,
+      resetTranscript,
+      browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+  
+
 return (
   <div style={backgroundStyle}>
   <Swiper
@@ -972,7 +1094,7 @@ return (
       }}
     >
       <SwiperSlide>
-      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" ></MainPage>        
+      <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>   
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
@@ -1001,7 +1123,7 @@ return (
 
 
       <SwiperSlide>
-        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png" ></MainPage>
+        <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage>
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
