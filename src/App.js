@@ -893,7 +893,7 @@ const App = () => {
       <>
 <Container2>
 
-<ButtonSetting color={buttonColor} disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+<ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
         <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
