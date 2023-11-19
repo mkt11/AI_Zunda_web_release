@@ -985,7 +985,7 @@ const App = () => {
 
   
   {   
-  <Container>
+  <Container isVisible={isContainerVisible}>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet"></link>
 
     <Title style={{"margin-bottom" : "8px" }}>AI {props.name}</Title>

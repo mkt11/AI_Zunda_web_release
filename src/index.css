@@ -38,10 +38,10 @@ code {
 }
 
 .mydict input[type="radio"]:checked + span {
-  box-shadow: 0 0 0 0.0625em #333;
-  background-color: #898989;
+  box-shadow: 0 0 0 0.1em #333;
+  background-color: #ffcc41;
   z-index: 1;
-  color: #ffffff;
+  color: #000;
 }
 
 label span {
