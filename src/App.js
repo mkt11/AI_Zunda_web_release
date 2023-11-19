@@ -13,6 +13,7 @@ import 'swiper/css/scrollbar';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { keyframes } from 'styled-components';
 
+
 const Title = styled.h1`
 /* デスクトップ向けのスタイル */
 @media (min-width: 1300px) {
@@ -111,41 +112,6 @@ const Container2 = styled.div`
   background: #fff;
 `;
 
-const Container2plus = styled.div`
-
-  /* デスクトップ向けのスタイル */
-  @media (min-width: 1300px) {
-    // max-width: 55vw;
-    max-width: 1040px;
-    margin: 0px auto;
-    margin-top: 80px;
-    padding: 50px;
-    max-height: 60vh;
-  }
-  /* スマホ向けのスタイル */
-  @media (max-width: 1300px) {
-    max-width: 90vw;
-    margin: 0px auto;
-    margin-top: 20px;
-    padding-bottom: 30px;
-    max-height: 100%;
-  }
-  width: 60%;
-  height: 75%;
-  border-radius: 30px;
-  display: flex;
-  align-items: top;
-  position:fixed;
-  left : 0px;
-  bottom : 0px;
-  justify-content: center;
-  background: #333;
-  z-index: 1;
-  opacity: 0.8;
-  transition: all 0.6s;
-
- 
-`;
 
 const Container3 = styled.div`
   /* スマホ向けのスタイル */
@@ -698,7 +664,9 @@ const Sidebar = styled.div`
   // width: 300px; /* サイドバーの幅 */
   width:50%;
   height: 100%; /* サイドバーの高さ */
-  background-color: #fffacd; /* サイドバーの背景色 */
+  background-color: #fffff9; /* サイドバーの背景色 */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* サイドバーの影 */
+
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
   z-index: 1;
 `;
@@ -758,6 +726,8 @@ const App = () => {
   const [frist, setFrist] = useState(true);
   const [audioData, setAudioData] = useState(null);
   const [audioDatas, setAudioDatas] = useState(null);
+  const [noiseAudio, setNoiseAudio] = useState(null);
+  const [noiseAudioUrl, setNoiseAudioUrl] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
@@ -772,6 +742,7 @@ const App = () => {
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   const [isContainerVisible, setContainerVisible] = useState(false);
+
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -887,9 +858,10 @@ const App = () => {
         <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
-          <p>詳細設定</p>
-          <p>詳細設定は現在準備中です。</p>
-          <div className="mydict">
+
+          <Title style={{"text-align":"center" , "fontSize":"36px"}}>詳細設定</Title>
+          <div className="mydict">  
+          <h2>ユーザーの性別</h2>
       <div>
         <label>
           <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
@@ -911,7 +883,6 @@ const App = () => {
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
-
         <Description>
           録音ボタンをクリックして録音を開始 
         </Description>
@@ -934,24 +905,38 @@ const App = () => {
         <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
             録音停止ボタン
         </Button>
+
+        <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
+            AIノイズキャンセリング
+        </Button>
+
         <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
             AIで{props.name}
         </Button>
 
 
         </Container3>
-        <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >
-        {/* {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}/>} */}
-        {recording && <LoadingIndicator />}
+        <Loading color={buttonColor} time={"30s"} acc={"ease-out"}></Loading >
+        
+        {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
         {recording && <div>残り時間: {countdown}秒</div>}
-        {loading && <LoadingIndicator />}
+
+        {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
 
         {audioData && <audio src={audioData} controls />}
+
+        {noiseAudio && (
+            <div>
+                <audio src={noiseAudio} />
+            </div>
+        )}
+
         {sagemakerAudio && (
             <div>
                 <audio src={sagemakerAudio} controls controlslist="nodownload" />
             </div>
         )}
+
   </Container>
   }
 
@@ -1120,10 +1105,21 @@ const App = () => {
       const charname = getCharName(selectchar);
       console.log(charname);
       const formData = new FormData();
+
+      if(noiseAudio){
+      formData.append('audio', noiseAudio); // 'audio' はバックエンドでの受け取りキーと一致する必要があります
+      }else{
       formData.append('audio', audioDatas); // 'audio' はバックエンドでの受け取りキーと一致する必要があります
+      }
+      
         // FileReaderを使用してオーディオデータをBase64にエンコード
       const reader = new FileReader();
+      if(noiseAudio){
+        reader.readAsDataURL(noiseAudio); // audioDatasはBlobまたはFileオブジェクト
+      }
+      else{
       reader.readAsDataURL(audioDatas); // audioDatasはBlobまたはFileオブジェクト
+      }
       reader.onloadend = async () => {
         const base64Audio = reader.result;
         const audio2 = base64Audio.split(",")[1];
@@ -1183,11 +1179,59 @@ const App = () => {
 };
 
 
+const handleSendToAPIGatewayNoise = async () => {
+  if (audioData) {
+    setLoading(true); 
+    const charname = getCharName(selectchar);
+    console.log(charname);
+    const formData = new FormData();
+    formData.append('audio', audioDatas); // 'audio' はバックエンドでの受け取りキーと一致する必要があります
+      // FileReaderを使用してオーディオデータをBase64にエンコード
+    const reader = new FileReader();
+    reader.readAsDataURL(audioDatas); // audioDatasはBlobまたはFileオブジェクト
+    reader.onloadend = async () => {
+      const base64Audio = reader.result;
+      const audio2 = base64Audio.split(",")[1];
+      const config = {
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "audio/wav",  
+          },
+          responseType: 'blob',
+      };
+      
+    // 性別とモデル名をJSONオブジェクトとして追加
+    
+    const additionalData = {
+      gender: selectedOption, // または適切な変数
+      modelName: charname, // モデル名を指定
+      audioDataa: audio2,
+    };
+
+      try {
+        
+            const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/noise", additionalData, config);
+            const audioURL = URL.createObjectURL(response.data);
+            setNoiseAudio(response.data);
+            setNoiseAudioUrl(audioURL);
+      } catch (error) {
+          console.error("Error sending data to API Gateway:", error);
+      } finally {
+          setLoading(false);
+      }
+
+      reader.onerror = () => {
+        console.error("Error reading audio file");
+        setLoading(false);
+    };
+  }
+  }
+};
+
+
     const {
       transcript,
-      listening,
       resetTranscript,
-      browserSupportsSpeechRecognition
     } = useSpeechRecognition();
   
 
