@@ -23,6 +23,8 @@ code {
   flex-wrap: wrap;
   margin-top: 0.5rem;
   justify-content: center;
+  margin : 0 auto;
+  
 }
 
 .mydict input[type="radio"] {
