@@ -262,7 +262,7 @@ const Button = styled.button`
     color: #333;
     transform: scale(1.1);
     outline: 1px solid #333;
-    box-shadow: 4px 5px 17px -4px #268391;
+    box-shadow: 4px 5px 17px -4px ${props => props.color};
   }
   &:not(:disabled)::before {
     content: "";
@@ -308,7 +308,8 @@ const ButtonSetting = styled.button`
     color: #333;
     transform: scale(1.1);
     outline: 1px solid #333;
-    box-shadow: 4px 5px 17px -4px #268391;
+    box-shadow: 4px 5px 17px -4px ${props => props.color};
+    // box-shadow: 4px 5px 17px -4px #268391;
   }
   &:not(:disabled)::before {
     content: "";
@@ -438,7 +439,7 @@ const ZundamonImageSetting = styled.img`
   // width: 600px;  // 必要に応じて画像のサイズを調整します
   width: 384;
   height: 600px;
-  margin: 0 calc(50% - 40vw);
+  margin: 0 calc(50% - 135%);
   margin-top: 40px;
   position: absolute;
 
@@ -472,7 +473,7 @@ const ZundamonImageSetting2 = styled.img`
   // width: 600px;  // 必要に応じて画像のサイズを調整します
   width: 384;
   height: 600px;
-  margin: 0 calc(50% - 40vw);
+  margin: 0 calc(50% - 135%);
   margin-top: 40px;
   position: absolute;
 
@@ -892,7 +893,7 @@ const App = () => {
       <>
 <Container2>
 
-<ButtonSetting disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+<ButtonSetting color={buttonColor} disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
         <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
@@ -1298,7 +1299,7 @@ const handleSendToAPIGatewayNoise = async () => {
       const config = {
           headers: {
               "Content-Type": "application/json",
-              "Accept": "audio/wav",  
+              "Accept": "audio/wav",
           },
           responseType: 'blob',
       };
