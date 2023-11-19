@@ -37,6 +37,7 @@ const Description = styled.p`
   font-size: 16px;
   font-family:'Roboto', sans-serif;
   color: #777;
+  margin: 8px;
   text-align: center;
 `;
 
@@ -226,6 +227,20 @@ const Container7 = styled.div`
   width: 100vw;
   
 `;
+
+
+
+const ContainerSideBar = styled.div`
+  width: 80%;
+  background-color: #f8f4e6; /* サイドバーの背景色 */
+  border-radius: 30px;
+  margin: 0px auto;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /* サイドバーの影 */
+  
+`;
+
+
+
 
 const Button = styled.button`
   padding: 10px 20px;
@@ -738,15 +753,38 @@ const App = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
   const [selectedOption, setSelectedOption] = useState("man");
+  const [selectedOptiongpu, setSelectedOptiongpu] = useState("gpuoff");
+  const [selectedOptionvox, setSelectedOptionvox] = useState("voxoff");
+  const [selectedOptionnoise, setSelectedOptionnoise] = useState("noiseoff");
   const [text, setText] = useState("")
   const countdownIntervalRef = useRef(); // setIntervalのIDを保存するためのref
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   const [isContainerVisible, setContainerVisible] = useState(false);
+  const [secondnum , setSecondnum] = useState(4);
 
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
+  const handleOptionChangegpu = (event) => {
+    setSelectedOptiongpu(event.target.value);
+    if(event.target.value === "gpuon"){
+      setSecondnum(50)
+    }else
+    {
+      setSecondnum(4)
+    }
+  };
+
+  const handleOptionChangevox = (event) => {
+    setSelectedOptionvox(event.target.value);
+  };
+
+  const handleOptionChangenoise = (event) => {
+    setSelectedOptionnoise(event.target.value);
+  };
+
   
   const [backgroundColor, setBackgroundColor] = useState('#cff7e8');
   const [buttonColor, setButtonColor] = useState('#cff7e8');
@@ -858,13 +896,16 @@ const App = () => {
         <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
+      
+          <Title style={{"text-align":"center" , "fontSize":"42px"}}>詳細設定</Title>
 
-          <Title style={{"text-align":"center" , "fontSize":"36px"}}>詳細設定</Title>
-          <div className="mydict">  
-          <h2>ユーザーの性別</h2>
+          <ContainerSideBar> 
+          <h2 style={{"text-align":"center" }}>ユーザーの性別</h2>
+          <div className="mydict" >  
+
       <div>
         <label>
-          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'}/>
+          <input type="radio" name={props.name} value="man" onChange={handleOptionChange} checked={selectedOption === 'man'} />
           <span>男性</span>
         </label>
         <label>
@@ -873,14 +914,73 @@ const App = () => {
         </label>
       </div>
     </div>
-        </Sidebar>
+    </ContainerSideBar>
+
+
+    <ContainerSideBar> 
+          <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
+          <div className="mydict" >  
+
+      <div>
+        <label>
+          <input type="radio" name={props.name +"gpu"} value="gpuon" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuon'} />
+          <span>ON</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name +"gpu"} value="gpuoff" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuoff'}/>
+          <span>OFF</span>
+        </label>
+      </div>
+    </div>
+    </ContainerSideBar>
+
+    <ContainerSideBar> 
+          <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
+          <div className="mydict" >  
+
+      <div>
+        <label>
+          <input type="radio" name={props.name +"vox"} value="voxon" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxon'} />
+          <span>ON</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name +"vox"} value="voxoff" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxoff'}/>
+          <span>OFF</span>
+        </label>
+      </div>
+    </div>
+    </ContainerSideBar>
+
+
+    <ContainerSideBar> 
+          <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
+          <div className="mydict" >  
+
+      <div>
+        <label>
+          <input type="radio" name={props.name +"noise"} value="noiseon" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseon'} />
+          <span>ON</span>
+        </label>
+        <label>
+          <input type="radio" name={props.name +"noise"} value="noiseoff" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseoff'}/>
+          <span>OFF</span>
+        </label>
+      </div>
+    </div>
+    </ContainerSideBar>
+    
+    
+    
+
+
+    </Sidebar>
 
   
   {   
   <Container>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet"></link>
 
-    <Title>AI {props.name}</Title>
+    <Title style={{"margin-bottom" : "8px" }}>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
     {recording && !loading && <ZundamonImageMobile  src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImageMobile  src={props.png_s} alt={props.name} />}
@@ -926,15 +1026,15 @@ const App = () => {
         <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
             録音停止ボタン
         </Button>
-
+    { selectedOptionnoise === "noiseon" &&
         <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
             AIノイズキャンセリング
-        </Button>
+        </Button>}
 
         <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
             AIで{props.name}
         </Button>
-
+  
 
         </Container3>
         <Loading color={buttonColor} time={"30s"} acc={"ease-out"}></Loading >
@@ -944,17 +1044,17 @@ const App = () => {
 
         {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
 
-        {audioData && <audio src={audioData} controls />}
+        {audioData && <audio src={audioData} controls style={{"margin-bottom":"8px"}} />}
 
         {noiseAudio && (
             <div>
-                <audio src={noiseAudio} />
+                <audio src={noiseAudioUrl} controls style={{"margin-bottom":"8px"}} />
             </div>
         )}
 
         {sagemakerAudio && (
             <div>
-                <audio src={sagemakerAudio} controls controlslist="nodownload" />
+                <audio src={sagemakerAudio} controls controlslist="nodownload" style={{"margin-bottom":"8px"}}/>
             </div>
         )}
 
@@ -1061,7 +1161,9 @@ const App = () => {
     mediaRecorderRef.current.ondataavailable = (event) => {
       audioChunksRef.current.push(event.data);
     };
+    if(selectedOptionvox === "voxon"){
     SpeechRecognition.startListening({ continuous: true });
+    }
     mediaRecorderRef.current.onstop = async () => {
       
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
@@ -1074,7 +1176,7 @@ const App = () => {
     setRecording(true);
     console.log(selectedOption);
     
-    setCountdown(4); // カウントダウンをリセット
+    setCountdown(secondnum); // カウントダウンをリセット
     countdownIntervalRef.current = setInterval(() => {
       setCountdown(prev => {
         if (prev <= 0) {
@@ -1087,14 +1189,18 @@ const App = () => {
     
     // 6秒後に録音を自動的に停止する
     countdownTimeoutRef.current = setTimeout(() => {
+      if(selectedOptionvox === "voxon"){
       SpeechRecognition.stopListening();
       setText(transcript);
+      }
       handleStopRecording();
-    }, 4000);
+    }, secondnum * 1000);
   };
 
   const handleStopRecording = () => {
+    if(selectedOptionvox === "voxon"){
     SpeechRecognition.stopListening();
+    }
     clearInterval(countdownIntervalRef.current);
     clearTimeout(countdownTimeoutRef.current);
     setFrist(false);
@@ -1102,9 +1208,6 @@ const App = () => {
     setRecording(false);
     
   };
-
-
-
 
   const getCharName = (selectchar) => {
     switch (selectchar) {
@@ -1118,6 +1221,24 @@ const App = () => {
         return "zunda";
     }
   };
+
+  const getCharName2 = (selectchar) => {
+    const randomint = Math.floor( Math.random() * 2 ) ;
+    switch (selectchar) {
+      case "gpuon":
+        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+      case "gpuoff":
+        if(randomint === 0){
+          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+        }
+        else if(randomint === 1){
+          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+        }
+        
+      default:
+        return "error";
+    }
+  }
 
 
   const handleSendToAPIGateway = async () => {
@@ -1161,30 +1282,12 @@ const App = () => {
       };
 
         try {
-          if(selectedOption === "man"){
-            console.log("mamamamama");
-            const randomint = Math.floor( Math.random() * 2 ) ;
-            console.log(randomint);
-            if(randomint === 0){
-              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
+            
+              const apiurl = getCharName2(selectedOptiongpu);
+              const response = await axios.post(apiurl, additionalData, config);
               const audioURL = URL.createObjectURL(response.data);
               setSagemakerAudio(audioURL);
-            }
-            else
-            {
-              const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda", additionalData, config);
-              const audioURL = URL.createObjectURL(response.data);
-              setSagemakerAudio(audioURL);
-            }
-
-          }
-          else{
-            console.log("wawawawawa");  
-            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/woo", additionalData, config);
-            const audioURL = URL.createObjectURL(response.data);
-            setSagemakerAudio(audioURL);      
-          }
-
+          
         } catch (error) {
             console.error("Error sending data to API Gateway:", error);
         } finally {
@@ -1235,6 +1338,7 @@ const handleSendToAPIGatewayNoise = async () => {
             const audioURL = URL.createObjectURL(response.data);
             setNoiseAudio(response.data);
             setNoiseAudioUrl(audioURL);
+            console.log(audioURL);
       } catch (error) {
           console.error("Error sending data to API Gateway:", error);
       } finally {
