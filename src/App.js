@@ -94,7 +94,7 @@ const Container2 = styled.div`
     margin-top: 80px;
     margin-bottom: 50px;
     padding: 50px;
-    max-height: 60vh;
+    max-height: 100vh;
   }
   /* スマホ向けのスタイル */
   @media (max-width: 1300px) {
@@ -102,8 +102,10 @@ const Container2 = styled.div`
     margin: 0px auto;
     margin-top: 20px;
     margin-bottom: 50px;
+    padding-top: 30px;
     padding-bottom: 30px;
-    max-height: 100%;
+    max-height: 100vh;
+    min-height: 80vh;
   }
   position: relative;
   border-radius: 30px;
@@ -253,6 +255,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 1000ms;
   overflow: hidden;
+  z-index: 1;
   &:disabled {
     color: #848484;
     background-color: #bebebe;
@@ -685,6 +688,10 @@ const Sidebar = styled.div`
 
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
   z-index: 1;
+  @media (max-width: 1300px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 class TtsQuestV3Voicevox extends Audio {
