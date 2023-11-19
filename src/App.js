@@ -94,7 +94,7 @@ const Container2 = styled.div`
     margin-top: 80px;
     margin-bottom: 50px;
     padding: 50px;
-    max-height: 60vh;
+    max-height: 100vh;
   }
   /* スマホ向けのスタイル */
   @media (max-width: 1300px) {
@@ -102,8 +102,10 @@ const Container2 = styled.div`
     margin: 0px auto;
     margin-top: 20px;
     margin-bottom: 50px;
+    padding-top: 30px;
     padding-bottom: 30px;
-    max-height: 100%;
+    max-height: 100vh;
+    min-height: 80vh;
   }
   position: relative;
   border-radius: 30px;
@@ -253,6 +255,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: all 1000ms;
   overflow: hidden;
+  z-index: 1;
   &:disabled {
     color: #848484;
     background-color: #bebebe;
@@ -262,7 +265,7 @@ const Button = styled.button`
     color: #333;
     transform: scale(1.1);
     outline: 1px solid #333;
-    box-shadow: 4px 5px 17px -4px #268391;
+    box-shadow: 4px 5px 17px -4px ${props => props.color};
   }
   &:not(:disabled)::before {
     content: "";
@@ -308,7 +311,8 @@ const ButtonSetting = styled.button`
     color: #333;
     transform: scale(1.1);
     outline: 1px solid #333;
-    box-shadow: 4px 5px 17px -4px #268391;
+    box-shadow: 4px 5px 17px -4px ${props => props.color};
+    // box-shadow: 4px 5px 17px -4px #268391;
   }
   &:not(:disabled)::before {
     content: "";
@@ -438,7 +442,7 @@ const ZundamonImageSetting = styled.img`
   // width: 600px;  // 必要に応じて画像のサイズを調整します
   width: 384;
   height: 600px;
-  margin: 0 calc(50% - 40vw);
+  margin: 0 calc(50% - 135%);
   margin-top: 40px;
   position: absolute;
 
@@ -472,7 +476,7 @@ const ZundamonImageSetting2 = styled.img`
   // width: 600px;  // 必要に応じて画像のサイズを調整します
   width: 384;
   height: 600px;
-  margin: 0 calc(50% - 40vw);
+  margin: 0 calc(50% - 135%);
   margin-top: 40px;
   position: absolute;
 
@@ -684,6 +688,10 @@ const Sidebar = styled.div`
 
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
   z-index: 1;
+  @media (max-width: 1300px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 class TtsQuestV3Voicevox extends Audio {
@@ -892,7 +900,7 @@ const App = () => {
       <>
 <Container2>
 
-<ButtonSetting disabled={recording} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+<ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
         <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
@@ -1319,7 +1327,7 @@ const handleSendToAPIGatewayNoise = async () => {
       const config = {
           headers: {
               "Content-Type": "application/json",
-              "Accept": "audio/wav",  
+              "Accept": "audio/wav",
           },
           responseType: 'blob',
       };
