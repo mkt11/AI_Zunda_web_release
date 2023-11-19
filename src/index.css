@@ -37,9 +37,9 @@ code {
 
 .mydict input[type="radio"]:checked + span {
   box-shadow: 0 0 0 0.0625em #333;
-  background-color: #cff7e8;
+  background-color: #898989;
   z-index: 1;
-  color: #333;
+  color: #ffffff;
 }
 
 label span {
