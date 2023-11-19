@@ -91,11 +91,10 @@ https://ai-zunda-web.vercel.app/
 
 - ### リポジトリをクローン・npm install
     ```
-    git clone https://github.com/mkt11/AI_zunda_web.git
+    git clone https://github.com/mkt11/AI_Zunda_web_release.git
     npm install
     npm start
     ```
 - ### AWSの設定
   - 省略
 
-## 参考・引用リンク
