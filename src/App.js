@@ -877,7 +877,8 @@ const App = () => {
 
   
   {   
-  <Container isVisible={isContainerVisible}>
+  <Container>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet"></link>
 
     <Title>AI {props.name}</Title>
     {!recording && !loading && <ZundamonImageMobile src={props.png} alt={props.name} />}
@@ -892,9 +893,29 @@ const App = () => {
         <Description>
           その後、サーバーへ送信して{props.name}になってください。
         </Description>
-    {transcript !== "" &&     <Container3 style={{"background-color" : "#ebf6f7" , "borderRadius": "20%" , "padding-left": "24px"}}>
-    {props.name !== "きりたん" && <p>{transcript}</p>}
-    {props.name !== "きりたん" && transcript !== "" && <AudioButtonDL color={props.color2} dokuid={props.dokuid} selif={transcript} ></AudioButtonDL>}
+    {transcript !== "" && props.name !== "きりたん"&&     
+    <Container3 style={{
+    "backgroundColor": "#ebf6f7", 
+    "borderRadius": "5%",
+    "color": "#696969", 
+    // "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)", // 豊かな影をつける
+    "fontFamily": "'M PLUS Rounded 1c', sans-serif",
+    "fontSize": "1.2em", 
+    "fontWeight": "bold", 
+    "letterSpacing": "0.05em",
+    "display": "flex", 
+    "alignItems": "center", 
+    "justifyContent": "center", 
+    "textTransform": "uppercase",
+    padding: "10px",
+    "margin": "10px", 
+    "transition": "transform 0.2s ease-in-out", // ホバー時の滑らかな変化を追加
+    position: "relative", // 吹き出しの尾のための相対位置設定
+  }}>
+    
+    
+    {props.name !== "きりたん" && <p style={{ marginLeft:"10px",marginRight:"10px",marginBottom: "10px", marginTop: "10px" }}>{transcript}</p>}
+    {props.name !== "きりたん" && transcript !== "" && <AudioButtonDL style={{ marginBottom: "10px",marginTop: "10px" }} color={props.color2} dokuid={props.dokuid} selif={transcript} ></AudioButtonDL>}
     </Container3> }
 
         <Container3>

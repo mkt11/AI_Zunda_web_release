@@ -104,7 +104,7 @@ label:last-child span {
   border-radius: 100%;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 16px;
+  /* margin-left: 16px; */
 
 }
 
