@@ -1494,7 +1494,7 @@ return (
       spaceBetween={50}
       slidesPerView={1}
       initialSlide={1}
-      navigation
+      navigation={isContainerVisible ? false : true}
       loop={false}
       realIndex
       noSwiping = "input"
