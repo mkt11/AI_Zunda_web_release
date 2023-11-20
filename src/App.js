@@ -58,15 +58,21 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  animation: ${props => props.isVisible ? ContainerFadeOut : ContainerFadeIn} 0.5s forwards;
+  animation: ${props => props.isVisible ? ContainerFadeOut : ContainerFadeIn} ${props => props.isVisible ? "1s" : "2s"} forwards;
 `;
 
 const ContainerFadeIn = keyframes`
-from {
+0% {
   opacity: -7;
   // right: -100%;
 }
-to {
+
+50% {
+  opacity: -7;
+  // right: -100%;
+}
+
+100% {
   opacity: 1;
   // right: 0;
 }
@@ -448,21 +454,41 @@ const ZundamonImageSetting = styled.img`
   animation-delay: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
-  @keyframes rotate {
-    0% {
-      opacity: 1;
-      transform: rotateY(0);
-    }
-    50% {
-      transform: rotateY(90deg);
-      opacity: 1;
-    }
-    100% {
-      transform: rotateY(180deg);
-      opacity: 0;
-    }
-  }
+  animation: ${props => props.isVisible ? reverseIn : reverseOut} 0.5s forwards;
+
 `;
+
+const reverseIn = keyframes`
+0% {
+  transform: rotateY(180deg);
+  opacity: 1;
+}
+50% {
+  transform: rotateY(90deg);
+  opacity: 1;
+}
+100% {
+  transform: rotateY(0);
+  opacity: 0;
+}
+`;
+
+const reverseOut = keyframes`
+0% {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+80% {
+  transform: rotateY(90deg);
+  opacity: 1;
+}
+100% {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+`;
+
+
 
 const ZundamonImageSetting2 = styled.img`
 
@@ -482,21 +508,41 @@ const ZundamonImageSetting2 = styled.img`
   animation-delay: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: both;
-  @keyframes rotate2 {
-    0% {
-      transform: rotateY(0);
-      opacity: 0;
-    }
-    50% {
-      transform: rotateY(90deg);
-      opacity: 0;
-    }
-    100% {
-      transform: rotateY(180deg);
-      opacity: 1;
-    }
-  }
+
+  animation: ${props => props.isVisible ? reverseIn2 : reverseOut2} 0.5s forwards;
 `;
+
+const  reverseIn2 = keyframes`
+0% {
+  transform: rotateY(0);
+  opacity: 0;
+}
+50% {
+  transform: rotateY(90deg);
+  opacity: 1;
+}
+100% {
+  transform: rotateY(180deg);
+  opacity: 1;
+}
+`;
+
+const reverseOut2 = keyframes`
+0% {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+80% {
+  transform: rotateY(90deg);
+  opacity: 1;
+}
+100% {
+  transform: rotateY();
+  opacity: 0;
+}
+`;
+
+
 
 const Images = styled.img`
 
@@ -663,14 +709,6 @@ const slideOut = keyframes`
     opacity: -2;
     right: -100%;
   }
-  // from {
-  //   opacity: 1;
-  //   right: 0;
-  // }
-  // to {
-  //   opacity: -2;
-  //   right: -100%;
-  // }
 `;
 
 const Sidebar = styled.div`
@@ -684,8 +722,16 @@ const Sidebar = styled.div`
   background-color: #fffff9; /* サイドバーの背景色 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* サイドバーの影 */
   z-index: 2;
-  animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
+
+  //デスクトップ版のスタイル
+  @media (min-width: 1300px) {
+    animation: ${props => props.isVisible ? slideIn : slideOut} ${props => props.isVisible ? "0.5s" : "2s"} forwards;
+  }
+  
+
+  // スマホ版のスタイル
   @media (max-width: 1300px) {
+    animation: ${props => props.isVisible ? slideIn : slideOut} 0.1s forwards;
     width: 100%;
     height: 100%;
   }
