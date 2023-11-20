@@ -678,6 +678,35 @@ const SelifParagraph = styled(StyledParagraph)`
   margin : 50;
 `;
 
+// キーフレームアニメーションの定義
+const popInAnimation = keyframes`
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+`;
+
+// Styled Componentで背景画像とアニメーションを適用
+const OpeningAnimation = styled.div`
+  width: 100%; // 必要に応じて調整
+  height: 800%; // 必要に応じて調整
+  //スクロールできないように
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #268391; 
+  animation: ${popInAnimation} 2s ease-out forwards;
+  z-index: 6;
+`;
+
 
 const FadeInSection = styled.div`
   transform: translateY(${props => (props.isVisible ? '0' : '50px')});
@@ -1401,6 +1430,13 @@ const handleSendToAPIGatewayNoise = async () => {
   
 
 return (
+  <>
+  <OpeningAnimation>
+  <h1>AIZUNDA WEB</h1> {/* テキスト部分 */}
+  </OpeningAnimation>
+
+
+
   <div style={backgroundStyle}>
   <Swiper
       // install Swiper modules
@@ -2179,6 +2215,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       </Scroll>
       
   </div>
+  </>
 );
 };
 
