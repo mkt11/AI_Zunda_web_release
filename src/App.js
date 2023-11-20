@@ -452,15 +452,16 @@ const ZundamonImageSetting = styled.img`
 
   animation: rotate 1s linear;
   animation-delay: 0.5s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
   animation-fill-mode: both;
-  animation: ${props => props.isVisible ? reverseIn : reverseOut} 0.5s forwards;
+  animation: ${props => props.isVisible ? reverseIn : reverseOut} ${props => props.isVisible ? "1s" : "0.5s"} forwards;
+  
 
 `;
 
 const reverseIn = keyframes`
 0% {
-  transform: rotateY(180deg);
+  transform: rotateY(0deg);
   opacity: 1;
 }
 50% {
@@ -468,7 +469,7 @@ const reverseIn = keyframes`
   opacity: 1;
 }
 100% {
-  transform: rotateY(0);
+  transform: rotateY(180deg);
   opacity: 0;
 }
 `;
@@ -478,7 +479,7 @@ const reverseOut = keyframes`
   transform: rotateY(180deg);
   opacity: 0;
 }
-80% {
+50% {
   transform: rotateY(90deg);
   opacity: 1;
 }
@@ -487,7 +488,6 @@ const reverseOut = keyframes`
   opacity: 1;
 }
 `;
-
 
 
 const ZundamonImageSetting2 = styled.img`
@@ -506,10 +506,10 @@ const ZundamonImageSetting2 = styled.img`
 
   animation: rotate2 1s linear;
   animation-delay: 0.5s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
   animation-fill-mode: both;
 
-  animation: ${props => props.isVisible ? reverseIn2 : reverseOut2} 0.5s forwards;
+  animation: ${props => props.isVisible ? reverseIn2 : reverseOut2} ${props => props.isVisible ? "1s" : "0.5s"} forwards;
 `;
 
 const  reverseIn2 = keyframes`
@@ -532,12 +532,12 @@ const reverseOut2 = keyframes`
   transform: rotateY(0deg);
   opacity: 1;
 }
-80% {
+50% {
   transform: rotateY(90deg);
   opacity: 1;
 }
 100% {
-  transform: rotateY();
+  transform: rotateY(180deg);
   opacity: 0;
 }
 `;
