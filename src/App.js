@@ -548,6 +548,25 @@ const reverseOut2 = keyframes`
 }
 `;
 
+// キーフレームアニメーションの定義
+const popInAnimation2 = keyframes`
+  0% {
+    opacity: 1;
+    scale: 1;
+  }
+
+  50% {
+    opacity: 1;
+    scale: 1.2;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+    scale: 1;
+  }
+`;
+
 const TitleLogo = styled.img`
 /* デスクトップ向けのスタイル */
   @media (min-width: 1300px) {
@@ -560,6 +579,7 @@ const TitleLogo = styled.img`
   margin:0 auto;
   display:block;
   width:70%;
+  animation: ${popInAnimation2} 2s ease-out forwards;
 `;
 
 const Images = styled.img`
