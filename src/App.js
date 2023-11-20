@@ -233,6 +233,14 @@ const Container7 = styled.div`
 
 
 const ContainerSideBar = styled.div`
+@media (min-width: 1300px) {
+}
+text-align: center;
+te
+/* スマホ向けのスタイル */
+@media (max-width: 1300px) {
+
+}
   width: 80%;
   background-color: #f8f4e6; /* サイドバーの背景色 */
   border-radius: 30px;
@@ -300,7 +308,7 @@ const ButtonSetting = styled.button`
   position: absolute;
   top: 0;
   left: 0px;
-  zIndex: 999;
+  z-index: 1;
 
   &:disabled {
     color: #848484;
@@ -687,7 +695,6 @@ const Sidebar = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* サイドバーの影 */
 
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
-  z-index: 1;
   @media (max-width: 1300px) {
     width: 100%;
     height: 100%;
@@ -905,7 +912,7 @@ const App = () => {
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
       
-          <Title style={{"text-align":"center" , "fontSize":"42px"}}>詳細設定</Title>
+          <Title style={{"text-align":"center" }}>詳細設定</Title>
 
           <ContainerSideBar> 
           <h2 style={{"text-align":"center" }}>ユーザーの性別</h2>
