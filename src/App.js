@@ -460,6 +460,7 @@ const ZundamonImageSetting = styled.img`
   animation-delay: 0.5s;
   animation-timing-function: ease;
   animation-fill-mode: both;
+  // animation: ${props => props.isVisible ? reverseIn : reverseOut} forwards;
   animation: ${props => props.isVisible ? reverseIn : reverseOut} ${props => props.isVisible ? "1s" : "0.5s"} forwards;
   
 
@@ -515,6 +516,7 @@ const ZundamonImageSetting2 = styled.img`
   animation-timing-function: ease;
   animation-fill-mode: both;
 
+  // animation: ${props => props.isVisible ? reverseIn2 : reverseOut2} forwards;
   animation: ${props => props.isVisible ? reverseIn2 : reverseOut2} ${props => props.isVisible ? "1s" : "0.5s"} forwards;
 `;
 
@@ -856,6 +858,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState(6);
   const [selectchar, setselectchar] = useState(0);
+  const [pagechange, setpagechange] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
   const [selectedOption, setSelectedOption] = useState("man");
@@ -867,6 +870,7 @@ const App = () => {
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   const [isContainerVisible, setContainerVisible] = useState(false);
   const [secondnum , setSecondnum] = useState(4);
+  console.log(pagechange)
 
   React.useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -989,6 +993,7 @@ const App = () => {
 
   const toggleSidebar = () => {
     setContainerVisible(!isContainerVisible);
+    setpagechange(false);
   };
 
   const ImageSetting = (props) => {
@@ -1000,13 +1005,13 @@ const App = () => {
     );
   };
 
-  const MainPage = (props) => { 
+  const MainPage = (props) => {
     return (
       <>
 <Container2>
 
 <ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-        <Sidebar isVisible={isContainerVisible}>
+        {pagechange === false && <Sidebar isVisible={isContainerVisible}>
         <ImageSetting png={props.png} name={props.name} />
           {/* サイドバーの内容 */}
       
@@ -1086,7 +1091,7 @@ const App = () => {
     
 
 
-    </Sidebar>
+    </Sidebar>}
 
   
   {   
@@ -1323,9 +1328,9 @@ const App = () => {
 
   const getCharName = (selectchar) => {
     switch (selectchar) {
-      case 0:
-        return "zunda";
       case 1:
+        return "zunda";
+      case 0:
         return "metan";
       case 2:
         return "kiritan";
@@ -1381,7 +1386,7 @@ const App = () => {
         const config = {
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "audio/wav",  
+                "Accept": "audio/wav",
             },
             responseType: 'blob',
         };
@@ -1488,33 +1493,252 @@ return (
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
       slidesPerView={1}
+      initialSlide={1}
       navigation
-      loop={true}
+      loop={false}
       realIndex
       noSwiping = "input"
       pagination={{ clickable: true }}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={(swiper) => {
-        console.log(swiper.realIndex)
+        // console.log(swiper.realIndex)
         setselectchar(swiper.realIndex)
-        if(swiper.realIndex === 0)
+        setpagechange(true)
+        //ずんだもん
+        if(swiper.realIndex === 1)
           changeBackgroundColor('#cff7e8');
-        else if(swiper.realIndex === 1)
+        //めたん
+        else if(swiper.realIndex === 0)
           changeBackgroundColor('#eebbcb');
+        //きりたん
         else if(swiper.realIndex === 2)
           changeBackgroundColor('#b28c6e');
-          
+        
       }}
     >
+        <SwiperSlide>
+        {/* <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage> */}
+
+
+
+
+
+
+
+
+
+
+        <Container2>
+
+<ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
+{pagechange === false && <Sidebar isVisible={isContainerVisible}>
+
+  <ZundamonImageSetting isVisible={isContainerVisible} src="metan.png" alt="めたん"/>
+  <ZundamonImageSetting2 isVisible={isContainerVisible} src="metan_recording.png" alt="めたん" />
+
+    {/* サイドバーの内容 */}
+
+    <Title style={{"text-align":"center" }}>詳細設定</Title>
+
+    <ContainerSideBar>
+    <h2 style={{"text-align":"center" }}>ユーザーの性別</h2>
+    <div className="mydict" >
+
+<div>
+  <label>
+    <input type="radio" name="めたん"value="man" onChange={handleOptionChange} checked={selectedOption === 'man'} />
+    <span>男性</span>
+  </label>
+  <label>
+    <input type="radio" name="めたん"value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
+    <span>女性</span>
+  </label>
+</div>
+</div>
+</ContainerSideBar>
+
+
+<ContainerSideBar> 
+    <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
+    <div className="mydict" >  
+
+<div>
+  <label>
+    <input type="radio" name={"めたんgpu"} value="gpuon" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuon'} />
+    <span>ON</span>
+  </label>
+  <label>
+    <input type="radio" name={"めたんgpu"} value="gpuoff" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuoff'}/>
+    <span>OFF</span>
+  </label>
+</div>
+</div>
+</ContainerSideBar>
+
+<ContainerSideBar> 
+    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
+    <div className="mydict" >  
+
+<div>
+  <label>
+    <input type="radio" name={"めたんvox"} value="voxon" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxon'} />
+    <span>ON</span>
+  </label>
+  <label>
+    <input type="radio" name={"めたんvox"} value="voxoff" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxoff'}/>
+    <span>OFF</span>
+  </label>
+</div>
+</div>
+</ContainerSideBar>
+
+
+<ContainerSideBar> 
+    <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
+    <div className="mydict" >  
+
+<div>
+  <label>
+    <input type="radio" name={"めたんnoise"} value="noiseon" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseon'} />
+    <span>ON</span>
+  </label>
+  <label>
+    <input type="radio" name={"めたんnoise"} value="noiseoff" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseoff'}/>
+    <span>OFF</span>
+  </label>
+</div>
+</div>
+</ContainerSideBar>
+
+</Sidebar>}
+
+
+{   
+<Container isVisible={isContainerVisible}>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet"></link>
+
+<Title style={{"margin-bottom" : "8px" }}>AIめたん</Title>
+{!recording && !loading && <ZundamonImageMobile src="/metan.png" alt="めたん"/>}
+{recording && !loading && <ZundamonImageMobile  src="/metan_recording.png"  alt="めたん"/>}
+{!recording && loading && <ZundamonImageMobile  src="/metan_server.png" alt="めたん"/>}
+  <Description>
+    録音ボタンをクリックして録音を開始 
+  </Description>
+  <Description>
+    停止ボタンをクリックして録音を停止
+  </Description>     
+  <Description>
+    その後、サーバーへ送信してAIめたんになってください。
+  </Description>
+{transcript !== "" &&     
+<Container3 style={{
+"backgroundColor": "#fdeff2", 
+"borderRadius": "5%",
+"color": "#696969", 
+// "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)", // 豊かな影をつける
+"fontFamily": "'M PLUS Rounded 1c', sans-serif",
+"fontSize": "1.2em", 
+"fontWeight": "bold", 
+"letterSpacing": "0.05em",
+"display": "flex", 
+"alignItems": "center", 
+"justifyContent": "center", 
+"textTransform": "uppercase",
+padding: "10px",
+"margin": "10px", 
+"transition": "transform 0.2s ease-in-out", // ホバー時の滑らかな変化を追加
+position: "relative", // 吹き出しの尾のための相対位置設定
+}}>
+
+
+<p style={{ marginLeft:"10px",marginRight:"10px",marginBottom: "10px", marginTop: "10px" }}>{transcript}</p>
+{transcript !== "" && <AudioButtonDL style={{ marginBottom: "10px",marginTop: "10px" }} color="#ee827c" dokuid={2} selif={transcript} ></AudioButtonDL>}
+</Container3> }
+
+  <Container3>
+  <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
+      録音ボタン 
+  </Button>
+
+  <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
+      録音停止ボタン
+  </Button>
+{ selectedOptionnoise === "noiseon" &&
+  <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
+      AIノイズキャンセリング
+  </Button>}
+
+  <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
+      AIでめたん
+  </Button>
+
+  </Container3>
+  
+  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && <div>残り時間: {countdown}秒</div>}
+
+  {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
+
+  {audioData && <audio src={audioData} controls style={{"margin-bottom":"8px"}} />}
+
+  {noiseAudio && (
+      <div>
+          <audio src={noiseAudioUrl} controls style={{"margin-bottom":"8px"}} />
+      </div>
+  )}
+
+  {sagemakerAudio && (
+      <div>
+          <audio src={sagemakerAudio} controls controlslist="nodownload" style={{"margin-bottom":"8px"}}/>
+      </div>
+  )}
+
+</Container>
+}
+
+{!recording && !loading &&  <ZundamonImage isVisible={isContainerVisible} src="/metan.png" alt="めたん" />}
+{recording && !loading &&<ZundamonImage isVisible={isContainerVisible} src="/metan_recording.png" alt="めたん" />}
+{!recording && loading && <ZundamonImage isVisible={isContainerVisible} src="/metan_server.png" alt="めたん" />}
+
+</Container2>
+
+
+
+        <FadeInSection isVisible={isVisible}>
+
+        <Containerchar>
+        <ZundamonImageSelif2 src="/metansetumei.png" alt="Zundamon" />
+          <Container7> 
+            
+              <div className="mydict" style={charStyle}>
+            <Title>四国めたん</Title>
+            <AudioButton audio="/metan1.wav"  color ="#ee827c"></AudioButton>
+            </div>
+              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。<br></br>
+                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。<br></br>
+                同じ音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank"  rel="noreferrer">VOICEVOX</a>のキャラクターであり、文字を音声に変換する。
+              </h3>
+              <Container3>
+              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
+              onChange={(event) => setText(event.target.value)} 
+              />
+              <AudioButtonDL selif = {text} color ="#ee827c" dokuid={2} ></AudioButtonDL>
+              </Container3>
+          </Container7>
+        
+      </Containerchar>
+      </FadeInSection>
+      </SwiperSlide>
       <SwiperSlide>
       {/* <MainPage name="ずんだもん" png="/zunda.png" png_r="/zunda_recording.png" png_s="/zunda_server.png" color="" dokuid={3}></MainPage>    */}
       <Container2>
 
       <ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-        <Sidebar isVisible={isContainerVisible}>
+        {pagechange === false && <Sidebar isVisible={isContainerVisible}>
 
-        <ZundamonImageSetting isVisible={isContainerVisible} src="zunda.png" alt="ずんだもん"/>
-        <ZundamonImageSetting2 isVisible={isContainerVisible} src="zunda_yubisasi.png" alt="ずんだもん" />
+        <ImageSetting isVisible={isContainerVisible} png="zunda.png" png2="zunda_yubisasi.png" name="ずんだもん"/>
+        {/* <ZundamonImageSetting isVisible={isContainerVisible} src="zunda.png" alt="ずんだもん"/>
+        <ZundamonImageSetting2 isVisible={isContainerVisible} src="zunda_yubisasi.png" alt="ずんだもん" /> */}
       
           {/* サイドバーの内容 */}
       
@@ -1590,7 +1814,7 @@ return (
     </div>
     </ContainerSideBar>
 
-    </Sidebar>
+    </Sidebar>}
 
   
   {   
@@ -1712,219 +1936,7 @@ return (
       </SwiperSlide>
 
 
-      <SwiperSlide>
-        {/* <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage> */}
 
-
-
-
-
-
-
-
-
-
-        <Container2>
-
-<ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-  <Sidebar isVisible={isContainerVisible}>
-
-  <ZundamonImageSetting isVisible={isContainerVisible} src="metan.png" alt="めたん"/>
-  <ZundamonImageSetting2 isVisible={isContainerVisible} src="metan_recording.png" alt="めたん" />
-
-    {/* サイドバーの内容 */}
-
-    <Title style={{"text-align":"center" }}>詳細設定</Title>
-
-    <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>ユーザーの性別</h2>
-    <div className="mydict" >  
-
-<div>
-  <label>
-    <input type="radio" name="めたん"value="man" onChange={handleOptionChange} checked={selectedOption === 'man'} />
-    <span>男性</span>
-  </label>
-  <label>
-    <input type="radio" name="めたん"value="woman" onChange={handleOptionChange} checked={selectedOption === 'woman'}/>
-    <span>女性</span>
-  </label>
-</div>
-</div>
-</ContainerSideBar>
-
-
-<ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
-    <div className="mydict" >  
-
-<div>
-  <label>
-    <input type="radio" name={"めたんgpu"} value="gpuon" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuon'} />
-    <span>ON</span>
-  </label>
-  <label>
-    <input type="radio" name={"めたんgpu"} value="gpuoff" onChange={handleOptionChangegpu} checked={selectedOptiongpu === 'gpuoff'}/>
-    <span>OFF</span>
-  </label>
-</div>
-</div>
-</ContainerSideBar>
-
-<ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
-    <div className="mydict" >  
-
-<div>
-  <label>
-    <input type="radio" name={"めたんvox"} value="voxon" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxon'} />
-    <span>ON</span>
-  </label>
-  <label>
-    <input type="radio" name={"めたんvox"} value="voxoff" onChange={handleOptionChangevox} checked={selectedOptionvox === 'voxoff'}/>
-    <span>OFF</span>
-  </label>
-</div>
-</div>
-</ContainerSideBar>
-
-
-<ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
-    <div className="mydict" >  
-
-<div>
-  <label>
-    <input type="radio" name={"めたんnoise"} value="noiseon" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseon'} />
-    <span>ON</span>
-  </label>
-  <label>
-    <input type="radio" name={"めたんnoise"} value="noiseoff" onChange={handleOptionChangenoise} checked={selectedOptionnoise === 'noiseoff'}/>
-    <span>OFF</span>
-  </label>
-</div>
-</div>
-</ContainerSideBar>
-
-</Sidebar>
-
-
-{   
-<Container isVisible={isContainerVisible}>
-<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet"></link>
-
-<Title style={{"margin-bottom" : "8px" }}>AIめたん</Title>
-{!recording && !loading && <ZundamonImageMobile src="/metan.png" alt="めたん"/>}
-{recording && !loading && <ZundamonImageMobile  src="/metan_recording.png"  alt="めたん"/>}
-{!recording && loading && <ZundamonImageMobile  src="/metan_server.png" alt="めたん"/>}
-  <Description>
-    録音ボタンをクリックして録音を開始 
-  </Description>
-  <Description>
-    停止ボタンをクリックして録音を停止
-  </Description>     
-  <Description>
-    その後、サーバーへ送信してAIめたんになってください。
-  </Description>
-{transcript !== "" &&     
-<Container3 style={{
-"backgroundColor": "#fdeff2", 
-"borderRadius": "5%",
-"color": "#696969", 
-// "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)", // 豊かな影をつける
-"fontFamily": "'M PLUS Rounded 1c', sans-serif",
-"fontSize": "1.2em", 
-"fontWeight": "bold", 
-"letterSpacing": "0.05em",
-"display": "flex", 
-"alignItems": "center", 
-"justifyContent": "center", 
-"textTransform": "uppercase",
-padding: "10px",
-"margin": "10px", 
-"transition": "transform 0.2s ease-in-out", // ホバー時の滑らかな変化を追加
-position: "relative", // 吹き出しの尾のための相対位置設定
-}}>
-
-
-<p style={{ marginLeft:"10px",marginRight:"10px",marginBottom: "10px", marginTop: "10px" }}>{transcript}</p>
-{transcript !== "" && <AudioButtonDL style={{ marginBottom: "10px",marginTop: "10px" }} color="#ee827c" dokuid={2} selif={transcript} ></AudioButtonDL>}
-</Container3> }
-
-  <Container3>
-  <Button onClick={handleStartRecording} disabled={recording} color={buttonColor}>
-      録音ボタン 
-  </Button>
-
-  <Button onClick={handleStopRecording} disabled={!recording} color={buttonColor}>
-      録音停止ボタン
-  </Button>
-{ selectedOptionnoise === "noiseon" &&
-  <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
-      AIノイズキャンセリング
-  </Button>}
-
-  <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
-      AIでめたん
-  </Button>
-
-  </Container3>
-  
-  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
-  {recording && <div>残り時間: {countdown}秒</div>}
-
-  {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
-
-  {audioData && <audio src={audioData} controls style={{"margin-bottom":"8px"}} />}
-
-  {noiseAudio && (
-      <div>
-          <audio src={noiseAudioUrl} controls style={{"margin-bottom":"8px"}} />
-      </div>
-  )}
-
-  {sagemakerAudio && (
-      <div>
-          <audio src={sagemakerAudio} controls controlslist="nodownload" style={{"margin-bottom":"8px"}}/>
-      </div>
-  )}
-
-</Container>
-}
-
-{!recording && !loading &&  <ZundamonImage isVisible={isContainerVisible} src="/metan.png" alt="めたん" />}
-{recording && !loading &&<ZundamonImage isVisible={isContainerVisible} src="/metan_recording.png" alt="めたん" />}
-{!recording && loading && <ZundamonImage isVisible={isContainerVisible} src="/metan_server.png" alt="めたん" />}
-
-</Container2>
-
-
-
-        <FadeInSection isVisible={isVisible}>
-
-        <Containerchar>
-        <ZundamonImageSelif2 src="/metansetumei.png" alt="Zundamon" />
-          <Container7> 
-            
-              <div className="mydict" style={charStyle}>
-            <Title>四国めたん</Title>
-            <AudioButton audio="/metan1.wav"  color ="#ee827c"></AudioButton>
-            </div>
-              <h3>常に金欠。趣味は中二病妄想。誰にでも遠慮しないので、基本的にタメ口。<br></br>
-                ずんだもんの友達。口調はお嬢様、「ですわ」「～わよ」が語尾につく。<br></br>
-                同じ音声合成ソフト<a href="https://voicevox.hiroshiba.jp/" target="_blank"  rel="noreferrer">VOICEVOX</a>のキャラクターであり、文字を音声に変換する。
-              </h3>
-              <Container3>
-              <input style={inputStyle} placeholder="セリフを入力"  className="input" value ={text} 
-              onChange={(event) => setText(event.target.value)} 
-              />
-              <AudioButtonDL selif = {text} color ="#ee827c" dokuid={2} ></AudioButtonDL>
-              </Container3>
-          </Container7>
-        
-      </Containerchar>
-      </FadeInSection>
-      </SwiperSlide>
 
       <SwiperSlide>
         {/* <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage> */}
@@ -1940,7 +1952,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
         <Container2>
 
 <ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
-  <Sidebar isVisible={isContainerVisible}>
+ {pagechange === false && <Sidebar isVisible={isContainerVisible}>
 
   <ZundamonImageSetting isVisible={isContainerVisible} src="kiritan.png" alt="きりたん"/>
   <ZundamonImageSetting2 isVisible={isContainerVisible} src="kiritan_recording.png" alt="きりたん" />
@@ -2019,7 +2031,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 </div>
 </ContainerSideBar>
 
-</Sidebar>
+</Sidebar>}
 
 
 {   
