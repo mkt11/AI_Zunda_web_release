@@ -236,7 +236,7 @@ const ContainerSideBar = styled.div`
 @media (min-width: 1300px) {
 }
 text-align: center;
-te
+
 /* スマホ向けのスタイル */
 @media (max-width: 1300px) {
 
@@ -308,7 +308,7 @@ const ButtonSetting = styled.button`
   position: absolute;
   top: 0;
   left: 0px;
-  z-index: 1;
+  z-index: 3;
 
   &:disabled {
     color: #848484;
@@ -382,26 +382,16 @@ const Loading = styled.div`
   }
 `;
 
-const LoadingIndicator = styled.div`
-  margin: 20px 0;
-  border: 4px solid rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  border-top: 4px solid #000;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-`;
-
 const ZundamonImageMobile = styled.img`
 
 /* デスクトップ向けのスタイル */
   @media (min-width: 1300px) {
     display: none;
+  }
+
+/* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    {props => props.isVisible ? 'display: none;' : 'display: block;'}
   }
 
   max-height: 30vh;  // 必要に応じて画像のサイズを調整します
@@ -693,7 +683,7 @@ const Sidebar = styled.div`
   height: 100%; /* サイドバーの高さ */
   background-color: #fffff9; /* サイドバーの背景色 */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* サイドバーの影 */
-
+  z-index: 2;
   animation: ${props => props.isVisible ? slideIn : slideOut} 0.5s forwards;
   @media (max-width: 1300px) {
     width: 100%;
@@ -733,23 +723,6 @@ class TtsQuestV3Voicevox extends Audio {
   }
 }
 
-// const Sidebar = () => {
-//   return (
-//     <div className="sidebar">
-//       <h2>詳細設定</h2>
-//       <p>詳細設定は現在準備中です。</p>
-//     </div>
-//   );
-// }
-
-// const Sidebar = () => {
-//   return (
-//     <div className="sidebar">
-//       <h2>詳細設定</h2>
-//       <p>詳細設定は現在準備中です。</p>
-//     </div>
-//   );
-// }
 
 const App = () => {
   const [recording, setRecording] = useState(false);
@@ -1075,7 +1048,7 @@ const App = () => {
 
   </Container>
   }
-
+    
     {!recording && !loading &&  <ZundamonImage isVisible={isContainerVisible} src={props.png} alt={props.name} />}
     {recording && !loading &&<ZundamonImage isVisible={isContainerVisible} src={props.png_r} alt={props.name} />}
     {!recording && loading && <ZundamonImage isVisible={isContainerVisible} src={props.png_s} alt={props.name} />}
@@ -1249,6 +1222,7 @@ const App = () => {
         else if(randomint === 1){
           return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
         }
+        return "error";
         
       default:
         return "error";
