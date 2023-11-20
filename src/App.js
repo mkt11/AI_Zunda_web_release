@@ -548,7 +548,19 @@ const reverseOut2 = keyframes`
 }
 `;
 
-
+const TitleLogo = styled.img`
+/* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    width: 50%;
+  }
+/* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    width: 70%;
+  }
+  margin:0 auto;
+  display:block;
+  width:70%;
+`;
 
 const Images = styled.img`
 
@@ -697,14 +709,16 @@ const popInAnimation = keyframes`
 // Styled Componentで背景画像とアニメーションを適用
 const OpeningAnimation = styled.div`
   width: 100%; // 必要に応じて調整
-  height: 800%; // 必要に応じて調整
+  height: 100%; // 必要に応じて調整
   //スクロールできないように
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #268391; 
+  background-color: #cff7e8;
   animation: ${popInAnimation} 2s ease-out forwards;
   z-index: 6;
+  display: flex;
+  align-items: center;
 `;
 
 
@@ -831,6 +845,13 @@ const App = () => {
   const [isContainerVisible, setContainerVisible] = useState(false);
   const [secondnum , setSecondnum] = useState(4);
 
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const timer = setTimeout(() => {
+      document.body.style.overflow = "auto";
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -1432,7 +1453,8 @@ const handleSendToAPIGatewayNoise = async () => {
 return (
   <>
   <OpeningAnimation>
-  <h1>AIZUNDA WEB</h1> {/* テキスト部分 */}
+    <TitleLogo src="/logo_transparent.png" alt="Logo"/>
+  {/* <img src="/logo_transparent.png" alt="Logo" style={{"margin":"0 auto", "display":"block", "width":"70%"}}/> */}
   </OpeningAnimation>
 
 
