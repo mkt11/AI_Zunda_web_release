@@ -1498,7 +1498,8 @@ return (
       loop={false}
       realIndex
       noSwiping = "input"
-      pagination={{ clickable: true }}
+      pagination={{ clickable: true}}
+      threshold={isContainerVisible ? 1000000 : 10}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={(swiper) => {
         // console.log(swiper.realIndex)
@@ -1518,16 +1519,6 @@ return (
     >
         <SwiperSlide>
         {/* <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage> */}
-
-
-
-
-
-
-
-
-
-
         <Container2>
 
 <ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
