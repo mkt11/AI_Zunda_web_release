@@ -562,8 +562,9 @@ const popInAnimation2 = keyframes`
 
   100% {
     opacity: 0;
-    display: none;
+    z-index: -1;
     scale: 1;
+    display: none;
   }
 `;
 
@@ -580,6 +581,7 @@ const TitleLogo = styled.img`
   display:block;
   width:70%;
   animation: ${popInAnimation2} 2s ease-out forwards;
+  z-index: 6;
 `;
 
 const Images = styled.img`
@@ -722,6 +724,7 @@ const popInAnimation = keyframes`
 
   100% {
     opacity: 0;
+    z-index: -1;
     display: none;
   }
 `;
