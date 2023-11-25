@@ -1146,7 +1146,6 @@ const App = () => {
     switch (selectchar) {
       case "gpuon":
         return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/devgpu";
-        // return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
       case "gpuoff":
         if(randomint === 0){
           return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
