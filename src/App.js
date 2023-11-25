@@ -917,7 +917,7 @@ const App = () => {
     transition: 'background-color 1s ease', // 1秒かけて背景色が変わる
     backgroundColor: backgroundColor, // 現在の背景色
     height: '100%', // 画面全体をカバー
-    width: '99vw',
+    width: '100%',
     position: "relative",
     top: 0,
     left: 0,
