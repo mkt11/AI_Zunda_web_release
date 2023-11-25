@@ -1352,7 +1352,7 @@ return (
 
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
+    <h2 style={{"text-align":"center" }}>GPU推論</h2>
     <div className="mydict" >  
 
 <div>
@@ -1369,7 +1369,7 @@ return (
 </ContainerSideBar>
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
+    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOX</h2>
     <div className="mydict" >  
 
 <div>
@@ -1387,7 +1387,7 @@ return (
 
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
+    <h2 style={{"text-align":"center" }}>ノイズキャンセリング</h2>
     <div className="mydict" >  
 
 <div>
@@ -1528,7 +1528,7 @@ return (
 
 
     <ContainerSideBar> 
-          <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
+          <h2 style={{"text-align":"center" }}>GPU推論</h2>
           <div className="mydict" >  
 
       <div>
@@ -1545,7 +1545,7 @@ return (
     </ContainerSideBar>
 
     <ContainerSideBar> 
-          <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
+          <h2 style={{"text-align":"center" }}>音声認識　VOICEVOX</h2>
           <div className="mydict" >  
 
       <div>
@@ -1563,7 +1563,7 @@ return (
 
 
     <ContainerSideBar> 
-          <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
+          <h2 style={{"text-align":"center" }}>ノイズキャンセリング</h2>
           <div className="mydict" >  
 
       <div>
@@ -1733,7 +1733,7 @@ return (
 
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>GPU推論モード</h2>
+    <h2 style={{"text-align":"center" }}>GPU推論</h2>
     <div className="mydict" >  
 
 <div>
@@ -1750,7 +1750,7 @@ return (
 </ContainerSideBar>
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOXモード</h2>
+    <h2 style={{"text-align":"center" }}>音声認識　VOICEVOX</h2>
     <div className="mydict" >  
 
 <div>
@@ -1768,7 +1768,7 @@ return (
 
 
 <ContainerSideBar> 
-    <h2 style={{"text-align":"center" }}>ノイズキャンセリングモード</h2>
+    <h2 style={{"text-align":"center" }}>ノイズキャンセリング</h2>
     <div className="mydict" >  
 
 <div>
@@ -1838,7 +1838,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       録音停止ボタン
   </Button>
 { selectedOptionnoise === "noiseon" &&
-  <Button isabled={!audioData || loading} onClick={handleSendToAPIGatewayNoise} color={buttonColor}>
+  <Button disabled={!audioData || loading} onClick={handleSendToAPIGatewayNoise} color={buttonColor}>
       AIノイズキャンセリング
   </Button>}
 
