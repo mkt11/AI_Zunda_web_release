@@ -996,15 +996,6 @@ const App = () => {
     setpagechange(false);
   };
 
-  const ImageSetting = (props) => {
-    return (
-      <>
-        <ZundamonImageSetting isVisible={isContainerVisible} src={props.png} alt={props.name} />
-        <ZundamonImageSetting2 isVisible={isContainerVisible} src={props.png2} alt={props.name} />
-      </>
-    );
-  };
-
   React.useEffect(() => {
     const handleScroll = () => {
       const position = window.scrollY;
@@ -1154,13 +1145,14 @@ const App = () => {
     const randomint = Math.floor( Math.random() * 2 ) ;
     switch (selectchar) {
       case "gpuon":
-        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/devgpu";
+        // return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
       case "gpuoff":
         if(randomint === 0){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
         }
         else if(randomint === 1){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
         }
         return "error";
         
@@ -1282,7 +1274,6 @@ const handleSendToAPIGatewayNoise = async () => {
   }
 };
 
-
     const {
       transcript,
       resetTranscript,
@@ -1330,14 +1321,6 @@ return (
     >
       <SwiperSlide>
         {/* <MainPage name="きりたん" png="/kiritan.png" png_r="/kiritan_recording.png" png_s = "/kiritan_server.png"></MainPage> */}
-
-
-
-
-
-
-
-
 
         <Container2>
 
@@ -1453,11 +1436,11 @@ return (
       録音停止ボタン
   </Button>
 { selectedOptionnoise === "noiseon" &&
-  <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
+  <Button disabled={!audioData || loading} onClick={handleSendToAPIGatewayNoise} color={buttonColor}>
       AIノイズキャンセリング
   </Button>}
 
-  <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
+  <Button disabled={!audioData || loading} onClick={handleSendToAPIGateway} color={buttonColor}>
       AIできりたん
   </Button>
 
@@ -1491,18 +1474,6 @@ return (
 
 </Container2>
 
-
-
-
-
-
-
-
-
-
-
-
-
         <FadeInSection isVisible={isVisible}>
 
         <Containerchar>
@@ -1531,9 +1502,9 @@ return (
       <ButtonSetting color={buttonColor} disabled={recording || loading} onClick = {toggleSidebar} >詳細設定</ButtonSetting>
         {pagechange === false && <Sidebar isVisible={isContainerVisible}>
 
-        <ImageSetting isVisible={isContainerVisible} png="zunda.png" png2="zunda_yubisasi.png" name="ずんだもん"/>
-        {/* <ZundamonImageSetting isVisible={isContainerVisible} src="zunda.png" alt="ずんだもん"/>
-        <ZundamonImageSetting2 isVisible={isContainerVisible} src="zunda_yubisasi.png" alt="ずんだもん" /> */}
+        {/* <ImageSetting isVisible={isContainerVisible} png="zunda.png" png2="zunda_yubisasi.png" name="ずんだもん"/> */}
+        <ZundamonImageSetting isVisible={isContainerVisible} src="zunda.png" alt="ずんだもん"/>
+        <ZundamonImageSetting2 isVisible={isContainerVisible} src="zunda_yubisasi.png" alt="ずんだもん" />
       
           {/* サイドバーの内容 */}
       
@@ -1663,11 +1634,11 @@ return (
             録音停止ボタン
         </Button>
     { selectedOptionnoise === "noiseon" &&
-        <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
+        <Button disabled={!audioData || loading} onClick={handleSendToAPIGatewayNoise} color={buttonColor}>
             AIノイズキャンセリング
         </Button>}
 
-        <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
+        <Button disabled={!audioData || loading} onClick={handleSendToAPIGateway} color={buttonColor}>
             AIでずんだもん
         </Button>
   
@@ -1729,7 +1700,6 @@ return (
       </Containerchar>
       </FadeInSection>
       </SwiperSlide>
-
 
       <SwiperSlide>
         {/* <MainPage name="めたん" png="/metan.png" png_r="/metan_recording.png" png_s = "/metan_server.png"  color2 ="#ee827c" dokuid={2}></MainPage> */}
@@ -1869,11 +1839,11 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       録音停止ボタン
   </Button>
 { selectedOptionnoise === "noiseon" &&
-  <Button onClick={handleSendToAPIGatewayNoise} disabled={!audioData} color={buttonColor}>
+  <Button isabled={!audioData || loading} onClick={handleSendToAPIGatewayNoise} color={buttonColor}>
       AIノイズキャンセリング
   </Button>}
 
-  <Button onClick={handleSendToAPIGateway} disabled={!audioData} color={buttonColor}>
+  <Button disabled={!audioData || loading} onClick={handleSendToAPIGateway} color={buttonColor}>
       AIでめたん
   </Button>
 
@@ -1934,14 +1904,6 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       </Containerchar>
       </FadeInSection>
       </SwiperSlide>
-
-
-
-
-
-
-
-
     </Swiper>
 
     <FadeInSection2 isVisible={isVisible2}>
