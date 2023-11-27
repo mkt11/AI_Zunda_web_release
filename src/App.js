@@ -1145,13 +1145,13 @@ const App = () => {
     const randomint = Math.floor( Math.random() * 2 ) ;
     switch (selectchar) {
       case "gpuon":
-        return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/devgpu";
+        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
       case "gpuoff":
         if(randomint === 0){
-          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
         }
         else if(randomint === 1){
-          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
         }
         return "error";
         
