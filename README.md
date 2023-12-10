@@ -25,7 +25,7 @@
   - 
   <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
-<img src="img/概要.png" width="150%">
+<img src="img/概要-2.png" width="100%">
 
 
 ## 紹介動画
