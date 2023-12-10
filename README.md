@@ -45,13 +45,14 @@ https://ai-zunda-web.vercel.app/
 <br> </br> 
 
 - 「録音停止ボタン」をクリック<br> </br> 
- <img src="img/2.png" width="100%"> 
+  <img src="img/2.png" width="100%"> 
 <br> </br>   
 - 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
 <br> </br>
- <img src="img/3.png" width="100%"> 
+  <img src="img/3.png" width="100%"> 
 - 「詳細設定」を選択 → いろいろなモードに切り替えることができる
- <img src="img/4.png" width="100%"> 
+<br> </br>
+  <img src="img/4.png" width="100%"> 
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -99,10 +100,17 @@ https://ai-zunda-web.vercel.app/
   - ### API Gateway
     - アプリケーションのフロントエンドからリクエストを受け取る
 
-- ### VOICEVOX
-  - 
+- ### VOICEVOX API
+    <img src="img/voicevox-logo.png" width="10%">
+
+    -  テキストを打ち込み、キャラクターの音声に変換させる
+
+- ### WebSpeechAPI
+  - リアルタイムで実際に話した声をテキストに変換させる
 
 - ### React/Node.js
+    <img src="img/React-Logo.png" width="10%">
+
     - AI Zunda WebのサイトのUI部分の実装
     - 画面サイズによってレイアウト崩れが起きないように作成
 - ### デプロイ
