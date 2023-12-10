@@ -14,9 +14,20 @@
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
 </p>
 
+## NEWS
+- 技育アドバンスに出場！　　
+  - 
+  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる
+- <a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 岐阜大学ホームページ</a>で、最優秀賞を受賞したことが紹介されました！
+  - 
+
+- 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
+  - 
+  <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
-- 自分の話した声をずんだもんの声に変換させる
-- AIモデルによってリアルタイムで推論をさせる
+<img src="img/概要-2.png" width="100%">
+
+
 ## 紹介動画
 以下のサムネをクリック！  
 
@@ -29,7 +40,6 @@ https://ai-zunda-web.vercel.app/
 
 ## 利用方法
 - 上記リンクにアクセス
-- 男性か女性を選択
 - 「録音ボタン」をクリックして話す  
   
   <img src="img/利用1.png" width="70%">
@@ -50,23 +60,30 @@ https://ai-zunda-web.vercel.app/
 | Skill | Language & Framework |
 | :----: | :----: |
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
-| Back End| Python<br> - Pytorch |
+| Back End| Python<br> - PyTorch |
 |AI Model| RVC |
 | Cloud Service | AWS |
 | Others| Git/GitHub<br>VSCode |
 </div>
 
 ## 処理の流れ
-<img src="img/apiflow.png" width="100%">
+<img src="img/処理図.png" width="100%">
 
 ## 使用した技術の詳細
 - ### RVC(Retrieval-based-Voice-Conversion)
+  <a href="https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI"><img src="img/rvc_ui.png" width="50%"></a>
+
   - 自分の声を特定の話者が発話したような声質の発話音声に変換するAIモデル
   - 入力した音声をもとにAIモデルに推論させている
-    - 参考：https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI?shem=iosie
   - ずんだもんの音声データによって、RVCをファインチューニングしたモデルの重みを使用
     - 参考：https://zunko.jp/multimodal_dev/login.php
-  
+
+- ### Koala
+    <a href="https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI"><img src="img/picovoice.png" width="10%"></a>
+
+  - ノイズキャンセリングをするためのSDK
+  - AI Zunda WebではAWS上で動作させている
+
 - ### AWS
   リアルタイムでエンドポイント推論するために使用  
   
