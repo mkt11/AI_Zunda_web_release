@@ -1143,15 +1143,22 @@ const App = () => {
 
   const getCharName2 = (selectchar) => {
     const randomint = Math.floor( Math.random() * 2 ) ;
+    console.log(randomint);
     switch (selectchar) {
       case "gpuon":
-        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
-      case "gpuoff":
         if(randomint === 0){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+          return "https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tgpu";
         }
         else if(randomint === 1){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zunda";
+          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        }
+        return "error";
+      case "gpuoff":
+        if(randomint === 0){
+          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+        }
+        else if(randomint === 1){
+          return "https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey";
         }
         return "error";
         
@@ -1254,7 +1261,7 @@ const handleSendToAPIGatewayNoise = async () => {
 
       try {
         
-            const response = await axios.post("https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/noise", additionalData, config);
+            const response = await axios.post("https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tnoise", additionalData, config);
             const audioURL = URL.createObjectURL(response.data);
             setNoiseAudio(response.data);
             setNoiseAudioUrl(audioURL);
