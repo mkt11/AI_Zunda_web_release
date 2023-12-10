@@ -14,6 +14,16 @@
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
 </p>
 
+## NEWS
+- 技育アドバンスに出場！　　
+  - 
+  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる
+- [岐阜大学ホームページ](https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html)で、最優秀賞を受賞したことが紹介されました！
+  - 
+
+- 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
+  - 
+  <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
 - 自分の話した声をずんだもんの声に変換させる
 - AIモデルによってリアルタイムで推論をさせる
@@ -50,14 +60,14 @@ https://ai-zunda-web.vercel.app/
 | Skill | Language & Framework |
 | :----: | :----: |
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
-| Back End| Python<br> - Pytorch |
+| Back End| Python<br> - PyTorch |
 |AI Model| RVC |
 | Cloud Service | AWS |
 | Others| Git/GitHub<br>VSCode |
 </div>
 
 ## 処理の流れ
-<img src="img/apiflow.png" width="100%">
+<img src="img/処理図.png" width="100%">
 
 ## 使用した技術の詳細
 - ### RVC(Retrieval-based-Voice-Conversion)
