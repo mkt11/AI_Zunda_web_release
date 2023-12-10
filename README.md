@@ -40,11 +40,18 @@ https://ai-zunda-web.vercel.app/
 
 ## 利用方法
 - 上記リンクにアクセス
-- 「録音ボタン」をクリックして話す  
-  
-  <img src="img/利用1.png" width="70%">
-- 「録音停止ボタン」をクリック
+- 「録音ボタン」をクリックして話す<br> </br>
+  <img src="img/1.png" width="100%"> 
+<br> </br> 
+
+- 「録音停止ボタン」をクリック<br> </br> 
+ <img src="img/2.png" width="100%"> 
+<br> </br>   
 - 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
+<br> </br>
+ <img src="img/3.png" width="100%"> 
+- 「詳細設定」を選択 → いろいろなモードに切り替えることができる
+ <img src="img/4.png" width="100%"> 
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -61,7 +68,7 @@ https://ai-zunda-web.vercel.app/
 | :----: | :----: |
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
 | Back End| Python<br> - PyTorch |
-|AI Model| RVC |
+|AI Model| RVC<br>Koala |
 | Cloud Service | AWS |
 | Others| Git/GitHub<br>VSCode |
 </div>
@@ -91,6 +98,10 @@ https://ai-zunda-web.vercel.app/
     - 学習したモデル（ずんだもんの音声データでファインチューニングしたRVCモデル）に対してのエンドポイントを作成
   - ### API Gateway
     - アプリケーションのフロントエンドからリクエストを受け取る
+
+- ### VOICEVOX
+  - 
+
 - ### React/Node.js
     - AI Zunda WebのサイトのUI部分の実装
     - 画面サイズによってレイアウト崩れが起きないように作成
