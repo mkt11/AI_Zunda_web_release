@@ -39,25 +39,25 @@
 <a href="https://youtu.be/-wveWR9qSKw"><img src="img/introduce.png" width="70%"></a>
 
 ## URLとQRコード（デプロイ済み）
-https://ai-zunda-web.vercel.app/  
-
-<img src="img/QR.png" width="20%">
+- 以下のずんだもんをクリックするかQRコードを読み取るとサイトに移動できる
+  
+<a href="https://ai-zunda-web.vercel.app/"><img src="img/zunda_server.png" width="15%"></a> <img src="img/QR.png" width="20%">
 
 ## 利用方法
 - 上記リンクにアクセス
 - 「録音ボタン」をクリックして話す<br> </br>
-  <img src="img/1.png" width="100%"> 
+  <img src="img/1.png" width="70%"> 
 <br> </br> 
 
 - 「録音停止ボタン」をクリック<br> </br> 
-  <img src="img/2.png" width="100%"> 
+  <img src="img/2.png" width="70%"> 
 <br> </br>   
 - 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
 <br> </br>
-  <img src="img/3.png" width="100%"> 
+  <img src="img/3.png" width="70%"> 
 - 「詳細設定」を選択 → いろいろなモードに切り替えることができる
 <br> </br>
-  <img src="img/4.png" width="100%"> 
+  <img src="img/4.png" width="70%"> 
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -83,6 +83,17 @@ https://ai-zunda-web.vercel.app/
 <img src="img/処理図.png" width="100%">
 
 ## 使用した技術の詳細
+- ### React/Node.js
+    <img src="img/React-Logo.png" width="10%">
+
+    - AI Zunda WebのサイトのUI部分の実装
+    - 画面サイズによってレイアウト崩れが起きないように作成
+
+- ### Python/PyTorch
+    <img src="img/Python-logo-notext.svg.png" width="10%"><img src="img/pytorch_logo_icon_169823.png" width ="25%">
+
+  - RVC・Koalaによる推論の実装に使用
+
 - ### RVC(Retrieval-based-Voice-Conversion)
   <a href="https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI"><img src="img/rvc_ui.png" width="50%"></a>
 
@@ -113,11 +124,6 @@ https://ai-zunda-web.vercel.app/
 - ### WebSpeechAPI
   - リアルタイムで実際に話した声をテキストに変換させる
 
-- ### React/Node.js
-    <img src="img/React-Logo.png" width="10%">
-
-    - AI Zunda WebのサイトのUI部分の実装
-    - 画面サイズによってレイアウト崩れが起きないように作成
 - ### デプロイ
   - Webページ：Vercelを使用
   - エンドポイント：AWSのAPIGatewayを使用
