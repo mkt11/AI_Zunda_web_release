@@ -1,6 +1,6 @@
 <img src="img/aizunda.png" width="100%">
 
-# AI Zunda Web
+<br>
 <p align="center">
 <img src="https://img.shields.io/badge/-HTML5-333.svg?logo=html5&style=flat" />  
 <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=css3&style=flat" />
@@ -17,14 +17,19 @@
 ## NEWS
 - 技育アドバンスに出場！　　
   - 
-  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる
+  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる上位大会
 - <a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 岐阜大学ホームページ</a>で、最優秀賞を受賞したことが紹介されました！
+  -  
+   <a href="https://www.eng.gifu-u.ac.jp/jyouhou/2023/11/camp.html"><img src="img/teamzunda.png" width="30%"></a>
+- 東北ずんだもん公式X（旧Twitter）アカウントからリポストされました！
   - 
-
 - 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
   - 
   <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
+  - 技育CAMPマンスリーハッカソン vol.11にて、1週間の開発期間で制作
+  - その後技育アドバンス用にブラッシュアップ
+  
 <img src="img/概要-2.png" width="100%">
 
 
