@@ -1,6 +1,6 @@
 <img src="img/aizunda.png" width="100%">
 
-# AI Zunda Web
+<br>
 <p align="center">
 <img src="https://img.shields.io/badge/-HTML5-333.svg?logo=html5&style=flat" />  
 <img src="https://img.shields.io/badge/-CSS3-1572B6.svg?logo=css3&style=flat" />
@@ -17,14 +17,19 @@
 ## NEWS
 - 技育アドバンスに出場！　　
   - 
-  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる
+  - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる上位大会
 - <a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 岐阜大学ホームページ</a>で、最優秀賞を受賞したことが紹介されました！
+  -  
+   <a href="https://www.eng.gifu-u.ac.jp/jyouhou/2023/11/camp.html"><img src="img/teamzunda.png" width="30%"></a>
+- 東北ずんだもん公式X（旧Twitter）アカウントからリポストされました！
   - 
-
 - 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
   - 
   <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
+  - 技育CAMPマンスリーハッカソン vol.11にて、1週間の開発期間で制作
+  - その後技育アドバンス用にブラッシュアップ
+  
 <img src="img/概要-2.png" width="100%">
 
 
@@ -40,11 +45,19 @@ https://ai-zunda-web.vercel.app/
 
 ## 利用方法
 - 上記リンクにアクセス
-- 「録音ボタン」をクリックして話す  
-  
-  <img src="img/利用1.png" width="70%">
-- 「録音停止ボタン」をクリック
+- 「録音ボタン」をクリックして話す<br> </br>
+  <img src="img/1.png" width="100%"> 
+<br> </br> 
+
+- 「録音停止ボタン」をクリック<br> </br> 
+  <img src="img/2.png" width="100%"> 
+<br> </br>   
 - 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
+<br> </br>
+  <img src="img/3.png" width="100%"> 
+- 「詳細設定」を選択 → いろいろなモードに切り替えることができる
+<br> </br>
+  <img src="img/4.png" width="100%"> 
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -61,7 +74,7 @@ https://ai-zunda-web.vercel.app/
 | :----: | :----: |
 | Front End | HTML/CSS<br> Javascript<br> - React<br>- Node.js |
 | Back End| Python<br> - PyTorch |
-|AI Model| RVC |
+|AI Model| RVC<br>Koala |
 | Cloud Service | AWS |
 | Others| Git/GitHub<br>VSCode |
 </div>
@@ -91,7 +104,18 @@ https://ai-zunda-web.vercel.app/
     - 学習したモデル（ずんだもんの音声データでファインチューニングしたRVCモデル）に対してのエンドポイントを作成
   - ### API Gateway
     - アプリケーションのフロントエンドからリクエストを受け取る
+
+- ### VOICEVOX API
+    <img src="img/voicevox-logo.png" width="10%">
+
+    -  テキストを打ち込み、キャラクターの音声に変換させる
+
+- ### WebSpeechAPI
+  - リアルタイムで実際に話した声をテキストに変換させる
+
 - ### React/Node.js
+    <img src="img/React-Logo.png" width="10%">
+
     - AI Zunda WebのサイトのUI部分の実装
     - 画面サイズによってレイアウト崩れが起きないように作成
 - ### デプロイ
