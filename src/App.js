@@ -738,7 +738,7 @@ const SelifParagraph = styled(StyledParagraph)`
   margin : 50;
 `;
 
-const SelifParagraph_kiritan = styled(StyledParagraph)`
+const SelifParagraphKiritan = styled(StyledParagraph)`
 /* デスクトップ向けのスタイル */
   @media (min-width: 1300px) {
     width: 400px;
@@ -1986,9 +1986,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Scroll>
       <Container4>
       <KiritanImageSelif src="/kiritan_left.png" alt="Zundamon" />
-      <SelifParagraph_kiritan>
+      <SelifParagraphKiritan>
       よろしくお願いします。
-      </SelifParagraph_kiritan>
+      </SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
@@ -2013,9 +2013,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Scroll>
       <Container4>
       <KiritanImageSelif src="/kiritan_teage_left.png" alt="Zundamon" />
-      <SelifParagraph_kiritan>
+      <SelifParagraphKiritan>
       早速ですが、そもそもどんな技術が使われているのですか？
-      </SelifParagraph_kiritan>
+      </SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
@@ -2035,9 +2035,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Scroll>
       <Container4>
       <KiritanImageSelif src="/kiritan_kyougaku_left.png" alt="Zundamon" />
-      <SelifParagraph_kiritan>
-      これで、ユーザーのみんなが私たちの声になっているのですね。
-      </SelifParagraph_kiritan>
+      <SelifParagraphKiritan>これで、ユーザーのみんなが私たちの声になっているのですね。</SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
@@ -2065,9 +2063,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Scroll>
       <Container4>
       <KiritanImageSelif src="/kiritan_kawaii_left.png" alt="Zundamon" />
-      <SelifParagraph_kiritan>
+      <SelifParagraphKiritan>
       画期的なサービスですね！そのSageMakerというサービスは無料で使うことができるのですか？
-      </SelifParagraph_kiritan>
+      </SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
@@ -2126,9 +2124,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Scroll>
       <Container4>
       <KiritanImageSelif src="/kiritan_left.png" alt="Zundamon" />
-      <SelifParagraph_kiritan>
+      <SelifParagraphKiritan>
       では、フロントエンドにはどのような技術が使われているのですか？
-      </SelifParagraph_kiritan>
+      </SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
