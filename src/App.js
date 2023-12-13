@@ -780,7 +780,6 @@ const popInAnimation = keyframes`
   }
 
   100% {
-    opacity: 0;
     z-index: -1;
     display: none;
   }
@@ -791,7 +790,7 @@ const OpeningAnimation = styled.div`
   width: 100%; // 必要に応じて調整
   height: 100%; // 必要に応じて調整
   //スクロールできないように
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #cff7e8;
@@ -1506,8 +1505,9 @@ return (
   </Button>
 
   </Container3>
-  
-  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+
+  {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
   {recording && <div>残り時間: {countdown}秒</div>}
 
   {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -1705,7 +1705,9 @@ return (
   
         </Container3>
         
-        {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+        {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+        {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
+
         {recording && <div>残り時間: {countdown}秒</div>}
 
         {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -1794,7 +1796,7 @@ return (
 </ContainerSideBar>
 
 
-<ContainerSideBar> 
+<ContainerSideBar>  
     <h2 style={{"text-align":"center" }}>GPU推論</h2>
     <div className="mydict" >  
 
@@ -1910,7 +1912,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 
   </Container3>
   
-  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
+
   {recording && <div>残り時間: {countdown}秒</div>}
 
   {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -2102,7 +2106,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <SelifParagraph>
       他にも、このサイトのバックエンドでは、多くの技術が使われているのだ。
       上の図をみると、どれだけの技術が使われているかわかるのだ。
-      もっと詳しく知りたい人は、説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank"  rel="noreferrer">リンク</a>を見て欲しいのだ。
+      もっと詳しく知りたい人は、説明動画の<a href="https://youtu.be/fKpnQvnZu2Y" target= "blank"  rel="noreferrer">リンク</a>を見て欲しいのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda.png" alt="Zundamon" />
         
