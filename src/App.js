@@ -2012,7 +2012,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 
       <Scroll>
       <Container4>
-      <KiritanImageSelif src="/kiritan_left.png" alt="Zundamon" />
+      <KiritanImageSelif src="/kiritan_teage_left.png" alt="Zundamon" />
       <SelifParagraph_kiritan>
       早速ですが、そもそもどんな技術が使われているのですか？
       </SelifParagraph_kiritan>
