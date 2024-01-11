@@ -1200,21 +1200,23 @@ const App = () => {
     console.log(randomint);
     switch (selectchar) {
       case "gpuon":
-        if(randomint === 0){
-          return "https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tgpu";
-        }
-        else if(randomint === 1){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
-        }
-        return "error";
+        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        // if(randomint === 0){
+        //   return "4://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tgpu";
+        // }
+        // else if(randomint === 1){
+        //   return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        // }
+        // return "error";
       case "gpuoff":
-        if(randomint === 0){
-          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
-        }
-        else if(randomint === 1){
-          return "https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey";
-        }
-        return "error";
+        return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+        // if(randomint === 0){
+        //   return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+        // }
+        // else if(randomint === 1){
+        //   return "https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey";
+        // }
+        // return "error";
         
       default:
         return "error";
