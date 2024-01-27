@@ -14,16 +14,34 @@
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
 </p>
 
-## NEWS
-- 技育アドバンスに出場！　　
+## チームずんだNEWS
+- 2024/01/23：学長報告の様子を<a href="https://www.chunichi.co.jp/article/841918?rct=gifu">中日新聞</a>にて掲載していただきました！
+  - 
+- 2024/01/19：学長報告の様子を<a href="https://www.gifu-np.co.jp/articles/-/339196">岐阜新聞</a>にて掲載していただきました！
+  - 
+- 2024/01/19：学長報告の様子が<a href="https://www.ccn-catv.co.jp/ch/lineup/area-topics/list/029702.html">エリアトピックス</a>にて放映されました！
+  - 
+- 2024/01/18：技育アドバンスでの大賞受賞について学長に報告しました！  　
+  -
+  - <a href="https://www.gifu-u.ac.jp/news/news/2024/01/entry23-12963.html">こちら</a>で紹介されています！
+   
+     <img src="img\20240118-2-thumb-310xauto-37515.png"> 
+     <img src="img\20240118-1-thumb-310xauto-37516.png"> 
+  
+- 2023/12/20：技育ハッカソンの一連の取り組みで学部長表彰を受賞！
+  -
+- 2023/12/16：技育CAMPアドバンス vol.4にて大賞を受賞！　
   - 
   - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる上位大会
-- <a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 岐阜大学ホームページ</a>で、最優秀賞を受賞したことが紹介されました！
+  - 対象計6イベント、149チーム、465名参加の内入賞者を中心に21チーム57名が参加
+  
+  　<img src="img/賞状-2.png" width="30%">　　<img src="img/大賞.png" width="50%">
+- 2023/11/20：<a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 大学ホームページ</a>でチームずんだの活動が紹介されました！
   -  
    <a href="https://www.eng.gifu-u.ac.jp/jyouhou/2023/11/camp.html"><img src="img/teamzunda.png" width="30%"></a>
-- 東北ずんだもん公式X（旧Twitter）アカウントからリポストされました！
+- 2023/11/19：東北ずんだもん公式Xからリポストされました！
   - 
-- 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
+- 2023/11/05：技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
   - 
   <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
