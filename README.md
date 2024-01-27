@@ -14,16 +14,34 @@
 <img src="https://img.shields.io/badge/-GitHub-181717.svg?logo=github&style=flat" />
 </p>
 
-## NEWS
-- 技育アドバンスに出場！　　
+## チームずんだNEWS
+- 2024/01/23：学長報告の様子を<a href="https://www.chunichi.co.jp/article/841918?rct=gifu">中日新聞</a>にて掲載していただきました！
+  - 
+- 2024/01/19：学長報告の様子を<a href="https://www.gifu-np.co.jp/articles/-/339196">岐阜新聞</a>にて掲載していただきました！
+  - 
+- 2024/01/19：学長報告の様子が<a href="https://www.ccn-catv.co.jp/ch/lineup/area-topics/list/029702.html">エリアトピックス</a>にて放映されました！
+  - 
+- 2024/01/18：技育アドバンスでの大賞受賞について学長に報告しました！  　
+  -
+  - <a href="https://www.gifu-u.ac.jp/news/news/2024/01/entry23-12963.html">こちら</a>で紹介されています！
+   
+     <img src="img\20240118-2-thumb-310xauto-37515.png"> 
+     <img src="img\20240118-1-thumb-310xauto-37516.png"> 
+  
+- 2023/12/20：技育ハッカソンの一連の取り組みで学部長表彰を受賞！
+  -
+- 2023/12/16：技育CAMPアドバンス vol.4にて大賞を受賞！　
   - 
   - 技育CAMPのマンスリーハッカソンやキャラバンで入賞したチームのみが参加できる上位大会
-- <a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 岐阜大学ホームページ</a>で、最優秀賞を受賞したことが紹介されました！
+  - 対象計6イベント、149チーム、465名参加の内入賞者を中心に21チーム57名が参加
+  
+  　<img src="img/賞状-2.png" width="30%">　　<img src="img/大賞.png" width="50%">
+- 2023/11/20：<a href="https://www.gifu-u.ac.jp/news/news/2023/11/entry20-12819.html" target="_blank"> 大学ホームページ</a>でチームずんだの活動が紹介されました！
   -  
    <a href="https://www.eng.gifu-u.ac.jp/jyouhou/2023/11/camp.html"><img src="img/teamzunda.png" width="30%"></a>
-- 東北ずんだもん公式X（旧Twitter）アカウントからリポストされました！
+- 2023/11/19：東北ずんだもん公式Xからリポストされました！
   - 
-- 技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
+- 2023/11/05：技育CAMPマンスリーハッカソン vol.11にて最優秀賞を受賞！
   - 
   <img src="img/賞状-1.png" width="30%">
 ## アプリ概要  
@@ -39,25 +57,25 @@
 <a href="https://youtu.be/-wveWR9qSKw"><img src="img/introduce.png" width="70%"></a>
 
 ## URLとQRコード（デプロイ済み）
-https://ai-zunda-web.vercel.app/  
-
-<img src="img/QR.png" width="20%">
+- 以下のずんだもんをクリックするかQRコードを読み取るとサイトに移動できる
+  
+<a href="https://ai-zunda-web.vercel.app/"><img src="img/zunda_server.png" width="15%"></a> <img src="img/QR.png" width="20%">
 
 ## 利用方法
 - 上記リンクにアクセス
 - 「録音ボタン」をクリックして話す<br> </br>
-  <img src="img/1.png" width="100%"> 
+  <img src="img/1.png" width="70%"> 
 <br> </br> 
 
 - 「録音停止ボタン」をクリック<br> </br> 
-  <img src="img/2.png" width="100%"> 
+  <img src="img/2.png" width="70%"> 
 <br> </br>   
 - 「AIでずんだもん」をクリック→ 少し待つ → 変換された音声が返ってくる
 <br> </br>
-  <img src="img/3.png" width="100%"> 
+  <img src="img/3.png" width="70%"> 
 - 「詳細設定」を選択 → いろいろなモードに切り替えることができる
 <br> </br>
-  <img src="img/4.png" width="100%"> 
+  <img src="img/4.png" width="70%"> 
 
 ## チームメンバー
 | Name | GitHub Account |
@@ -83,6 +101,17 @@ https://ai-zunda-web.vercel.app/
 <img src="img/処理図.png" width="100%">
 
 ## 使用した技術の詳細
+- ### React/Node.js
+    <img src="img/React-Logo.png" width="10%">
+
+    - AI Zunda WebのサイトのUI部分の実装
+    - 画面サイズによってレイアウト崩れが起きないように作成
+
+- ### Python/PyTorch
+    <img src="img/Python-logo-notext.svg.png" width="10%"><img src="img/pytorch_logo_icon_169823.png" width ="25%">
+
+  - RVC・Koalaによる推論の実装に使用
+
 - ### RVC(Retrieval-based-Voice-Conversion)
   <a href="https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI"><img src="img/rvc_ui.png" width="50%"></a>
 
@@ -113,11 +142,6 @@ https://ai-zunda-web.vercel.app/
 - ### WebSpeechAPI
   - リアルタイムで実際に話した声をテキストに変換させる
 
-- ### React/Node.js
-    <img src="img/React-Logo.png" width="10%">
-
-    - AI Zunda WebのサイトのUI部分の実装
-    - 画面サイズによってレイアウト崩れが起きないように作成
 - ### デプロイ
   - Webページ：Vercelを使用
   - エンドポイント：AWSのAPIGatewayを使用
