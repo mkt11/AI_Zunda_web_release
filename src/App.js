@@ -633,6 +633,30 @@ const ZundamonImageSelif = styled.img`
   }
 `;
 
+const KiritanImageSelif = styled.img`
+
+  /* スマホ向けのスタイル */
+    @media (max-width: 1300px) {
+      max-width: 30vw;
+      // display: none;
+  }
+ 
+  max-width: 300px;  // 必要に応じて画像のサイズを調整します
+  transform: scale(-1, 1);
+  animation: floatAnimation 2s infinite alternate;
+
+
+
+  @keyframes floatAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-10px);
+    }
+  }
+`;
+
 
 const ZundamonImageSelif2 = styled.img`
 
@@ -714,6 +738,37 @@ const SelifParagraph = styled(StyledParagraph)`
   margin : 50;
 `;
 
+const SelifParagraphKiritan = styled(StyledParagraph)`
+/* デスクトップ向けのスタイル */
+  @media (min-width: 1300px) {
+    width: 400px;
+    padding-left: 40px; // 吹き出しの部分のスペースを確保
+    &:after {
+      content: "";
+      position: absolute;
+      top: 20%;
+      left: -20px; // 三角形のベースの位置
+      transform: translateY(-50%);
+      border-right: 20px solid rgba(255, 255, 255, 0.9); // 吹き出しの背景色である白色を指定
+      border-top: 0px solid transparent;
+      border-bottom: 20px solid transparent;
+    }
+  }
+  /* スマホ向けのスタイル */
+  @media (max-width: 1300px) {
+    max-width: 70vw;
+    margin-right: 10px;
+    margin-left: 10px;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 20%;
+    }
+  }
+  position: relative;
+  margin : 50;
+`;
+
 // キーフレームアニメーションの定義
 const popInAnimation = keyframes`
   0% {
@@ -725,7 +780,6 @@ const popInAnimation = keyframes`
   }
 
   100% {
-    opacity: 0;
     z-index: -1;
     display: none;
   }
@@ -736,7 +790,7 @@ const OpeningAnimation = styled.div`
   width: 100%; // 必要に応じて調整
   height: 100%; // 必要に応じて調整
   //スクロールできないように
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #cff7e8;
@@ -1146,21 +1200,23 @@ const App = () => {
     console.log(randomint);
     switch (selectchar) {
       case "gpuon":
-        if(randomint === 0){
-          return "https://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tgpu";
-        }
-        else if(randomint === 1){
-          return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
-        }
-        return "error";
+        return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        // if(randomint === 0){
+        //   return "4://6kpyevi158.execute-api.ap-southeast-2.amazonaws.com/tgpu";
+        // }
+        // else if(randomint === 1){
+        //   return "https://t3o2ikhypd.execute-api.ap-southeast-2.amazonaws.com/zundagpu";
+        // }
+        // return "error";
       case "gpuoff":
-        if(randomint === 0){
-          return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
-        }
-        else if(randomint === 1){
-          return "https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey";
-        }
-        return "error";
+        return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+        // if(randomint === 0){
+        //   return "https://k62bbvqpe4.execute-api.ap-northeast-1.amazonaws.com/dev";
+        // }
+        // else if(randomint === 1){
+        //   return "https://4a3u64uxe8.execute-api.ap-southeast-2.amazonaws.com/hey";
+        // }
+        // return "error";
         
       default:
         return "error";
@@ -1451,8 +1507,9 @@ return (
   </Button>
 
   </Container3>
-  
-  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+
+  {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
   {recording && <div>残り時間: {countdown}秒</div>}
 
   {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -1650,7 +1707,9 @@ return (
   
         </Container3>
         
-        {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+        {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+        {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
+
         {recording && <div>残り時間: {countdown}秒</div>}
 
         {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -1739,7 +1798,7 @@ return (
 </ContainerSideBar>
 
 
-<ContainerSideBar> 
+<ContainerSideBar>  
     <h2 style={{"text-align":"center" }}>GPU推論</h2>
     <div className="mydict" >  
 
@@ -1855,7 +1914,9 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 
   </Container3>
   
-  {recording && <Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuoff" &&<Loading color={buttonColor} time={"4s"} acc={"linear"}></Loading >}
+  {recording && selectedOptiongpu==="gpuon" &&<Loading color={buttonColor} time={"50s"} acc={"linear"}></Loading >}
+
   {recording && <div>残り時間: {countdown}秒</div>}
 
   {loading && <Loading color={buttonColor} time={"30s"} acc={"ease"}></Loading >}
@@ -1917,12 +1978,30 @@ position: "relative", // 吹き出しの尾のための相対位置設定
   <StyledHeader>AIずんだもんの作り方</StyledHeader>
       <Container4>
       <SelifParagraph>
-        ずんだもんなのだ。今日はAIずんだもんの作り方を解説するのだ。
+        ずんだもんなのだ。東北きりたんの疑問に答えるために、AIずんだもんの作り方を四国めたんと一緒に解説するのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
     
       </Container4>
       </FadeInSection2>
+
+      <Scroll>
+      <Container4>
+      <KiritanImageSelif src="/kiritan_left.png" alt="Zundamon" />
+      <SelifParagraphKiritan>
+      よろしくお願いします。
+      </SelifParagraphKiritan>
+      </Container4>
+      </Scroll>
+
+      <Scroll>
+      <Container4>
+      <SelifParagraph>
+      よろしくお願いしますわ。
+      </SelifParagraph>
+      <ZundamonImageSelif src="/metan.png" alt="Zundamon" />
+      </Container4>
+      </Scroll>
 
       <ScrollScale>
       <Container5>
@@ -1935,8 +2014,20 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 
       <Scroll>
       <Container4>
+      <KiritanImageSelif src="/kiritan_teage_left.png" alt="Zundamon" />
+      <SelifParagraphKiritan>
+      早速ですが、そもそもどんな技術が使われているのですか？
+      </SelifParagraphKiritan>
+      </Container4>
+      </Scroll>
+
+
+      <Scroll>
+      <Container4>
+      <Images src="/rvc.webp" alt="Zundamon" />
       <SelifParagraph>
-      使用した技術はこんな感じなのだ！ひとつずつ解説するのだ。
+      たくさんの技術がこのサイトには使われているのだ。
+      まずは、ずんだもんの声を作るために、RVCという音声変換機械学習モデルを使ったのだ。このモデルでユーザーの声を僕たちの声に変換するのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
     
@@ -1945,6 +2036,13 @@ position: "relative", // 吹き出しの尾のための相対位置設定
 
       <Scroll>
       <Container4>
+      <KiritanImageSelif src="/kiritan_kyougaku_left.png" alt="Zundamon" />
+      <SelifParagraphKiritan>これで、ユーザーのみんなが私たちの声になっているのですね。</SelifParagraphKiritan>
+      </Container4>
+      </Scroll>
+
+      {/* <Scroll>
+      <Container4>
       <Images src="/rvc.webp" alt="Zundamon" />
       <SelifParagraph>
       こいつはRVCという音声変換機械学習モデルなのだ。ざっくりいうとユーザの声を変換するAIなのだ。今回はこのRVCを使ってずんだもんの声を作ったのだ。
@@ -1952,55 +2050,85 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <ZundamonImageSelif src="/zunda_server.png" alt="Zundamon" />
     
       </Container4>
-      </Scroll>
+      </Scroll> */}
 
       <Scroll>
       <Container4>
       <Images src="/sagemaker.png" alt="Zundamon" />
       <SelifParagraph>
-      上のRVCをAWS上で動かすためにSageMakerというサービスを使ったのだ。SageMakerは機械学習モデルをデプロイできるサービスなのだ。
+      上のRVCをAWS上で動かすためにSageMakerというサービスを使っているわ。SageMakerは機械学習モデルをデプロイできるサービスなのよ。
       </SelifParagraph>
-      <ZundamonImageSelif src="/zunda_recording.png" alt="Zundamon" />
-        
+      <ZundamonImageSelif src="/metan_server.png" alt="Zundamon" />
+      </Container4>
+      </Scroll>
+
+      <Scroll>
+      <Container4>
+      <KiritanImageSelif src="/kiritan_kawaii_left.png" alt="Zundamon" />
+      <SelifParagraphKiritan>
+      画期的なサービスですね！そのSageMakerというサービスは無料で使うことができるのですか？
+      </SelifParagraphKiritan>
+      </Container4>
+      </Scroll>
+
+
+
+      <Scroll>
+      <Container4>
+      <SelifParagraph>
+      残念ながら無料ではないのだ。
+      具体的にどのようにサービスを利用しているか説明すると、SageMakerでデプロイしたエンドポイントをリアルタイム推論になるように設定したのだ。
+      ml.m4.xlargeというインスタンスを使っているのだ。
+      このインスタンスの使用料金が時間あたりに0.2ドルほどかかるからインスタンスの数を5に設定すると、1時間あたり1ドルほどかかるのだ。
+      AWSから移行して、GCPのAI Platformに移行するのも考えているのだ。
+      </SelifParagraph>
+      <ZundamonImageSelif src="/zunda_jito.png" alt="Zundamon" />
       </Container4>
       </Scroll>
 
       <Scroll>
       <Container4>
       <SelifParagraph>
-      より具体的に言うと、SageMakerでデプロイしたエンドポイントはリアルタイム推論になるように設定したのだ。
-      ml.m4.xlargeというインスタンスを使っているのだ。料金が時間あたりに0.2ドルほどかかるからインスタンスの数を5に設定すると、1時間あたり1ドルほどかかるのだ。
-      チームといえど法人じゃないので、この出費は痛いのだ。需要はあると思うので，マネタイズの方法を考えているのだ。
-      AWSから移行して、GCPのAI Platformに移行するのも考えているのだ。
+      チームといえど法人じゃないので、この出費はとても痛いわ。需要はあると思うので、マネタイズの方法を考えているのよ。
+      他のGCPのAI Platformのようなサービスの利用することも考えているのわ。
       </SelifParagraph>
-      <ZundamonImageSelif src="/zunda_jito.png" alt="Zundamon" />
-        
+      <ZundamonImageSelif src="/metan_komaru.png" alt="Zundamon" />
       </Container4>
       </Scroll>
+
       <Scroll>
       <Container6>
-        <Images2 src="/apiflow.png" alt="Zundamon" />
+      <Images2 src="/flow.png" alt="Zundamon" />
        </Container6>
       </Scroll>
       <Scroll>
       <Container4>
       <SelifParagraph>
-      上の図のように、より詳しく言うとSageMakerでデプロイしたエンドポイントとAPI GateWayを組み合わせてAPIを作ったのだ。このAPIにリクエストを送るのだ。
+      他にも、このサイトのバックエンドでは、多くの技術が使われているのだ。
+      上の図をみると、どれだけの技術が使われているかわかるのだ。
+      もっと詳しく知りたい人は、説明動画の<a href="https://youtu.be/fKpnQvnZu2Y" target= "blank"  rel="noreferrer">リンク</a>を見て欲しいのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda.png" alt="Zundamon" />
         
       </Container4>
       </Scroll>
 
-      <Scroll>
+      {/* <Scroll>
       <Container4>
-    
       <SelifParagraph>
       API Gatewayには30秒制限という、ユーザーにパケットが返ってくるまでの時間の制限があるのだ。
       だから今回は録音時間を4秒に設定しているのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_nae.png" alt="Zundamon" />
-        
+      </Container4>
+      </Scroll> */}
+
+      <Scroll>
+      <Container4>
+      <KiritanImageSelif src="/kiritan_left.png" alt="Zundamon" />
+      <SelifParagraphKiritan>
+      では、フロントエンドにはどのような技術が使われているのですか？
+      </SelifParagraphKiritan>
       </Container4>
       </Scroll>
 
@@ -2008,7 +2136,7 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Container4>
       <Images src="/react.jpg" alt="Zundamon" />
       <SelifParagraph>
-      最後にReactなのだ。これは、このサイトを作るために使ったフレームワークなのだ。ReactはJavaScriptのライブラリなのだ。
+      フロントエンドのメインはReactなのだ。これは、このサイトを作るために使ったフレームワークなのだ。ReactはJavaScriptのライブラリなのだ。
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_teage.png" alt="Zundamon" />
       </Container4>
@@ -2018,10 +2146,10 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       <Container4>
       <Images src="/atom.png" alt="Zundamon" />
       <SelifParagraph>
-      styled-componentsを使って、CSSを書いているのだ。Reactを使った理由は大規模になった時に、コンポーネントを使って管理しやすいからなのだ。
-      より技術的なことは、Qiitaに後日まとめる予定なのだ。
+      styled-componentsを使って、CSSを書いているわ。Reactを使った理由は大規模になった時に、コンポーネントを使って管理しやすいからなのよ。
+      より技術的なことは、Qiitaに後日まとめる予定よ。
       </SelifParagraph>
-      <ZundamonImageSelif src="/zunda_jito.png" alt="Zundamon" />
+      <ZundamonImageSelif src="/metan_mannzyuu.png" alt="Zundamon" />
       </Container4>
       </Scroll>
 
@@ -2032,15 +2160,6 @@ position: "relative", // 吹き出しの尾のための相対位置設定
       特にAWSの知識がなかったので、AWSのドキュメントを読み漁ったのだ。大変だったのだ．．．
       </SelifParagraph>
       <ZundamonImageSelif src="/zunda_kosi.png" alt="Zundamon" />
-      </Container4>
-      </Scroll>
-
-      <Scroll>
-      <Container4>
-      <SelifParagraph>
-      説明動画の<a href="https://youtu.be/-wveWR9qSKw?si=6_TLZzJgWTqbN4jy" target= "blank"  rel="noreferrer">リンク</a>を貼っておくのだ。よかったら見てほしいのだ。
-      </SelifParagraph>
-      <ZundamonImageSelif src="/zunda_yubisasi.png" alt="Zundamon" />
       </Container4>
       </Scroll>
       
