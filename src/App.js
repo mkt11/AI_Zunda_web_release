@@ -865,6 +865,60 @@ const Sidebar = styled.div`
   }
 `;
 
+
+const ShutdownOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+`;
+
+const NoticeBox = styled.div`
+  text-align: center;
+  color: #ffffff;
+  padding: 40px 60px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+`;
+
+const NoticeTitle = styled.h1`
+  font-size: 48px;
+  margin-bottom: 20px;
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
+`;
+
+const NoticeText = styled.p`
+  font-size: 20px;
+  margin-bottom: 30px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
+const NoticeLink = styled.a`
+  display: inline-block;
+  background: #38b2ac;
+  font-size: 24px;
+  color: #ffffff;
+  padding: 24px 60px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #2c7a7b;
+  }
+`;
+
 class TtsQuestV3Voicevox extends Audio {
   constructor(speakerId, text, ttsQuestApiKey) {
     super();
@@ -924,6 +978,7 @@ const App = () => {
   const countdownTimeoutRef = useRef();  // setTimeoutのIDを保存するためのref
   const [isContainerVisible, setContainerVisible] = useState(false);
   const [secondnum , setSecondnum] = useState(4);
+  const [showNotice, setShowNotice] = useState(false);
   console.log(pagechange)
 
   React.useEffect(() => {
@@ -933,6 +988,12 @@ const App = () => {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+    /* ★ 追加: OpeningAnimation 終了後に 2.5 秒でオーバーレイ表示 */
+    React.useEffect(() => {
+      const timer = setTimeout(() => setShowNotice(true), 1900);
+      return () => clearTimeout(timer);
+    }, []);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -1344,6 +1405,36 @@ const handleSendToAPIGatewayNoise = async () => {
 
 return (
   <>
+
+        {/* タイトルロゴのオープニングアニメ */}
+        <OpeningAnimation>
+        <img
+          src="/logo_transparent.png"
+          alt="Logo"
+          style={{ margin: "0 auto", display: "block", width: "70%" }}
+        />
+      </OpeningAnimation>
+
+      {/* ★ サービス停止のお知らせオーバーレイ */}
+      {showNotice && (
+        <ShutdownOverlay>
+          <NoticeBox>
+            <NoticeTitle>サービス提供終了のお知らせ</NoticeTitle>
+            <NoticeText>
+              本サービスは現在ご利用いただけません。後継サイトをご利用ください。
+            </NoticeText>
+            <NoticeLink
+              href="https://narouyo-tsukuyomi-chan.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              後継サイトへ移動
+            </NoticeLink>
+          </NoticeBox>
+        </ShutdownOverlay>
+      )}
+
+      
   <OpeningAnimation>
     <TitleLogo src="/logo_transparent.png" alt="Logo"/>
   {/* <img src="/logo_transparent.png" alt="Logo" style={{"margin":"0 auto", "display":"block", "width":"70%"}}/> */}
